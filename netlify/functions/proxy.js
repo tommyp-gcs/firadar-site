@@ -12,12 +12,15 @@ exports.handler = async function(event) {
   }
 
   try {
+    const apiKey = process.env.ANTHROPIC_API_KEY;
+    if (!apiKey) throw new Error('API key not configured');
+
     const body = JSON.parse(event.body);
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': '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',
+        'x-api-key': apiKey,
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify(body)
