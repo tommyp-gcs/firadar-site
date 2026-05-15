@@ -1,0 +1,1774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>FiRadar — We Audit. We Invest. We Accelerate.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"/>
+<style>
+:root {
+  --navy: #14233b;
+  --navy-mid: #1a2d4a;
+  --navy-light: #223659;
+  --coral: #ff4d55;
+  --coral-light: #ff7078;
+  --coral-pale: #ffe8e9;
+  --cream: #f7f8fa;
+  --white: #ffffff;
+  --gray-100: #f0f2f5;
+  --gray-300: #d0d4dc;
+  --gray-500: #8892a0;
+  --gray-700: #3d4a5c;
+  --text-primary: #14233b;
+  --text-secondary: #3d4a5c;
+  --text-muted: #8892a0;
+  --border: rgba(20,35,59,0.12);
+  --border-coral: rgba(255,77,85,0.3);
+  --radius: 4px;
+  --radius-lg: 8px;
+  --gold: #ff4d55;
+  --gold-light: #ff7078;
+  --gold-pale: #ffe8e9;
+  --border-gold: rgba(255,77,85,0.3);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--cream);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(20,35,59,0.97);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,77,85,0.2);
+  padding: 0 3rem 0 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 76px;
+  gap: 2rem;
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 14px;
+  text-decoration: none;
+}
+.nav-logo-mark {
+  display: flex; align-items: center; justify-content: center;
+}
+.nav-logo-text {
+  font-size: 26px; font-weight: 800; letter-spacing: 0.02em;
+  color: var(--white); font-family: 'Inter', sans-serif;
+}
+.nav-logo-text span { color: var(--coral); }
+.nav-logo-sub {
+  font-size: 10px; letter-spacing: 0.18em; color: rgba(255,255,255,0.45);
+  text-transform: uppercase; font-family: 'DM Mono', monospace;
+  display: block; margin-top: -1px;
+}
+.nav-links { display: flex; align-items: center; gap: 2rem; margin-left: auto; }
+.nav-links a {
+  font-size: 13px; font-weight: 500; letter-spacing: 0.02em;
+  text-transform: uppercase; color: rgba(255,255,255,0.65);
+  text-decoration: none; transition: color 0.2s; font-family: 'Inter', sans-serif;
+  white-space: nowrap;
+}
+.nav-links a:hover { color: var(--coral-light); }
+.nav-cta {
+  background: var(--coral) !important;
+  color: var(--white) !important;
+  padding: 0.6rem 1.4rem !important;
+  border-radius: var(--radius) !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  letter-spacing: 0.02em !important;
+  transition: background 0.2s !important;
+  line-height: normal !important;
+  white-space: nowrap !important;
+}
+.nav-cta:hover { background: var(--coral-light) !important; }
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh;
+  background: var(--navy);
+  display: flex; flex-direction: column; justify-content: center;
+  position: relative; overflow: hidden;
+  padding: 7rem 4rem 5rem;
+}
+
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,77,85,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,77,85,0.05) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.hero-glow {
+  position: absolute; top: -200px; right: -200px;
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(255,77,85,0.1) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.hero-inner {
+  position: relative; z-index: 2;
+  max-width: 1100px; margin: 0 auto; width: 100%;
+}
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-family: 'DM Mono', monospace;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--coral); margin-bottom: 2rem;
+  border: 1px solid var(--border-coral);
+  padding: 6px 14px; border-radius: 2px;
+}
+.hero-eyebrow-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--coral); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:.4} }
+
+.hero-headline {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(3.2rem, 7vw, 6.5rem);
+  font-weight: 800; line-height: 1.0;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.hero-headline em {
+  font-style: italic;
+  color: var(--coral);
+  font-weight: 800;
+}
+
+.hero-sub {
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  color: rgba(255,255,255,0.65);
+  max-width: 720px;
+  line-height: 1.8;
+  margin-bottom: 3rem;
+  font-weight: 400;
+  font-family: 'Poppins', sans-serif;
+}
+
+.hero-actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--coral);
+  color: var(--white);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 0.85rem 2rem; border-radius: var(--radius);
+  text-decoration: none; border: none; cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-primary:hover { background: var(--coral-light); transform: translateY(-1px); }
+
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent;
+  color: rgba(255,255,255,0.7);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 0.85rem 2rem; border-radius: var(--radius);
+  text-decoration: none; border: 1px solid rgba(255,255,255,0.2); cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn-ghost:hover { border-color: var(--coral); color: var(--coral-light); }
+
+.hero-stats {
+  display: flex; gap: 3rem; margin-top: 4rem;
+  padding-top: 3rem; border-top: 1px solid rgba(255,255,255,0.1);
+}
+.hero-stat-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 2.5rem; font-weight: 800; color: var(--coral); line-height: 1;
+  margin-bottom: 4px;
+}
+.hero-stat-label {
+  font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(255,255,255,0.45); font-family: 'DM Mono', monospace;
+}
+
+.hero-scroll {
+  position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  color: rgba(255,255,255,0.3); font-size: 10px; letter-spacing: 0.15em;
+  text-transform: uppercase; font-family: 'DM Mono', monospace;
+  animation: bob 2s ease-in-out infinite;
+}
+@keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)} }
+
+/* ── SECTIONS SHARED ── */
+section { padding: 7rem 4rem; }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+.section-label {
+  font-size: 10px; font-family: 'DM Mono', monospace;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1rem;
+}
+.section-headline {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 800; line-height: 1.1; color: var(--text-primary);
+  margin-bottom: 1.5rem; letter-spacing: -0.02em;
+}
+.section-headline em { font-style: italic; color: var(--coral); font-weight: 800; }
+
+/* ── WHO WE ARE ── */
+#about { background: var(--white); }
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start;
+}
+.about-left { }
+.about-body {
+  font-size: 1.05rem; line-height: 1.85;
+  color: var(--text-secondary); margin-bottom: 2rem;
+}
+.about-body strong { color: var(--text-primary); font-weight: 600; }
+.about-quote {
+  border-left: 3px solid var(--coral);
+  padding-left: 1.5rem; margin: 2rem 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.2rem; line-height: 1.6;
+  color: var(--text-primary); font-style: italic; font-weight: 600;
+}
+.about-right { display: flex; flex-direction: column; gap: 1.5rem; padding-top: 1rem; }
+.about-card {
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  position: relative; overflow: hidden;
+}
+.about-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px; background: var(--coral);
+}
+.about-card-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 3rem; color: var(--coral-pale);
+  line-height: 1; margin-bottom: 0.5rem; font-weight: 900;
+}
+.about-card-title {
+  font-size: 14px; font-weight: 700; letter-spacing: 0.04em;
+  color: var(--text-primary); margin-bottom: 0.4rem;
+}
+.about-card-body { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+
+/* ── PROOF ── */
+#proof { background: var(--navy); }
+#proof .section-headline { color: var(--white); }
+#proof .section-label { color: var(--coral); }
+.proof-body { font-size: 1.05rem; color: rgba(255,255,255,0.6); max-width: 700px; margin-bottom: 4rem; line-height: 1.8; }
+.proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; background: rgba(255,77,85,0.15); border: 1px solid rgba(255,77,85,0.15); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 4rem; }
+.proof-item {
+  background: var(--navy-mid);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  transition: background 0.2s;
+}
+.proof-item:hover { background: var(--navy-light); }
+.proof-icon {
+  width: 48px; height: 48px;
+  border: 1px solid var(--border-coral);
+  border-radius: var(--radius);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1.25rem;
+}
+.proof-icon i { color: var(--coral); font-size: 22px; }
+.proof-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 3rem; font-weight: 900; color: var(--white); line-height: 1; margin-bottom: 0.5rem;
+}
+.proof-num span { color: var(--coral); }
+.proof-title { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 0.75rem; }
+.proof-desc { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.6; }
+
+.proof-banner {
+  background: linear-gradient(135deg, rgba(255,77,85,0.12), rgba(255,77,85,0.04));
+  border: 1px solid var(--border-coral);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 3rem;
+  display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+}
+.proof-banner-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.6rem; font-weight: 700; color: var(--white); font-style: italic; line-height: 1.4;
+}
+.proof-banner-sub { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 0.5rem; }
+
+/* ── TEAM SECTION ── */
+#team { background: var(--cream); }
+#team .section-headline { max-width: 600px; }
+.team-intro {
+  font-size: 1.05rem; color: var(--text-secondary);
+  max-width: 640px; line-height: 1.8; margin-bottom: 4rem;
+}
+.team-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem; margin-bottom: 0;
+}
+.team-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+}
+.team-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(20,35,59,0.1);
+}
+.team-card-top {
+  background: var(--navy);
+  padding: 2rem 2rem 1.5rem;
+  position: relative;
+}
+.team-card-top::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 3px; background: var(--coral);
+}
+.team-avatar {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: var(--navy-light);
+  border: 2px solid var(--coral);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.4rem; color: var(--coral);
+  font-weight: 800;
+}
+.team-name {
+  font-size: 1.1rem; font-weight: 700;
+  color: var(--white); margin-bottom: 2px; letter-spacing: 0.01em;
+  font-family: 'Inter', sans-serif;
+}
+.team-role {
+  font-size: 10px; font-family: 'DM Mono', monospace;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--coral); margin-bottom: 4px;
+}
+.team-company {
+  font-size: 11px; color: rgba(255,255,255,0.45);
+  font-family: 'DM Mono', monospace; letter-spacing: 0.06em;
+}
+.team-card-body { padding: 1.5rem 2rem 2rem; }
+.team-bio {
+  font-size: 13.5px; color: var(--text-secondary);
+  line-height: 1.75; margin-bottom: 1.25rem;
+}
+.team-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.team-tag {
+  font-size: 10px; font-family: 'DM Mono', monospace;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 3px;
+  background: var(--cream); color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+.team-tag.gold { background: var(--coral-pale); color: var(--coral); border-color: var(--border-coral); }
+
+@media (max-width: 900px) {
+  .team-grid { grid-template-columns: 1fr; }
+}
+
+/* ── AUDIT SECTION ── */
+#audit { background: var(--white); }
+.audit-header { text-align: center; margin-bottom: 3rem; }
+.audit-header .section-headline { margin: 0 auto 1rem; }
+.audit-subtext {
+  font-size: 1.1rem; color: var(--text-secondary); max-width: 640px;
+  margin: 0 auto 1rem; line-height: 1.75;
+}
+.audit-warning {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 12px; font-family: 'DM Mono', monospace;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--coral); border: 1px solid var(--border-coral);
+  padding: 6px 16px; border-radius: 2px; margin-bottom: 2.5rem;
+}
+
+.audit-embed {
+  max-width: 900px; margin: 0 auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 24px 80px rgba(20,35,59,0.12), 0 4px 16px rgba(20,35,59,0.06);
+}
+
+/* Embedded agent styles */
+.fr-agent { font-family: 'Poppins', sans-serif; background: #fff; color: #14233b; }
+.fr-agent-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 1.5rem; background: var(--navy);
+  border-bottom: 1px solid rgba(255,77,85,0.2);
+}
+.fr-agent-logo { display: flex; align-items: center; gap: 10px; }
+.fr-agent-logo-icon { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; }
+.fr-agent-logo-text { font-size: 15px; font-weight: 800; color: #fff; font-family: 'Inter', sans-serif; }
+.fr-agent-logo-text span { color: var(--coral); }
+.fr-agent-logo-sub { font-size: 9px; letter-spacing: .14em; color: rgba(255,255,255,0.45); text-transform: uppercase; font-family: 'DM Mono',monospace; }
+.fr-agent-status { display: flex; align-items: center; gap: 6px; font-size: 10px; color: rgba(255,255,255,0.5); letter-spacing: .08em; text-transform: uppercase; font-family: 'DM Mono',monospace; }
+.fr-agent-dot { width: 6px; height: 6px; border-radius: 50%; background: #1D9E75; animation: pulse 2s infinite; }
+
+/* Score panel */
+.ag-score-panel { display: grid; grid-template-columns: auto 1fr; border-bottom: .5px solid #e8e4de; }
+.ag-score-main { display: flex; align-items: center; gap: 14px; padding: .75rem 1.5rem; border-right: .5px solid #e8e4de; }
+.ag-dial { position: relative; width: 64px; height: 64px; flex-shrink: 0; }
+.ag-dial svg { width: 64px; height: 64px; }
+.ag-dial-num { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.ag-score-big { font-size: 18px; font-weight: 700; font-family: 'DM Mono',monospace; line-height: 1; color: #0B1628; }
+.ag-score-max { font-size: 9px; color: #8A8680; font-family: 'DM Mono',monospace; }
+.ag-score-label { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: #8A8680; margin-bottom: 3px; }
+.ag-score-tier { font-size: 12px; font-weight: 600; }
+.ag-score-tier.t0 { color: #8A8680; }
+.ag-score-tier.t1 { color: #A32D2D; }
+.ag-score-tier.t2 { color: #854F0B; }
+.ag-score-tier.t3 { color: #3B6D11; }
+.ag-score-tier.t4 { color: #085041; }
+.ag-tier-sub { font-size: 10px; color: #8A8680; margin-top: 2px; font-family: 'DM Mono',monospace; }
+.ag-dims { padding: .6rem 1rem; display: flex; flex-direction: column; justify-content: center; gap: 5px; }
+.ag-dim-row { display: flex; align-items: center; gap: 8px; }
+.ag-dim-label { font-size: 10px; font-family: 'DM Mono',monospace; letter-spacing: .04em; color: #8A8680; width: 88px; flex-shrink: 0; text-transform: uppercase; }
+.ag-dim-bar-wrap { flex: 1; height: 5px; background: #e8e4de; border-radius: 3px; overflow: hidden; }
+.ag-dim-bar { height: 100%; border-radius: 3px; transition: width .6s ease; }
+.ag-dim-val { font-size: 10px; font-family: 'DM Mono',monospace; color: #8A8680; width: 28px; text-align: right; flex-shrink: 0; }
+
+/* Scan panel */
+.ag-scan { margin: .6rem 1rem; border: .5px solid #d8d4ce; border-radius: 8px; overflow: hidden; }
+.ag-scan-hdr { display: flex; align-items: center; gap: 8px; padding: .45rem .85rem; background: #f5f2ed; border-bottom: .5px solid #d8d4ce; font-size: 10px; font-family: 'DM Mono',monospace; letter-spacing: .07em; text-transform: uppercase; color: #8A8680; }
+.ag-scan-body { padding: .45rem .85rem; display: flex; gap: 8px; }
+.ag-scan-input { flex: 1; font-family: 'Poppins',sans-serif; font-size: 13px; padding: .4rem .7rem; border-radius: 6px; border: .5px solid #c8c4bb; background: #fff; color: #14233b; outline: none; }
+.ag-scan-input:focus { border-color: var(--coral); }
+.ag-scan-btn { padding: .4rem .9rem; border-radius: 6px; background: var(--navy); color: #fff; border: none; font-family: 'Inter',sans-serif; font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: background .15s; white-space: nowrap; letter-spacing: .04em; }
+.ag-scan-btn:hover { background: var(--coral); }
+.ag-scan-btn:disabled { opacity: .35; cursor: default; }
+.ag-scan-btn { padding: .4rem .9rem; border-radius: 6px; background: var(--navy); color: #fff; border: none; font-family: 'Syne',sans-serif; font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: opacity .15s; white-space: nowrap; letter-spacing: .04em; }
+.ag-scan-btn:hover { opacity: .85; }
+.ag-scan-btn:disabled { opacity: .35; cursor: default; }
+.ag-intel-strip { display: flex; flex-wrap: wrap; gap: 4px; padding: 0 .85rem .5rem; }
+.ag-chip { font-size: 10px; font-family: 'DM Mono',monospace; padding: 2px 7px; border-radius: 3px; }
+.ag-chip.g { background: #EAF3DE; color: #3B6D11; border: .5px solid #C0DD97; }
+.ag-chip.a { background: #FAEEDA; color: #854F0B; border: .5px solid #FAC775; }
+.ag-chip.gr { background: #f5f2ed; color: #8A8680; border: .5px solid #d8d4ce; }
+
+/* Chat */
+.ag-chat { overflow-y: auto; padding: 1rem 1.5rem; display: flex; flex-direction: column; gap: .85rem; max-height: 340px; min-height: 340px; background: #fdfcfa; }
+.ag-msg { display: flex; gap: 8px; align-items: flex-start; animation: fadeUp .3s ease; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)} }
+.ag-msg.user { flex-direction: row-reverse; }
+.ag-av { width: 28px; height: 28px; border-radius: 50%; background: var(--navy); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 10px; font-weight: 700; color: #fff; }
+.ag-av.u { background: #f5f2ed; border: .5px solid #c8c4bb; color: #0B1628; }
+.ag-av.intel { background: #1D9E75; font-size: 9px; }
+.ag-bub { max-width: 84%; padding: .65rem .9rem; border-radius: 10px; font-size: 13px; line-height: 1.65; border: .5px solid #e0ddd7; background: #fff; color: #0B1628; }
+.ag-msg.user .ag-bub { background: #f5f2ed; border-color: #d8d4ce; }
+.ag-bub .tag { display: inline-block; font-size: 9px; font-family: 'DM Mono',monospace; letter-spacing: .07em; text-transform: uppercase; padding: 1px 6px; border-radius: 2px; margin-bottom: 5px; background: #f5f2ed; color: #8A8680; border: .5px solid #d8d4ce; }
+.ag-bub .itag { background: #EAF3DE; color: #3B6D11; border-color: #C0DD97; }
+.ag-typing { display: flex; gap: 4px; align-items: center; }
+.ag-typing span { width: 5px; height: 5px; border-radius: 50%; background: #c8c4bb; animation: blink 1.2s infinite; }
+.ag-typing span:nth-child(2){animation-delay:.2s}.ag-typing span:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.3}40%{opacity:1}}
+.ag-bump { display: flex; align-items: center; gap: 6px; padding: .3rem .65rem; border-radius: 5px; background: #EAF3DE; border: .5px solid #C0DD97; font-size: 11px; font-family: 'DM Mono',monospace; color: #3B6D11; margin-top: 3px; animation: fadeUp .4s ease; align-self: flex-start; }
+
+/* Input */
+.ag-input-row { display: flex; gap: 8px; padding: .65rem 1rem; border-top: .5px solid #e8e4de; align-items: flex-end; background: #fff; }
+.ag-textarea { flex: 1; font-family: 'Syne',sans-serif; font-size: 13px; padding: .5rem .75rem; border-radius: 8px; border: .5px solid #c8c4bb; background: #f5f2ed; color: #0B1628; resize: none; outline: none; line-height: 1.5; min-height: 38px; max-height: 90px; }
+.ag-textarea:focus { border-color: var(--gold); background: #fff; }
+.ag-send { width: 36px; height: 36px; border-radius: 8px; background: var(--navy); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background .15s; }
+.ag-send:hover { background: var(--gold); }
+.ag-send:disabled { opacity: .35; cursor: default; }
+.ag-send i { color: #fff; font-size: 15px; }
+.ag-footer { display: flex; align-items: center; justify-content: space-between; padding: .35rem 1rem .5rem; font-size: 10px; color: #8A8680; font-family: 'DM Mono',monospace; background: #fff; border-top: .5px solid #f0ece6; }
+
+/* verdict */
+.ag-verdict { background: #f5f2ed; border: .5px solid #d8d4ce; border-radius: 8px; padding: .75rem 1rem; margin-top: .5rem; font-size: 12px; }
+.ag-verdict-title { font-size: 10px; font-family: 'DM Mono',monospace; letter-spacing: .08em; text-transform: uppercase; color: #8A8680; margin-bottom: 8px; }
+.ag-verdict-row { display: flex; justify-content: space-between; align-items: center; padding: 3px 0; }
+.avl { font-size: 10px; font-family: 'DM Mono',monospace; letter-spacing: .05em; color: #8A8680; text-transform: uppercase; }
+.avb { font-size: 10px; font-family: 'DM Mono',monospace; padding: 2px 8px; border-radius: 3px; }
+.avb.green { background: #EAF3DE; color: #3B6D11; }
+.avb.amber { background: #FAEEDA; color: #854F0B; }
+.avb.red { background: #FCEBEB; color: #A32D2D; }
+.ag-verdict-sum { margin-top: 8px; padding-top: 8px; border-top: .5px solid #d8d4ce; font-size: 12px; color: #4A4740; line-height: 1.5; }
+.ag-final-banner { margin-top: 10px; padding: .6rem .85rem; border-radius: 7px; border: .5px solid #d8d4ce; background: #fff; display: flex; align-items: center; justify-content: space-between; }
+.ag-fsb-label { font-size: 10px; font-family: 'DM Mono',monospace; letter-spacing: .07em; text-transform: uppercase; color: #8A8680; }
+.ag-fsb-score { font-size: 22px; font-weight: 700; font-family: 'DM Mono',monospace; }
+
+/* email panel */
+.ag-email { border-top: .5px solid #e8e4de; }
+.ag-email-tabs { display: flex; }
+.ag-email-tab { flex: 1; padding: .5rem; font-size: 10px; font-family: 'DM Mono',monospace; letter-spacing: .06em; text-transform: uppercase; text-align: center; cursor: pointer; color: #8A8680; background: #f5f2ed; border: none; border-bottom: .5px solid #e8e4de; transition: background .15s; }
+.ag-email-tab.active { background: #fff; color: #0B1628; border-bottom: 2px solid var(--navy); }
+.ag-email-tab:not(:last-child) { border-right: .5px solid #e8e4de; }
+.ag-email-pane { padding: .85rem 1rem; display: none; background: #fff; }
+.ag-email-pane.active { display: block; }
+.ag-email-field { margin-bottom: .6rem; }
+.ag-email-field-lbl { font-size: 10px; font-family: 'DM Mono',monospace; letter-spacing: .07em; text-transform: uppercase; color: #8A8680; margin-bottom: 4px; }
+.ag-email-field input { width: 100%; font-family: 'Syne',sans-serif; font-size: 12px; padding: .4rem .65rem; border-radius: 6px; border: .5px solid #c8c4bb; background: #f5f2ed; color: #0B1628; outline: none; }
+.ag-email-field input:focus { border-color: var(--gold); background: #fff; }
+.ag-email-preview { background: #f5f2ed; border: .5px solid #d8d4ce; border-radius: 7px; padding: .75rem; font-size: 12px; line-height: 1.7; color: #0B1628; max-height: 200px; overflow-y: auto; white-space: pre-wrap; font-family: 'DM Mono',monospace; }
+.ag-email-actions { display: flex; gap: 8px; margin-top: .65rem; }
+.ag-email-btn { flex: 1; padding: .4rem .6rem; border-radius: 6px; font-family: 'Syne',sans-serif; font-size: 12px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; transition: opacity .15s; border: .5px solid #c8c4bb; background: #fff; color: #0B1628; }
+.ag-email-btn:hover { background: #f5f2ed; }
+.ag-email-btn.primary { background: var(--navy); color: #fff; border-color: var(--navy); }
+.ag-email-btn.primary:hover { background: var(--gold); border-color: var(--gold); }
+.ag-email-status { font-size: 11px; font-family: 'DM Mono',monospace; color: #3B6D11; text-align: center; margin-top: 5px; min-height: 16px; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--navy);
+  padding: 4rem;
+  text-align: center;
+  border-top: 1px solid rgba(200,146,42,0.2);
+}
+.footer-logo {
+  display: inline-flex; align-items: center; gap: 12px;
+  margin-bottom: 1.5rem;
+}
+.footer-logo-text { font-size: 20px; font-weight: 800; color: #fff; font-family: 'Inter', sans-serif; }
+.footer-logo-text span { color: var(--coral); }
+.footer-tagline { font-size: 12px; color: rgba(255,255,255,0.4); letter-spacing: .12em; text-transform: uppercase; font-family: 'DM Mono',monospace; margin-bottom: 2rem; }
+.footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem; }
+.footer-links a { font-size: 11px; color: rgba(255,255,255,0.4); text-decoration: none; letter-spacing: .1em; text-transform: uppercase; transition: color .2s; font-family: 'Inter', sans-serif; }
+.footer-links a:hover { color: var(--coral); }
+.footer-copy { font-size: 11px; color: rgba(255,255,255,0.25); font-family: 'DM Mono',monospace; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  nav { padding: 0 1.5rem; }
+  .nav-links { display: none; }
+  section { padding: 4rem 1.5rem; }
+  #hero { padding: 6rem 1.5rem 4rem; }
+  .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .proof-grid { grid-template-columns: 1fr; }
+  .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+  .proof-banner { flex-direction: column; text-align: center; }
+  .ag-dims { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-mark">
+      <svg width="48" height="48" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 16 Q8 8 16 8" stroke="#ff4d55" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+        <path d="M5 19 Q4 8 16 5" stroke="#ff4d55" stroke-width="2.8" fill="none" stroke-linecap="round" opacity="0.7"/>
+        <path d="M11 14 Q11 11 16 11" stroke="#ff4d55" stroke-width="2.8" fill="none" stroke-linecap="round" opacity="0.9"/>
+        <circle cx="16" cy="16" r="2" fill="#ff4d55"/>
+      </svg>
+    </div>
+    <div>
+      <div class="nav-logo-text">Fi<span>Radar</span></div>
+      <div class="nav-logo-sub">Strategic Advisory</div>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#proof">Track Record</a>
+    <a href="#team">Team</a>
+    <a href="#testimonials">Testimonials</a>
+    <a href="#audit">Take the Audit</a>
+    <a href="#audit" class="nav-cta">Start Audit <i class="ti ti-arrow-right" aria-hidden="true" style="font-size:12px"></i></a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-dot"></span>
+      Elite Fintech Accelerator &amp; Advisory
+    </div>
+    <h1 class="hero-headline">
+      We Audit.<br>We <em>Invest.</em><br>We Accelerate.
+    </h1>
+    <p class="hero-sub">
+      FiRadar is an elite strategic advisory firm and accelerator. We bridge the gap between Fintech innovation and institutional stability. For the few who pass our 10-point Strategic Audit, we provide the capital, the core integration expertise, and the direct line to 5,000+ C-level Bank and CU leaders to drive rapid scale.
+    </p>
+    <div class="hero-actions">
+      <a href="#audit" class="btn-primary">
+        <i class="ti ti-clipboard-check" aria-hidden="true"></i>
+        Take the Strategic Audit
+      </a>
+      <a href="#about" class="btn-ghost">
+        Our Methodology
+        <i class="ti ti-arrow-down" aria-hidden="true"></i>
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num">27</div>
+        <div class="hero-stat-label">Years of boardroom trust</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">8</div>
+        <div class="hero-stat-label">Successful exits</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">5,000+</div>
+        <div class="hero-stat-label">C-level FI contacts</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">10-pt</div>
+        <div class="hero-stat-label">Institutional audit</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <i class="ti ti-chevron-down" aria-hidden="true"></i>
+    Scroll
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-left">
+        <div class="section-label">Who We Are</div>
+        <h2 class="section-headline">27 Years of Boardroom Trust.<br><em>8 Successful Exits.</em></h2>
+        <p class="about-body">
+          FiRadar is led by <strong>Managing Partner Tom Penton</strong>, a Gartner veteran and a collective of veteran C-level banking executives. With over two decades of trust built in the boardrooms of the nation's leading FIs, we know exactly what it takes to turn a "tech solution" into an "institutional standard."
+        </p>
+        <div class="about-quote">
+          "We don't just advise — we put skin in the game."
+        </div>
+        <p class="about-body">
+          Having successfully guided <strong>8 fintech acquisitions and exits</strong>, our methodology is designed to do one thing: <strong>Maximize Valuation through Institutional Readiness.</strong>
+        </p>
+        <a href="#audit" class="btn-primary" style="margin-top:1.5rem;display:inline-flex;background:var(--navy);color:#fff;">
+          See If You Qualify
+          <i class="ti ti-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+      <div class="about-right">
+        <div class="about-card">
+          <div class="about-card-num">01</div>
+          <div class="about-card-title">The Audit</div>
+          <div class="about-card-body">Our 10-point Institutional Readiness Audit is the same framework behind every successful exit we've facilitated. SOC2, Core compatibility, Regulatory hygiene, Board-level fit — we stress-test every dimension.</div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-num">02</div>
+          <div class="about-card-title">The Capital</div>
+          <div class="about-card-body">For firms that earn a Green-Light, FiRadar brings strategic investment and acceleration resources — not just a check, but the operational expertise to deploy capital efficiently inside the FI ecosystem.</div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-num">03</div>
+          <div class="about-card-title">The Network</div>
+          <div class="about-card-body">Tom Penton's direct relationships with 5,000+ Bank and Credit Union CEOs, CIOs, and CFOs become your sales channel. We don't make introductions — we open doors that take others decades to find.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section id="proof">
+  <div class="section-inner">
+    <div class="section-label">Proven Results</div>
+    <h2 class="section-headline" style="color:#fff">Proven Results<br>in the <em>FI Space.</em></h2>
+    <p class="proof-body">The FiRadar methodology isn't theory — it's a repeatable playbook built from two decades of institutional deal-making. Here's what it delivers.</p>
+
+    <div class="proof-grid">
+      <div class="proof-item">
+        <div class="proof-icon"><i class="ti ti-trophy" aria-hidden="true"></i></div>
+        <div class="proof-num">8<span>x</span></div>
+        <div class="proof-title">The Track Record</div>
+        <div class="proof-desc">Successful fintech exits and acquisitions to date — the same Green-Light standards applied to every candidate.</div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-icon"><i class="ti ti-users" aria-hidden="true"></i></div>
+        <div class="proof-num">5<span>K+</span></div>
+        <div class="proof-title">The Network</div>
+        <div class="proof-desc">Instant access to 5,000+ Decision Makers — Bank and Credit Union CEOs, CIOs, and CFOs ready to evaluate institutional-grade solutions.</div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-icon"><i class="ti ti-trending-up" aria-hidden="true"></i></div>
+        <div class="proof-num" style="font-size:2.2rem">Max</div>
+        <div class="proof-title">The Result</div>
+        <div class="proof-desc">Significant valuation uplift through validated Core-compatibility and strategic sales acceleration into the FI ecosystem.</div>
+      </div>
+    </div>
+
+    <!-- SUCCESS STORIES -->
+    <div style="margin-bottom:2rem;">
+      <div style="font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.18em;text-transform:uppercase;color:var(--coral);margin-bottom:1.25rem;">Notable Exits &amp; Acquisitions</div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1rem;">
+
+        <!-- Bankers Systems -->
+        <div style="background:var(--navy-light);border:1px solid rgba(255,77,85,0.15);border-radius:var(--radius-lg);padding:1.5rem;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--coral);"></div>
+          <div style="font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--coral);margin-bottom:.5rem;">Exit #1</div>
+          <div style="font-size:16px;font-weight:800;color:#fff;font-family:'Inter',sans-serif;margin-bottom:.4rem;">Bankers Systems</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.5);font-family:'DM Mono',monospace;margin-bottom:.75rem;">Acquired by</div>
+          <div style="font-size:15px;font-weight:700;color:var(--coral);font-family:'Inter',sans-serif;">Wolters Kluwer</div>
+          <div style="margin-top:.75rem;font-size:12px;color:rgba(255,255,255,0.45);line-height:1.6;font-family:'Poppins',sans-serif;">A global leader in compliance and regulatory solutions — a strategic fit driven by institutional readiness.</div>
+        </div>
+
+        <!-- eClassic -->
+        <div style="background:var(--navy-light);border:1px solid rgba(255,77,85,0.15);border-radius:var(--radius-lg);padding:1.5rem;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--coral);"></div>
+          <div style="font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--coral);margin-bottom:.5rem;">Exit #2</div>
+          <div style="font-size:16px;font-weight:800;color:#fff;font-family:'Inter',sans-serif;margin-bottom:.4rem;">eClassic</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.5);font-family:'DM Mono',monospace;margin-bottom:.75rem;">Acquired by</div>
+          <div style="font-size:15px;font-weight:700;color:var(--coral);font-family:'Inter',sans-serif;">Jack Henry &amp; Associates</div>
+          <div style="margin-top:.75rem;font-size:12px;color:rgba(255,255,255,0.45);line-height:1.6;font-family:'Poppins',sans-serif;">One of the nation's leading core banking platforms — core compatibility validated, acquisition executed.</div>
+        </div>
+
+        <!-- Carreker -->
+        <div style="background:var(--navy-light);border:1px solid rgba(255,77,85,0.15);border-radius:var(--radius-lg);padding:1.5rem;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--coral);"></div>
+          <div style="font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--coral);margin-bottom:.5rem;">Exit #3 &amp; #4</div>
+          <div style="font-size:16px;font-weight:800;color:#fff;font-family:'Inter',sans-serif;margin-bottom:.4rem;">Carreker</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.5);font-family:'DM Mono',monospace;margin-bottom:.75rem;">Acquired by → then re-acquired by</div>
+          <div style="font-size:15px;font-weight:700;color:var(--coral);font-family:'Inter',sans-serif;">CheckFree → Fiserv</div>
+          <div style="margin-top:.75rem;font-size:12px;color:rgba(255,255,255,0.45);line-height:1.6;font-family:'Poppins',sans-serif;">A double exit — FiRadar guided Carreker to CheckFree, then helped navigate the subsequent Fiserv acquisition.</div>
+        </div>
+
+      </div>
+
+      <!-- MNDA Banner -->
+      <div style="background:linear-gradient(135deg,rgba(255,77,85,0.1),rgba(255,77,85,0.03));border:1px solid rgba(255,77,85,0.25);border-radius:var(--radius-lg);padding:1.5rem 2rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;">
+        <div style="width:44px;height:44px;border:1.5px solid var(--coral);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <i class="ti ti-lock" aria-hidden="true" style="color:var(--coral);font-size:20px"></i>
+        </div>
+        <div style="flex:1;min-width:200px;">
+          <div style="font-size:11px;font-family:'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--coral);margin-bottom:5px;">5 Additional Exits — Under NDA</div>
+          <div style="font-size:14px;color:rgba(255,255,255,0.8);line-height:1.7;font-family:'Poppins',sans-serif;">The full story behind our remaining 5 successful exits is available to qualified candidates. <strong style="color:#fff;">Upon execution of a Mutual NDA</strong>, Tom Penton will personally walk you through every deal — the strategy, the valuation uplift, and the path to close.</div>
+        </div>
+        <a href="#audit" class="btn-primary" style="flex-shrink:0;white-space:nowrap;background:var(--coral);">
+          Start the Process
+          <i class="ti ti-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="proof-banner">
+      <div>
+        <div class="proof-banner-text">"The gap between a great fintech and an institutional standard is almost always readiness — not capability."</div>
+        <div class="proof-banner-sub">— Tom Penton, Managing Partner, FiRadar</div>
+      </div>
+      <a href="#audit" class="btn-primary" style="flex-shrink:0;white-space:nowrap">
+        Take the Audit
+        <i class="ti ti-arrow-right" aria-hidden="true"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="section-inner">
+    <div class="section-label">The Leadership</div>
+    <h2 class="section-headline">The Team Behind<br><em>Every Green-Light.</em></h2>
+    <p class="team-intro">
+      FiRadar's advisory team combines decades of institutional sales, regulatory mastery, and deep technology expertise — the exact disciplines that determine whether a fintech succeeds or stalls inside a bank or credit union.
+    </p>
+    <div class="team-grid">
+
+      <!-- Tom Penton -->
+      <div class="team-card">
+        <div class="team-card-top">
+          <div class="team-avatar">TP</div>
+          <div class="team-name">Tom Penton</div>
+          <div class="team-role">Managing Partner &amp; Founder</div>
+          <div class="team-company">FiRadar · formerly BankRadar</div>
+        </div>
+        <div class="team-card-body">
+          <p class="team-bio">
+            Tom founded BankRadar — now evolving into FiRadar to serve the full spectrum of Banks and Credit Unions. A former SVP of Sales at Gartner across Asia Pacific and Latin America, Tom has spent 27 years building trust in FI boardrooms. His firm Pentonian has driven game-changing sales results for fintech firms across the nation, and his personal relationships with 5,000+ C-level Bank and CU executives are FiRadar's most valuable asset.
+          </p>
+          <div class="team-tags">
+            <span class="team-tag gold">27 Yrs FI Experience</span>
+            <span class="team-tag gold">8 Exits</span>
+            <span class="team-tag">Gartner SVP</span>
+            <span class="team-tag">Sales Acceleration</span>
+            <span class="team-tag">5,000+ CXO Network</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pawneet Abramowski -->
+      <div class="team-card">
+        <div class="team-card-top">
+          <div class="team-avatar">PA</div>
+          <div class="team-name">Pawneet Abramowski</div>
+          <div class="team-role">Chief Compliance &amp; Risk Officer</div>
+          <div class="team-company">Partner via PARC Solutions LLC</div>
+        </div>
+        <div class="team-card-body">
+          <p class="team-bio">
+            Pawneet is the CEO &amp; Founder of PARC Solutions, a globally recognized compliance and risk advisory firm. With 25+ years across public and private sectors, she is a former CCO and Head of Financial Crimes/BSA Officer, and former SVP of AML Risk Management at The Bancorp. An ACAMS panelist and GRC World Forums speaker, Pawneet ensures every fintech FiRadar vets meets the rigorous regulatory standards that FI boards demand — from AML and KYC to FFIEC and sanctions compliance.
+          </p>
+          <div class="team-tags">
+            <span class="team-tag gold">25 Yrs Compliance</span>
+            <span class="team-tag gold">Former CCO</span>
+            <span class="team-tag">AML / BSA / KYC</span>
+            <span class="team-tag">FFIEC</span>
+            <span class="team-tag">6 Languages</span>
+            <span class="team-tag">ACAMS Speaker</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Minesh Valera -->
+      <div class="team-card">
+        <div class="team-card-top">
+          <div class="team-avatar">MV</div>
+          <div class="team-name">Minesh Valera</div>
+          <div class="team-role">Chief Technology Officer</div>
+          <div class="team-company">Partner &amp; Technology Advisor</div>
+        </div>
+        <div class="team-card-body">
+          <p class="team-bio">
+            Minesh is FiRadar's technology authority, bringing deep hands-on expertise in Banking-as-a-Service, core system architecture, and API-driven FI integrations. Based in the Greater Chicago Area, he brings a practitioner's understanding of what it actually takes to connect a fintech to the FIS, Fiserv, and Jack Henry ecosystems — cutting through vendor claims to assess real integration timelines, security posture, and scalability inside a regulated banking environment.
+          </p>
+          <div class="team-tags">
+            <span class="team-tag gold">BaaS Architecture</span>
+            <span class="team-tag gold">Core Integration</span>
+            <span class="team-tag">API / Cloud</span>
+            <span class="team-tag">FIS · Fiserv · JH</span>
+            <span class="team-tag">Digital Banking</span>
+            <span class="team-tag">CU / Community FI</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tom Pareigat -->
+      <div class="team-card">
+        <div class="team-card-top">
+          <div class="team-avatar">TP</div>
+          <div class="team-name">Tom Pareigat</div>
+          <div class="team-role">Chief Legal Officer</div>
+          <div class="team-company">Partner &amp; Legal Advisor · Retired EVP</div>
+        </div>
+        <div class="team-card-body">
+          <p class="team-bio">
+            Tom brings over 30 years of banking law and regulatory risk management expertise to FiRadar. Recently retired as Executive Vice President &amp; General Counsel of The Bancorp — one of the nation's most prominent fintech-forward financial institutions — he previously served as a Partner at Lindquist &amp; Vennum (now Ballard Spahr), where he specialized in banking law within their Financial Institutions Practice Group, and as SVP &amp; Regulatory Counsel at Marshall BankFirst Corp. Tom guides FiRadar's fintechs and FI partners through the legal complexities of institutional partnerships, licensing, and regulatory structure.
+          </p>
+          <div class="team-tags">
+            <span class="team-tag gold">30+ Yrs Banking Law</span>
+            <span class="team-tag gold">Former EVP &amp; GC</span>
+            <span class="team-tag">The Bancorp</span>
+            <span class="team-tag">Regulatory Counsel</span>
+            <span class="team-tag">FI Partnerships</span>
+            <span class="team-tag">Ballard Spahr</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    </div>
+
+    <div style="margin-top:2.5rem;padding:1.5rem 2rem;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);display:flex;align-items:center;gap:1.5rem;">
+      <div style="width:40px;height:40px;border:1.5px solid var(--gold);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <i class="ti ti-building-bank" aria-hidden="true" style="color:var(--gold);font-size:18px"></i>
+      </div>
+      <div>
+        <div style="font-size:11px;font-family:'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Institutional Pedigree</div>
+        <div style="font-size:13.5px;color:var(--text-secondary);line-height:1.65;">Both Pawneet Abramowski and Tom Pareigat served at <strong style="color:var(--text-primary)">The Bancorp</strong> — one of the nation's most respected fintech-forward financial institutions. That shared institutional DNA means FiRadar's compliance and legal advisory is grounded in the same rigorous standards that FI boards hold their own executives to.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials" style="background:var(--navy);padding:6rem 4rem;">
+  <div class="section-inner">
+    <div class="section-label" style="color:var(--coral)">What They're Saying</div>
+    <h2 class="section-headline" style="color:#fff;margin-bottom:1rem">Trusted by Banks,<br>Credit Unions, <em>and Fintechs.</em></h2>
+    <p style="font-size:1.05rem;color:rgba(255,255,255,0.55);max-width:600px;line-height:1.8;margin-bottom:3.5rem;font-family:'Poppins',sans-serif;">The proof isn't just in our exits. It's in the relationships — from the boardroom to the founding team.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;">
+
+      <!-- Credit Union -->
+      <div style="background:var(--navy-mid);border:1px solid rgba(255,77,85,0.15);border-radius:var(--radius-lg);padding:2rem;position:relative;display:flex;flex-direction:column;justify-content:space-between;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--coral);border-radius:var(--radius-lg) var(--radius-lg) 0 0;"></div>
+        <div>
+          <div style="display:flex;gap:4px;margin-bottom:1.25rem;">
+            <span style="color:var(--coral);font-size:18px">★★★★★</span>
+          </div>
+          <p style="font-size:1rem;color:rgba(255,255,255,0.85);line-height:1.8;font-style:italic;font-family:'Poppins',sans-serif;margin-bottom:1.5rem;">
+            "Your quote from a Credit Union executive goes here. Tom and the FiRadar team gave us instant credibility with fintech partners we'd been trying to reach for years."
+          </p>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,0.08);">
+          <div style="width:44px;height:44px;border-radius:50%;background:var(--navy-light);border:2px solid var(--coral);display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-weight:800;font-size:14px;color:var(--coral);flex-shrink:0;">CU</div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:#fff;font-family:'Inter',sans-serif;">Executive Name</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.45);font-family:'DM Mono',monospace;letter-spacing:0.04em;">CEO · [Credit Union Name]</div>
+          </div>
+          <div style="margin-left:auto;">
+            <span style="font-size:9px;font-family:'DM Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;padding:3px 8px;border-radius:3px;background:rgba(255,77,85,0.15);color:var(--coral);border:1px solid rgba(255,77,85,0.3);">Credit Union</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bank -->
+      <div style="background:var(--navy-mid);border:1px solid rgba(255,77,85,0.15);border-radius:var(--radius-lg);padding:2rem;position:relative;display:flex;flex-direction:column;justify-content:space-between;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--coral);border-radius:var(--radius-lg) var(--radius-lg) 0 0;"></div>
+        <div>
+          <div style="display:flex;gap:4px;margin-bottom:1.25rem;">
+            <span style="color:var(--coral);font-size:18px">★★★★★</span>
+          </div>
+          <p style="font-size:1rem;color:rgba(255,255,255,0.85);line-height:1.8;font-style:italic;font-family:'Poppins',sans-serif;margin-bottom:1.5rem;">
+            "Your quote from a Bank executive goes here. The FiRadar audit process gave us confidence that the fintech solutions we were evaluating had been truly stress-tested."
+          </p>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,0.08);">
+          <div style="width:44px;height:44px;border-radius:50%;background:var(--navy-light);border:2px solid var(--coral);display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-weight:800;font-size:14px;color:var(--coral);flex-shrink:0;">BK</div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:#fff;font-family:'Inter',sans-serif;">Executive Name</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.45);font-family:'DM Mono',monospace;letter-spacing:0.04em;">CEO · [Bank Name]</div>
+          </div>
+          <div style="margin-left:auto;">
+            <span style="font-size:9px;font-family:'DM Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;padding:3px 8px;border-radius:3px;background:rgba(255,77,85,0.15);color:var(--coral);border:1px solid rgba(255,77,85,0.3);">Bank</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fintech -->
+      <div style="background:var(--navy-mid);border:1px solid rgba(255,77,85,0.15);border-radius:var(--radius-lg);padding:2rem;position:relative;display:flex;flex-direction:column;justify-content:space-between;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--coral);border-radius:var(--radius-lg) var(--radius-lg) 0 0;"></div>
+        <div>
+          <div style="display:flex;gap:4px;margin-bottom:1.25rem;">
+            <span style="color:var(--coral);font-size:18px">★★★★★</span>
+          </div>
+          <p style="font-size:1rem;color:rgba(255,255,255,0.85);line-height:1.8;font-style:italic;font-family:'Poppins',sans-serif;margin-bottom:1.5rem;">
+            "Your quote from a Fintech founder goes here. Going through the FiRadar audit was the best thing we did before approaching institutional partners. It opened doors we didn't know existed."
+          </p>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,0.08);">
+          <div style="width:44px;height:44px;border-radius:50%;background:var(--navy-light);border:2px solid var(--coral);display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-weight:800;font-size:14px;color:var(--coral);flex-shrink:0;">FT</div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:#fff;font-family:'Inter',sans-serif;">Founder Name</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.45);font-family:'DM Mono',monospace;letter-spacing:0.04em;">CEO · [Fintech Name]</div>
+          </div>
+          <div style="margin-left:auto;">
+            <span style="font-size:9px;font-family:'DM Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;padding:3px 8px;border-radius:3px;background:rgba(255,77,85,0.15);color:var(--coral);border:1px solid rgba(255,77,85,0.3);">Fintech</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- AUDIT -->
+<section id="audit">
+  <div class="section-inner">
+    <div class="audit-header">
+      <div class="section-label">The FiRadar Strategic Audit</div>
+      <h2 class="section-headline" style="text-align:center">See How You Stack Up.<br><em>Find Out If You Qualify.</em></h2>
+      <p class="audit-subtext">
+        Our AI-powered Lead Analyst will run you through the same 10-point vetting process used to identify every firm in the FiRadar portfolio. Get your Institutional Readiness Score — and see if you have what it takes to access the network, the capital, and the exits.
+      </p>
+      <div class="audit-warning">
+        <i class="ti ti-lock" aria-hidden="true" style="font-size:12px"></i>
+        Confidential — Results reviewed by Tom Penton personally
+      </div>
+    </div>
+
+    <!-- EMBEDDED AGENT -->
+    <div class="audit-embed">
+      <div class="fr-agent">
+
+        <div class="fr-agent-header">
+          <div class="fr-agent-logo">
+            <div class="fr-agent-logo-icon">
+              <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+                <path d="M8 16 Q8 8 16 8" stroke="#ff4d55" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+                <path d="M5 19 Q4 8 16 5" stroke="#ff4d55" stroke-width="2.8" fill="none" stroke-linecap="round" opacity="0.7"/>
+                <path d="M11 14 Q11 11 16 11" stroke="#ff4d55" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+                <circle cx="16" cy="16" r="2" fill="#ff4d55"/>
+              </svg>
+            </div>
+            <div>
+              <div class="fr-agent-logo-text">Fi<span>Radar</span></div>
+              <div class="fr-agent-logo-sub">Strategic Audit Suite</div>
+            </div>
+          </div>
+          <div class="fr-agent-status"><div class="fr-agent-dot"></div>Lead Analyst online</div>
+        </div>
+
+        <div class="ag-score-panel">
+          <div class="ag-score-main">
+            <div class="ag-dial">
+              <svg viewBox="0 0 64 64">
+                <circle cx="32" cy="32" r="26" fill="none" stroke-width="5" stroke="#e8e4de"/>
+                <circle cx="32" cy="32" r="26" fill="none" stroke-width="5" id="dialArc" stroke="#1D9E75" stroke-dasharray="163.4" stroke-dashoffset="163.4" stroke-linecap="round" transform="rotate(-90 32 32)" style="transition:stroke-dashoffset .8s ease,stroke .5s ease"/>
+              </svg>
+              <div class="ag-dial-num">
+                <span class="ag-score-big" id="scoreBig">0</span>
+                <span class="ag-score-max">/1000</span>
+              </div>
+            </div>
+            <div>
+              <div class="ag-score-label">FiRadar Score</div>
+              <div class="ag-score-tier t0" id="tierLabel">Awaiting audit</div>
+              <div class="ag-tier-sub" id="tierSub">Answer questions to raise your score</div>
+            </div>
+          </div>
+          <div class="ag-dims">
+            <div class="ag-dim-row"><span class="ag-dim-label">Track record</span><div class="ag-dim-bar-wrap"><div class="ag-dim-bar" id="d0" style="width:0%"></div></div><span class="ag-dim-val" id="dv0">0</span></div>
+            <div class="ag-dim-row"><span class="ag-dim-label">Core compat.</span><div class="ag-dim-bar-wrap"><div class="ag-dim-bar" id="d1" style="width:0%"></div></div><span class="ag-dim-val" id="dv1">0</span></div>
+            <div class="ag-dim-row"><span class="ag-dim-label">Regulatory</span><div class="ag-dim-bar-wrap"><div class="ag-dim-bar" id="d2" style="width:0%"></div></div><span class="ag-dim-val" id="dv2">0</span></div>
+            <div class="ag-dim-row"><span class="ag-dim-label">Board fit</span><div class="ag-dim-bar-wrap"><div class="ag-dim-bar" id="d3" style="width:0%"></div></div><span class="ag-dim-val" id="dv3">0</span></div>
+            <div class="ag-dim-row"><span class="ag-dim-label">Client proof</span><div class="ag-dim-bar-wrap"><div class="ag-dim-bar" id="d4" style="width:0%"></div></div><span class="ag-dim-val" id="dv4">0</span></div>
+            <div class="ag-dim-row"><span class="ag-dim-label">Unit econ.</span><div class="ag-dim-bar-wrap"><div class="ag-dim-bar" id="d5" style="width:0%"></div></div><span class="ag-dim-val" id="dv5">0</span></div>
+          </div>
+        </div>
+
+        <div class="ag-scan" id="scanPanel">
+          <div class="ag-scan-hdr"><i class="ti ti-scan" aria-hidden="true"></i>Intel Scanner — paste your website or LinkedIn URL to start</div>
+          <div class="ag-scan-body">
+            <input class="ag-scan-input" id="urlInput" placeholder="https://yourfintech.com"/>
+            <button class="ag-scan-btn" id="scanBtn"><i class="ti ti-bolt" aria-hidden="true"></i>Scan &amp; Begin</button>
+          </div>
+          <div class="ag-intel-strip" id="intelStrip" style="display:none"></div>
+        </div>
+
+        <!-- MNDA PANEL — shown after scan, before audit begins -->
+        <div id="mndaPanel" style="display:none;margin:.5rem 1rem;border:.5px solid rgba(255,77,85,0.3);border-radius:8px;overflow:hidden;">
+          <div style="background:rgba(255,77,85,0.06);padding:.65rem 1rem;display:flex;align-items:flex-start;gap:12px;">
+            <div style="flex-shrink:0;margin-top:2px;">
+              <input type="checkbox" id="mndaCheck" style="width:16px;height:16px;accent-color:#ff4d55;cursor:pointer;" onchange="handleMNDA(this.checked)"/>
+            </div>
+            <div>
+              <label for="mndaCheck" style="font-size:12px;font-weight:600;color:#14233b;font-family:'Inter',sans-serif;cursor:pointer;display:block;margin-bottom:3px;">
+                I'd like to execute a Mutual NDA before proceeding
+              </label>
+              <div style="font-size:11px;color:#8892a0;font-family:'DM Mono',monospace;line-height:1.6;">
+                Check this box and Tom Penton's team will reach out within 1 business day to execute an MNDA before any sensitive information is shared. Your audit session will continue — just let the analyst know when you're ready.
+              </div>
+            </div>
+            <div style="flex-shrink:0;">
+              <i class="ti ti-lock" aria-hidden="true" style="color:#ff4d55;font-size:18px;opacity:.7"></i>
+            </div>
+          </div>
+          <div id="mndaConfirm" style="display:none;background:#EAF3DE;padding:.5rem 1rem;font-size:11px;font-family:'DM Mono',monospace;color:#3B6D11;letter-spacing:.04em;">
+            ✓ MNDA request noted — Tom's team will be in touch within 1 business day. You may continue the audit at whatever level of detail you're comfortable with.
+          </div>
+        </div>
+
+        <div class="ag-chat" id="chat"></div>
+
+        <div class="ag-input-row">
+          <textarea class="ag-textarea" id="inp" placeholder="Respond to the analyst..." rows="1" disabled></textarea>
+          <button class="ag-send" id="sendBtn" disabled><i class="ti ti-arrow-up" aria-hidden="true"></i></button>
+        </div>
+        <div class="ag-footer">
+          <span id="stepLbl">Paste your URL above to begin the audit</span>
+          <span>FiRadar © 2025 — Confidential</span>
+        </div>
+
+        <div class="ag-email" id="emailSection" style="display:none">
+
+          <!-- SEND BOTH BANNER -->
+          <div style="background:#0B1628;padding:.75rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+            <div>
+              <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;margin-bottom:2px">Reports Ready</div>
+              <div style="font-size:11px;font-family:'DM Mono',monospace;color:rgba(255,255,255,.45);letter-spacing:.04em">Fintech email + Internal brief + PDF deal brief</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+              <button onclick="openBothMailto()" style="display:flex;align-items:center;gap:6px;padding:.45rem 1rem;border-radius:6px;background:#C8922A;color:#0B1628;border:none;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:.06em;cursor:pointer;transition:opacity .15s;white-space:nowrap" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+                <i class="ti ti-send" aria-hidden="true" style="font-size:13px"></i>Send Both Emails
+              </button>
+              <button onclick="generatePDF()" style="display:flex;align-items:center;gap:6px;padding:.45rem 1rem;border-radius:6px;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.25);font-family:'Syne',sans-serif;font-size:12px;font-weight:600;letter-spacing:.06em;cursor:pointer;transition:opacity .15s;white-space:nowrap" onmouseover="this.style.borderColor='#C8922A';this.style.color='#C8922A'" onmouseout="this.style.borderColor='rgba(255,255,255,.25)';this.style.color='#fff'">
+                <i class="ti ti-file-download" aria-hidden="true" style="font-size:13px"></i>Download PDF Brief
+              </button>
+            </div>
+            <div class="ag-email-status" id="bothStatus" style="width:100%;color:#C8922A;padding:0;margin:0;text-align:right"></div>
+          </div>
+
+          <!-- THREE TABS -->
+          <div class="ag-email-tabs">
+            <button class="ag-email-tab active" id="tabFin" onclick="switchTab('fin')"><i class="ti ti-send" aria-hidden="true" style="font-size:11px;margin-right:4px"></i>Fintech Email</button>
+            <button class="ag-email-tab" id="tabInt" onclick="switchTab('int')"><i class="ti ti-building-bank" aria-hidden="true" style="font-size:11px;margin-right:4px"></i>Internal Brief</button>
+            <button class="ag-email-tab" id="tabPdf" onclick="switchTab('pdf')" style="border-left:.5px solid #e8e4de"><i class="ti ti-file-text" aria-hidden="true" style="font-size:11px;margin-right:4px"></i>PDF Preview</button>
+          </div>
+
+          <!-- TAB: FINTECH EMAIL -->
+          <div class="ag-email-pane active" id="paneFin">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.6rem">
+              <div class="ag-email-field"><div class="ag-email-field-lbl">To — Fintech founder</div><input id="fintechEmail" placeholder="founder@company.com" type="email"/></div>
+              <div class="ag-email-field"><div class="ag-email-field-lbl">From</div><input id="fromEmail" value="tom.penton@firadar.com" type="email"/></div>
+            </div>
+            <div class="ag-email-field-lbl" style="margin-bottom:4px">Email preview</div>
+            <div class="ag-email-preview" id="fintechPreview">Generating...</div>
+            <div class="ag-email-actions">
+              <button class="ag-email-btn" onclick="copyEmail('fin')"><i class="ti ti-copy" aria-hidden="true" style="font-size:13px"></i>Copy</button>
+              <button class="ag-email-btn primary" onclick="openMailto('fin')"><i class="ti ti-mail" aria-hidden="true" style="font-size:13px"></i>Open in Mail</button>
+            </div>
+            <div class="ag-email-status" id="finStatus"></div>
+          </div>
+
+          <!-- TAB: INTERNAL BRIEF -->
+          <div class="ag-email-pane" id="paneInt">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.6rem">
+              <div class="ag-email-field"><div class="ag-email-field-lbl">To — Investment committee</div><input id="internalEmail" value="investment@firadar.com" type="email"/></div>
+              <div class="ag-email-field"><div class="ag-email-field-lbl">From</div><input id="fromEmailInt" value="analyst@firadar.com" type="email"/></div>
+            </div>
+            <div class="ag-email-field-lbl" style="margin-bottom:4px">Brief preview</div>
+            <div class="ag-email-preview" id="internalPreview">Generating...</div>
+            <div class="ag-email-actions">
+              <button class="ag-email-btn" onclick="copyEmail('int')"><i class="ti ti-copy" aria-hidden="true" style="font-size:13px"></i>Copy</button>
+              <button class="ag-email-btn primary" onclick="openMailto('int')"><i class="ti ti-mail" aria-hidden="true" style="font-size:13px"></i>Open in Mail</button>
+            </div>
+            <div class="ag-email-status" id="intStatus"></div>
+          </div>
+
+          <!-- TAB: PDF PREVIEW -->
+          <div class="ag-email-pane" id="panePdf">
+            <div style="background:#FAF7F2;border:.5px solid #d8d4ce;border-radius:7px;padding:1.25rem;margin-bottom:.75rem">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:.75rem">
+                <div style="width:32px;height:32px;background:#0B1628;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="ti ti-file-text" aria-hidden="true" style="color:#C8922A;font-size:15px"></i></div>
+                <div>
+                  <div style="font-size:12px;font-weight:700;color:#0B1628">FiRadar Internal Triage Brief</div>
+                  <div style="font-size:10px;font-family:'DM Mono',monospace;color:#8A8680;letter-spacing:.06em">Confidential · Investment Committee · Print-ready</div>
+                </div>
+              </div>
+              <div style="font-size:12px;color:#4A4740;line-height:1.7">
+                The PDF brief contains: <strong>company overview</strong>, <strong>FiRadar score dial</strong>, <strong>all 6 dimension bars</strong>, <strong>triage outcome badges</strong>, <strong>analyst gap analysis</strong>, and <strong>recommended action</strong> — formatted for print or deal room attachment.
+              </div>
+            </div>
+            <div style="display:flex;gap:8px">
+              <button class="ag-email-btn primary" onclick="generatePDF()" style="flex:2"><i class="ti ti-printer" aria-hidden="true" style="font-size:13px"></i>Open & Print / Save as PDF</button>
+              <button class="ag-email-btn" onclick="generatePDF()" style="flex:1"><i class="ti ti-eye" aria-hidden="true" style="font-size:13px"></i>Preview</button>
+            </div>
+            <div style="margin-top:.65rem;font-size:10px;font-family:'DM Mono',monospace;color:#8A8680;line-height:1.6">
+              Tip: When the print dialog opens, select <strong>Save as PDF</strong> as your printer to download. On Mac use ⌘+P, on Windows Ctrl+P.
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <!-- END EMBEDDED AGENT -->
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <svg width="36" height="36" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8 16 Q8 8 16 8" stroke="#ff4d55" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+      <path d="M5 19 Q4 8 16 5" stroke="#ff4d55" stroke-width="2.8" fill="none" stroke-linecap="round" opacity="0.7"/>
+      <path d="M11 14 Q11 11 16 11" stroke="#ff4d55" stroke-width="2.8" fill="none" stroke-linecap="round" opacity="0.9"/>
+      <circle cx="16" cy="16" r="2" fill="#ff4d55"/>
+    </svg>
+    <div class="footer-logo-text">Fi<span>Radar</span></div>
+  </div>
+  <div class="footer-tagline">We Audit. We Invest. We Accelerate.</div>
+  <div class="footer-links">
+    <a href="#about">About</a>
+    <a href="#proof">Track Record</a>
+    <a href="#team">Team</a>
+    <a href="#audit">Take the Audit</a>
+    <a href="mailto:tom.penton@firadar.com">Contact Tom</a>
+  </div>
+  <div class="footer-copy">© 2025 FiRadar Strategic Advisory. All rights reserved. · tom.penton@firadar.com</div>
+</footer>
+
+<script>
+const DIMS=['trackRecord','coreCompat','regulatory','boardFit','clientProof','unitEcon'];
+const DIM_MAX=[200,150,150,150,200,150];
+const DIM_LABELS=['Track record','Core compat.','Regulatory','Board fit','Client proof','Unit econ.'];
+let history=[],intel='',qCount=0,done=false,busy=false;
+let scores=[0,0,0,0,0,0];
+let mndaRequested=false;
+let auditData={companyName:'',contactName:'',contactEmail:'',verdict:null,analystSummary:''};
+
+function totalScore(){return scores.reduce((a,b)=>a+b,0)}
+function scoreColor(s){const p=s/1000;if(p>=.75)return'#1D9E75';if(p>=.5)return'#BA7517';if(p>=.25)return'#D85A30';return'#E24B4A'}
+function tierInfo(s){
+  if(s===0)return{label:'Awaiting audit',sub:'Answer questions to raise your score',cls:'t0'};
+  if(s<250)return{label:'Early stage',sub:'Significant gaps remain',cls:'t1'};
+  if(s<500)return{label:'Developing',sub:'Promising signals — specifics needed',cls:'t2'};
+  if(s<750)return{label:'Green-light candidate',sub:'Strong profile — investment review likely',cls:'t3'};
+  return{label:'High conviction',sub:'Top-tier FiRadar Network candidate',cls:'t4'};
+}
+function updateDial(){
+  const total=totalScore();
+  const arc=document.getElementById('dialArc');
+  arc.style.strokeDashoffset=163.4-(total/1000)*163.4;
+  arc.style.stroke=scoreColor(total);
+  document.getElementById('scoreBig').textContent=total;
+  const ti=tierInfo(total);
+  const tl=document.getElementById('tierLabel');tl.textContent=ti.label;tl.className='ag-score-tier '+ti.cls;
+  document.getElementById('tierSub').textContent=ti.sub;
+  DIMS.forEach((_,i)=>{
+    const pct=Math.round((scores[i]/DIM_MAX[i])*100);
+    document.getElementById('d'+i).style.width=pct+'%';
+    document.getElementById('d'+i).style.background=scoreColor(scores[i]/DIM_MAX[i]*1000);
+    document.getElementById('dv'+i).textContent=scores[i];
+  });
+}
+function showBump(bumps){
+  const chat=document.getElementById('chat');
+  bumps.forEach(({dim,gained,reason})=>{
+    if(gained<=0)return;
+    const el=document.createElement('div');el.className='ag-msg';
+    const inner=document.createElement('div');inner.className='ag-bump';
+    inner.innerHTML=`<i class="ti ti-trending-up" aria-hidden="true" style="font-size:13px"></i> +${gained} pts · ${DIM_LABELS[dim]} — ${reason}`;
+    el.appendChild(inner);chat.appendChild(el);
+  });
+  chat.scrollTop=chat.scrollHeight;
+}
+function applyScores(sc){
+  if(!sc)return;
+  DIMS.forEach((k,i)=>{if(sc[k]!==undefined)scores[i]=Math.max(scores[i],sc[k]);});
+  updateDial();
+  if(sc.bumps&&sc.bumps.length>0)showBump(sc.bumps.filter(b=>b.gained>0));
+}
+function scrollBot(){const c=document.getElementById('chat');c.scrollTop=c.scrollHeight}
+function addMsg(role,html,isIntel){
+  const chat=document.getElementById('chat');
+  const wrap=document.createElement('div');wrap.className='ag-msg'+(role==='user'?' user':'');
+  const av=document.createElement('div');
+  if(isIntel){av.className='ag-av intel';av.textContent='INT';}
+  else if(role==='user'){av.className='ag-av u';av.textContent='YOU';}
+  else{av.className='ag-av';av.textContent='LA';}
+  const bub=document.createElement('div');bub.className='ag-bub';
+  if(isIntel){const t=document.createElement('div');t.className='tag itag';t.textContent='Intel Report · Pre-loaded';bub.appendChild(t);}
+  else if(role==='assistant'){const t=document.createElement('div');t.className='tag';t.textContent='Lead Analyst · FiRadar';bub.appendChild(t);}
+  const cnt=document.createElement('div');cnt.innerHTML=html;bub.appendChild(cnt);
+  wrap.appendChild(av);wrap.appendChild(bub);chat.appendChild(wrap);scrollBot();
+}
+function showTyping(id){
+  const chat=document.getElementById('chat');
+  const w=document.createElement('div');w.className='ag-msg';w.id=id||'typDot';
+  const av=document.createElement('div');av.className='ag-av';av.textContent='LA';
+  const b=document.createElement('div');b.className='ag-bub ag-typing';b.innerHTML='<span></span><span></span><span></span>';
+  w.appendChild(av);w.appendChild(b);chat.appendChild(w);scrollBot();
+}
+function rmTyping(id){const el=document.getElementById(id||'typDot');if(el)el.remove()}
+
+function handleMNDA(checked){
+  mndaRequested=checked;
+  document.getElementById('mndaConfirm').style.display=checked?'block':'none';
+  if(checked){
+    // Log MNDA request to audit data
+    auditData.mndaRequested=true;
+    // Send a quiet system note into the conversation so the analyst is aware
+    history.push({role:'user',content:'[SYSTEM NOTE: This fintech has requested an MNDA before sharing sensitive details. Please acknowledge this professionally in your next response, reassure them about confidentiality, and let them know Tom Penton\'s team will be in touch. Continue the audit at whatever pace they are comfortable with.]'});
+    callAPI('').then(reply=>{
+      const sc=parseSc(reply);
+      const clean=reply.replace(/SCORES:\{[^}]*(?:\[[^\]]*\])[^}]*\}/g,'').replace(/SCORES:\{[^}]+\}/g,'').replace(/VERDICT_JSON:\{[^}]+\}/,'').trim().replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
+      if(clean) addMsg('assistant',clean);
+      if(sc) applyScores(sc);
+    }).catch(()=>{});
+  }
+}
+
+function buildSys(){
+  const is=intel?`\n\nPRE-LOADED INTEL:\n${intel}\nSkip answered questions. Reference facts. Focus on gaps.\n`:'';
+  const mndaSec=mndaRequested?`\n\nMNDA STATUS: This fintech has checked the MNDA box and requested a Mutual NDA. You have already acknowledged this. For sensitive questions (ARR, named clients, investors, cap table), remind them they can answer at a high level now and provide full details post-MNDA. Never pressure them for specifics they seem reluctant to share. Note in your conclusion that the MNDA process will be initiated.\n`:'';
+  return `You are the Lead Strategic Analyst for FiRadar, an elite Fintech Accelerator led by Managing Partner Tom Penton with a network of 5,000+ C-level Bank and Credit Union executives. FiRadar has 27 years of boardroom trust and 8 successful exits.
+
+OBJECTIVE: Conduct an Institutional Readiness Audit for: (1) FiRadar Network, (2) Investment/Acceleration, (3) Sales Acceleration.
+
+TONE: Professional, direct, authoritative, slightly skeptical. Bank-speak: SOC2, Core-integration, ROI, FFIEC, OCC, BSA/AML, ALCO, NRR, capital efficiency, Top-3 Board priorities.
+${is}${mndaSec}
+After EVERY message output:
+SCORES:{"trackRecord":N,"coreCompat":N,"regulatory":N,"boardFit":N,"clientProof":N,"unitEcon":N,"bumps":[{"dim":0,"gained":N,"reason":"≤5 words"}]}
+Max: trackRecord=200,coreCompat=150,regulatory=150,boardFit=150,clientProof=200,unitEcon=150. Only increase scores.
+
+RUBRIC: trackRecord: seed=40-80,SeriesA+=100-160,exits=160-200. coreCompat: middleware=30,native=80,certified core partner=120-150. regulatory: SOC2I=60,SOC2II=100,FFIEC=130-150. boardFit: adjacent=40,Deposits/Fraud/Efficiency=80-120,+ROI proof=130-150. clientProof: pilots=30,1-5 named FIs=60-100,10+ with AUM data=130-200. unitEcon: pre-revenue=20,ARR+NRR=80-130,NRR>110%=140-150.
+
+RULES: One question at a time. Concise. Push back on vague: "Our 5,000+ CEO network requires specifics." Mention score incentive occasionally. After 4-6 answers deliver conclusion.
+
+CONCLUSION: "I have sufficient data for the preliminary triage. Based on FiRadar's rigorous Green-Light standards — the same framework behind our 8 successful exits — I will escalate this to Managing Partner Tom Penton. [2-3 sentence assessment]. To receive the full Gap Analysis, please confirm: name, email, and company."${mndaRequested?` Note that the MNDA process will be initiated in parallel.`:''}
+
+Then on separate lines:
+SCORES:{...,"bumps":[]}
+VERDICT_JSON:{"network":"green|amber|red","investment":"green|amber|red","salesAccel":"green|amber|red","summary":"one sentence","analystNotes":"2-3 sentence gap analysis"}`;
+}
+
+function parseSc(text){const m=text.match(/SCORES:(\{[^}]*(?:\[[^\]]*\])[^}]*\})/);if(!m)return null;try{return JSON.parse(m[1]);}catch(e){return null}}
+function parseV(text){const m=text.match(/VERDICT_JSON:(\{[^}]+\})/);if(!m)return null;try{return JSON.parse(m[1]);}catch(e){return null}}
+
+function renderVerdict(v){
+  const fl={green:'Strong fit',amber:'Potential / gaps',red:'Not ready'};
+  const chat=document.getElementById('chat');
+  const card=document.createElement('div');card.className='ag-verdict';
+  const total=totalScore();const ti=tierInfo(total);
+  card.innerHTML=`<div class="ag-verdict-title">Preliminary Triage Result</div>
+    <div class="ag-verdict-row"><span class="avl">FiRadar Network</span><span class="avb ${v.network}">${fl[v.network]}</span></div>
+    <div class="ag-verdict-row"><span class="avl">Investment / Accel</span><span class="avb ${v.investment}">${fl[v.investment]}</span></div>
+    <div class="ag-verdict-row"><span class="avl">Sales Acceleration</span><span class="avb ${v.salesAccel}">${fl[v.salesAccel]}</span></div>
+    <div class="ag-verdict-sum">${v.summary}</div>
+    <div class="ag-final-banner">
+      <div><div class="ag-fsb-label">Final FiRadar Score</div><div style="font-size:10px;color:#8A8680;font-family:'DM Mono',monospace">${ti.label}</div></div>
+      <div class="ag-fsb-score" style="color:${scoreColor(total)}">${total}<span style="font-size:13px;color:#8A8680">/1000</span></div>
+    </div>`;
+  chat.appendChild(card);scrollBot();
+  auditData.verdict=v;auditData.analystSummary=v.analystNotes||v.summary;
+}
+
+async function genEmails(){
+  const total=totalScore();const ti=tierInfo(total);
+  const co=auditData.companyName||'your company';
+  const contact=auditData.contactName||'Founder';
+  const v=auditData.verdict||{network:'amber',investment:'amber',salesAccel:'amber'};
+  const fl={green:'Strong Fit ✓',amber:'Potential / Gaps ◐',red:'Not Ready ✗'};
+  const dimLines=DIMS.map((k,i)=>`  ${DIM_LABELS[i].padEnd(18)} ${scores[i].toString().padStart(3)}/${DIM_MAX[i]}`).join('\n');
+  const date=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  const action=total>=750?'ESCALATE — Schedule IC presentation within 2 weeks. Flag for Tom\'s priority review.':total>=500?'MONITOR — Request follow-up materials. Add to active pipeline. Re-score in 60 days.':'DEFER — Share Gap Analysis. Re-engage when regulatory and client proof gaps are addressed.';
+
+  const fe=`Subject: Your FiRadar Institutional Readiness Score — ${total}/1000
+
+${contact},
+
+Thank you for completing the FiRadar Strategic Audit. Our Lead Analyst has completed the preliminary triage of ${co} and I wanted to share your results personally.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+YOUR FIRADAR SCORE: ${total}/1000
+TIER: ${ti.label.toUpperCase()}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+DIMENSION BREAKDOWN:
+${dimLines}
+
+TRIAGE OUTCOME:
+  FiRadar Network        ${fl[v.network]}
+  Investment / Accel     ${fl[v.investment]}
+  Sales Acceleration     ${fl[v.salesAccel]}
+
+ANALYST'S READ:
+${auditData.analystSummary}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NEXT STEPS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+${total>=750
+  ?`${co} qualifies for an expedited review with our investment committee. Our team will reach out within 3 business days to schedule a formal presentation with Tom Penton and our network partners.`
+  :total>=500
+  ?`${co} is in our active pipeline. To advance toward a formal Green-Light review, we recommend addressing the gaps identified above. Expect our full Gap Analysis within 5 business days.`
+  :`We encourage ${co} to revisit the audit once you have addressed the key gaps identified. Our team will share a detailed Gap Analysis to help prioritize your institutional readiness roadmap.`}
+
+To confirm next steps or update any information from the audit, reply directly to this message.
+
+Regards,
+
+Tom Penton
+Managing Partner, FiRadar
+tom.penton@firadar.com | www.firadar.com
+Network of 5,000+ Bank & Credit Union Executives
+
+FiRadar — We Audit. We Invest. We Accelerate.`;
+
+  const ie=`Subject: [TRIAGE] ${co} — Score ${total}/1000 — ${ti.label} — ACTION: ${total>=750?'ESCALATE':total>=500?'MONITOR':'DEFER'}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FIRADAR INTERNAL TRIAGE BRIEF
+${date} — CONFIDENTIAL — IC Use Only
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+COMPANY:         ${co}
+CONTACT:         ${contact}${auditData.contactEmail?' · '+auditData.contactEmail:''}
+FIRADAR SCORE:   ${total}/1000 — ${ti.label}
+AUDIT DATE:      ${date}
+MNDA REQUESTED:  ${auditData.mndaRequested?'YES — initiate MNDA process':'No'}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TRIAGE OUTCOME
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  FiRadar Network        ${fl[v.network]}
+  Investment / Accel     ${fl[v.investment]}
+  Sales Acceleration     ${fl[v.salesAccel]}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DIMENSION SCORES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+${dimLines}
+
+  TOTAL SCORE:           ${total}/1000
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ANALYST NOTES & GAP ANALYSIS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+${auditData.analystSummary}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+RECOMMENDED ACTION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+${action}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Audit completed via FiRadar Strategic Audit Suite
+Lead Analyst · analyst@firadar.com
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+
+  document.getElementById('fintechPreview').textContent=fe;
+  document.getElementById('internalPreview').textContent=ie;
+  auditData.fintechEmail=fe;
+  auditData.internalEmail=ie;
+  auditData.date=date;
+  auditData.action=action;
+  auditData.total=total;
+  auditData.tier=ti.label;
+  auditData.fl=fl;
+}
+
+function switchTab(tab){
+  const map={fin:['tabFin','paneFin'],int:['tabInt','paneInt'],pdf:['tabPdf','panePdf']};
+  Object.entries(map).forEach(([t,[btnId,paneId]])=>{
+    const btn=document.getElementById(btnId);
+    const pane=document.getElementById(paneId);
+    if(btn) btn.className='ag-email-tab'+(tab===t?' active':'');
+    if(pane) pane.className='ag-email-pane'+(tab===t?' active':'');
+  });
+}
+
+function copyEmail(type){
+  const el=document.getElementById(type==='fin'?'fintechPreview':'internalPreview');
+  navigator.clipboard.writeText(el.textContent).then(()=>{
+    const st=document.getElementById(type==='fin'?'finStatus':'intStatus');
+    st.textContent='✓ Copied to clipboard';setTimeout(()=>st.textContent='',2500);
+  });
+}
+
+function openMailto(type){
+  const isFin=type==='fin';
+  const to=document.getElementById(isFin?'fintechEmail':'internalEmail').value;
+  const preview=document.getElementById(isFin?'fintechPreview':'internalPreview').textContent;
+  const lines=preview.split('\n');
+  const subj=lines[0].replace('Subject: ','');
+  const body=lines.slice(2).join('\n');
+  window.open(`mailto:${to}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`,'_blank');
+}
+
+function openBothMailto(){
+  // Fire fintech email
+  const fto=document.getElementById('fintechEmail').value;
+  const fp=document.getElementById('fintechPreview').textContent.split('\n');
+  const fs=fp[0].replace('Subject: ','');const fb=fp.slice(2).join('\n');
+  if(fto) window.open(`mailto:${fto}?subject=${encodeURIComponent(fs)}&body=${encodeURIComponent(fb)}`,'_blank');
+  // Fire internal email after short delay
+  setTimeout(()=>{
+    const ito=document.getElementById('internalEmail').value;
+    const ip=document.getElementById('internalPreview').textContent.split('\n');
+    const is_=ip[0].replace('Subject: ','');const ib=ip.slice(2).join('\n');
+    if(ito) window.open(`mailto:${ito}?subject=${encodeURIComponent(is_)}&body=${encodeURIComponent(ib)}`,'_blank');
+  },600);
+  const st=document.getElementById('bothStatus');
+  st.textContent='✓ Both emails opened — review and send';
+  setTimeout(()=>st.textContent='',4000);
+}
+
+function generatePDF(){
+  const total=auditData.total||totalScore();
+  const ti=tierInfo(total);
+  const co=auditData.companyName||'Company';
+  const contact=auditData.contactName||'—';
+  const date=auditData.date||new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  const v=auditData.verdict||{network:'amber',investment:'amber',salesAccel:'amber'};
+  const action=auditData.action||'MONITOR';
+  const badgeColor={green:'#1D9E75',amber:'#BA7517',red:'#A32D2D'};
+  const badgeLabel={green:'Strong Fit',amber:'Potential / Gaps',red:'Not Ready'};
+  const scoreColor_=total>=750?'#1D9E75':total>=500?'#BA7517':total>=250?'#D85A30':'#A32D2D';
+
+  const dimRows=DIMS.map((k,i)=>{
+    const pct=Math.round((scores[i]/DIM_MAX[i])*100);
+    const barColor=scores[i]/DIM_MAX[i]>=.75?'#1D9E75':scores[i]/DIM_MAX[i]>=.5?'#BA7517':'#D85A30';
+    return `<tr>
+      <td style="padding:8px 0;font-size:12px;color:#4A4740;font-family:'DM Mono',monospace;width:140px;vertical-align:middle;text-transform:uppercase;letter-spacing:.04em">${DIM_LABELS[i]}</td>
+      <td style="padding:8px 12px;vertical-align:middle">
+        <div style="background:#e8e4de;border-radius:3px;height:8px;overflow:hidden">
+          <div style="width:${pct}%;height:100%;background:${barColor};border-radius:3px"></div>
+        </div>
+      </td>
+      <td style="padding:8px 0;font-size:12px;font-family:'DM Mono',monospace;color:#0B1628;text-align:right;width:60px;vertical-align:middle;font-weight:600">${scores[i]}<span style="color:#8A8680;font-weight:400">/${DIM_MAX[i]}</span></td>
+    </tr>`;
+  }).join('');
+
+  const verdictRows=['network','investment','salesAccel'].map((k,i)=>{
+    const labels=['FiRadar Network','Investment / Accel','Sales Acceleration'];
+    const col=badgeColor[v[k]]||'#BA7517';
+    const lbl=badgeLabel[v[k]]||'—';
+    return `<tr>
+      <td style="padding:7px 0;font-size:12px;color:#4A4740;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.04em">${labels[i]}</td>
+      <td style="padding:7px 0;text-align:right">
+        <span style="background:${col}20;color:${col};border:1px solid ${col}50;font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:3px">${lbl}</span>
+      </td>
+    </tr>`;
+  }).join('');
+
+  const actionColor=action.startsWith('ESCALATE')?'#1D9E75':action.startsWith('MONITOR')?'#BA7517':'#A32D2D';
+  const actionKey=action.startsWith('ESCALATE')?'ESCALATE':action.startsWith('MONITOR')?'MONITOR':'DEFER';
+
+  const pdfHTML=`<!DOCTYPE html><html><head><meta charset="UTF-8"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Syne',sans-serif;background:#fff;color:#0B1628;width:794px;margin:0 auto;padding:0}
+  @media print{body{width:100%}@page{margin:0;size:A4}}
+</style>
+</head><body>
+
+<!-- HEADER -->
+<div style="background:#0B1628;padding:36px 48px 28px;position:relative;overflow:hidden">
+  <div style="position:absolute;top:-60px;right:-60px;width:300px;height:300px;background:radial-gradient(circle,rgba(200,146,42,.15),transparent 65%);pointer-events:none"></div>
+  <div style="display:flex;align-items:center;justify-content:space-between">
+    <div style="display:flex;align-items:center;gap:14px">
+      <div style="width:40px;height:40px;border:1.5px solid #C8922A;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#C8922A">◎</div>
+      <div>
+        <div style="font-size:18px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#fff">FiRadar</div>
+        <div style="font-size:9px;letter-spacing:.18em;color:#C8922A;text-transform:uppercase;font-family:'DM Mono',monospace">Strategic Advisory · Confidential</div>
+      </div>
+    </div>
+    <div style="text-align:right">
+      <div style="font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:4px">Internal Triage Brief</div>
+      <div style="font-size:11px;font-family:'DM Mono',monospace;color:rgba(255,255,255,.6)">${date}</div>
+    </div>
+  </div>
+  <div style="margin-top:28px;padding-top:24px;border-top:1px solid rgba(200,146,42,.2)">
+    <div style="font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#C8922A;margin-bottom:8px">Company Under Review</div>
+    <div style="font-family:'DM Serif Display',serif;font-size:28px;color:#fff;font-weight:400;margin-bottom:4px">${co}</div>
+    <div style="font-size:12px;color:rgba(255,255,255,.5);font-family:'DM Mono',monospace">Contact: ${contact}${auditData.contactEmail?' · '+auditData.contactEmail:''}</div>
+  </div>
+</div>
+
+<!-- SCORE BAND -->
+<div style="background:#FAF7F2;border-bottom:1px solid rgba(11,22,40,.1);padding:24px 48px;display:flex;align-items:center;gap:40px">
+  <div>
+    <div style="font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#8A8680;margin-bottom:6px">FiRadar Score</div>
+    <div style="font-family:'DM Serif Display',serif;font-size:52px;line-height:1;color:${scoreColor_};font-weight:400">${total}<span style="font-size:22px;color:#8A8680">/1000</span></div>
+  </div>
+  <div style="flex:1;height:12px;background:#e8e4de;border-radius:6px;overflow:hidden">
+    <div style="width:${total/10}%;height:100%;background:${scoreColor_};border-radius:6px;transition:width 1s"></div>
+  </div>
+  <div style="text-align:right">
+    <div style="font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#8A8680;margin-bottom:4px">Tier</div>
+    <div style="font-size:15px;font-weight:700;color:${scoreColor_}">${ti.label}</div>
+    <div style="margin-top:8px;background:${actionColor}20;color:${actionColor};border:1px solid ${actionColor}40;font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:3px;display:inline-block">${actionKey}</div>
+  </div>
+</div>
+
+<!-- BODY -->
+<div style="padding:32px 48px;display:grid;grid-template-columns:1fr 1fr;gap:32px">
+
+  <!-- LEFT: TRIAGE + DIMENSIONS -->
+  <div>
+    <div style="font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#C8922A;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #C8922A">Triage Outcome</div>
+    <table style="width:100%;border-collapse:collapse">${verdictRows}</table>
+
+    <div style="margin-top:28px;font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#C8922A;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #C8922A">Dimension Scores</div>
+    <table style="width:100%;border-collapse:collapse">${dimRows}</table>
+    <div style="margin-top:10px;padding:10px 12px;background:#FAF7F2;border-radius:4px;display:flex;justify-content:space-between;align-items:center">
+      <span style="font-size:11px;font-family:'DM Mono',monospace;letter-spacing:.06em;text-transform:uppercase;color:#8A8680">Total Score</span>
+      <span style="font-size:16px;font-weight:700;font-family:'DM Mono',monospace;color:${scoreColor_}">${total}<span style="font-size:11px;color:#8A8680">/1000</span></span>
+    </div>
+  </div>
+
+  <!-- RIGHT: ANALYST NOTES + ACTION -->
+  <div>
+    <div style="font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#C8922A;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #C8922A">Analyst Notes & Gap Analysis</div>
+    <p style="font-size:13px;color:#4A4740;line-height:1.75;margin-bottom:24px">${auditData.analystSummary||'—'}</p>
+
+    <div style="font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#C8922A;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #C8922A">Recommended Action</div>
+    <div style="background:${actionColor}10;border:1px solid ${actionColor}30;border-left:4px solid ${actionColor};padding:14px 16px;border-radius:4px">
+      <div style="font-size:11px;font-weight:700;font-family:'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:${actionColor};margin-bottom:6px">${actionKey}</div>
+      <div style="font-size:12px;color:#4A4740;line-height:1.65">${auditData.action||action}</div>
+    </div>
+
+    <div style="margin-top:24px;font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#C8922A;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #C8922A">About FiRadar</div>
+    <p style="font-size:11.5px;color:#8A8680;line-height:1.7">FiRadar is an elite Fintech Accelerator and Advisory firm representing Managing Partner Tom Penton and 5,000+ C-level Bank and Credit Union executives. With 27 years of boardroom trust and 8 successful exits, FiRadar's Green-Light framework is the standard for institutional readiness in the FI ecosystem.</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div style="background:#0B1628;padding:20px 48px;display:flex;align-items:center;justify-content:space-between;margin-top:auto">
+  <div>
+    <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff">FiRadar</div>
+    <div style="font-size:10px;font-family:'DM Mono',monospace;color:rgba(255,255,255,.4);letter-spacing:.06em">tom.penton@firadar.com · www.firadar.com</div>
+  </div>
+  <div style="font-size:10px;font-family:'DM Mono',monospace;color:rgba(255,255,255,.3);text-align:right">
+    Confidential — Investment Committee Use Only<br/>
+    FiRadar Strategic Audit Suite · ${date}
+  </div>
+</div>
+
+</body></html>`;
+
+  const win=window.open('','_blank','width=900,height=700');
+  if(!win){alert('Please allow popups to generate the PDF report.');return;}
+  win.document.write(pdfHTML);
+  win.document.close();
+  win.onload=function(){
+    setTimeout(()=>{win.focus();win.print();},500);
+  };
+}
+
+const ANTHROPIC_HEADERS = {
+  'Content-Type': 'application/json'
+};
+const API_ENDPOINT = '/.netlify/functions/proxy';
+
+// Timeout wrapper — rejects after ms milliseconds
+function withTimeout(promise, ms=30000){
+  return Promise.race([
+    promise,
+    new Promise((_,reject)=>setTimeout(()=>reject(new Error('timeout')),ms))
+  ]);
+}
+
+async function callAPI(userText){
+  if(userText) history.push({role:'user',content:userText});
+  try{
+    const res=await withTimeout(fetch(API_ENDPOINT,{
+      method:'POST',headers:ANTHROPIC_HEADERS,
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1200,system:buildSys(),messages:history})
+    }));
+    const data=await res.json();
+    if(data.error){console.error('API error:',data.error);throw new Error(data.error.message);}
+    const raw=data.content.map(b=>b.text||'').join('');
+    history.push({role:'assistant',content:raw});
+    return raw;
+  }catch(e){
+    console.error('callAPI failed:',e);
+    throw e;
+  }
+}
+
+async function callScrape(url){
+  try{
+    const res=await withTimeout(fetch(API_ENDPOINT,{
+      method:'POST',headers:ANTHROPIC_HEADERS,
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',max_tokens:800,
+        system:`You are a fintech research analyst. Based on your training knowledge about the company at the given URL, return a JSON object with what you know. Return ONLY raw JSON (no markdown, no fences, no explanation):
+{"companyName":"...","oneLiner":"...","stage":"...","estimatedARR":"...","keyInvestors":"...","coreIntegrations":"...","regulatoryStatus":"...","boardProblemFit":"...","notableClients":"...","founded":"...","teamSize":"...","flags":["..."]}
+Use "Unknown" for fields you are not confident about. flags = genuine gaps or concerns only. If you don't recognize the company, return all fields as "Unknown".`,
+        messages:[{role:'user',content:`What do you know about this company from your training data? URL: ${url}`}]
+      })
+    }));
+    const data=await res.json();
+    if(data.error) throw new Error(data.error.message);
+    const raw=data.content.map(b=>b.text||'').join('');
+    const clean=raw.replace(/```json|```/g,'').trim();
+    const parsed=JSON.parse(clean);
+    const knownCount=Object.values(parsed).filter(v=>v&&v!=='Unknown'&&!(Array.isArray(v)&&v.every(x=>x==='None'||x==='Unknown'))).length;
+    return knownCount>=2?parsed:null;
+  }catch(e){
+    console.error('callScrape failed:',e);
+    return null;
+  }
+}
+function renderChips(d){
+  const strip=document.getElementById('intelStrip');strip.innerHTML='';strip.style.display='flex';
+  [{k:'companyName',l:'Company'},{k:'stage',l:'Stage'},{k:'estimatedARR',l:'ARR'},{k:'regulatoryStatus',l:'Regulatory'},{k:'coreIntegrations',l:'Core'},{k:'notableClients',l:'Clients'},{k:'teamSize',l:'Team'}]
+    .forEach(f=>{if(d[f.k]&&d[f.k]!=='Unknown'){const c=document.createElement('div');c.className='ag-chip g';c.textContent=f.l+': '+d[f.k];strip.appendChild(c);}});
+  if(d.flags)d.flags.forEach(f=>{if(f&&f!=='None'){const c=document.createElement('div');c.className='ag-chip a';c.textContent='⚠ '+f;strip.appendChild(c);}});
+  const unk=['stage','estimatedARR','regulatoryStatus','coreIntegrations','notableClients'].filter(k=>!d[k]||d[k]==='Unknown');
+  if(unk.length){const c=document.createElement('div');c.className='ag-chip gr';c.textContent=unk.length+' gaps to probe';strip.appendChild(c);}
+}
+
+async function doScan(){
+  const url=document.getElementById('urlInput').value.trim();if(!url)return;
+  const btn=document.getElementById('scanBtn');btn.disabled=true;btn.innerHTML='<i class="ti ti-loader" aria-hidden="true"></i> Scanning...';
+  showTyping('sTyp');
+  let d=null;try{d=await callScrape(url);}catch(e){}
+  rmTyping('sTyp');
+  if(d){
+    intel=JSON.stringify(d,null,2);
+    auditData.companyName=d.companyName&&d.companyName!=='Unknown'?d.companyName:'';
+    renderChips(d);
+    const name=auditData.companyName||'this company';
+    let msg=`Intel acquired on <strong>${name}</strong>.`;
+    if(d.oneLiner&&d.oneLiner!=='Unknown')msg+=' '+d.oneLiner+'.';
+    if(d.stage&&d.stage!=='Unknown')msg+=` Currently at <strong>${d.stage}</strong> stage.`;
+    if(d.keyInvestors&&d.keyInvestors!=='Unknown')msg+=` Backed by ${d.keyInvestors}.`;
+    if(d.flags&&d.flags.filter(f=>f&&f!=='None').length>0)msg+=`<br><br><strong>Gaps flagged:</strong> ${d.flags.filter(f=>f&&f!=='None').join('; ')}.`;
+    msg+='<br><br>Initiating audit — focusing on unverified dimensions.';
+    addMsg('assistant',msg,true);
+  }else{intel='';addMsg('assistant','URL scan returned limited data. Proceeding with full audit questionnaire.',true);}
+  document.getElementById('scanPanel').style.opacity='0.6';
+  btn.innerHTML='<i class="ti ti-check" aria-hidden="true"></i> Scanned';
+  document.getElementById('stepLbl').textContent='Audit in progress';
+  // Show MNDA checkbox panel
+  document.getElementById('mndaPanel').style.display='block';
+  await new Promise(r=>setTimeout(r,400));
+  await startAudit();
+}
+async function startAudit(){
+  busy=true;showTyping();
+  try{
+    const reply=await callAPI(intel?'I have shared my URL. Please begin the audit.':'I am ready to begin.');
+    rmTyping();
+    const sc=parseSc(reply);
+    const clean=reply.replace(/SCORES:\{[^}]*(?:\[[^\]]*\])[^}]*\}/g,'').replace(/SCORES:\{[^}]+\}/g,'').replace(/VERDICT_JSON:\{[^}]+\}/,'').trim().replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
+    addMsg('assistant',clean);
+    if(sc)applyScores(sc);
+  }catch(e){
+    rmTyping();
+    addMsg('assistant','Connection issue — please refresh and try again. If the problem persists, contact tom.penton@firadar.com.');
+  }
+  qCount=1;document.getElementById('stepLbl').textContent='Audit step 1 / 10';
+  busy=false;document.getElementById('inp').disabled=false;document.getElementById('sendBtn').disabled=false;
+}
+async function send(){
+  if(busy||done)return;
+  const inp=document.getElementById('inp');
+  const txt=inp.value.trim();if(!txt)return;
+  inp.value='';inp.style.height='auto';
+  document.getElementById('sendBtn').disabled=true;busy=true;
+  addMsg('user',txt.replace(/\n/g,'<br>'));
+  qCount=Math.min(qCount+1,10);
+  document.getElementById('stepLbl').textContent='Audit step '+qCount+' / 10';
+  showTyping();
+  try{
+    const reply=await callAPI(txt);rmTyping();
+    const sc=parseSc(reply);const v=parseV(reply);
+    const clean=reply.replace(/SCORES:\{[^}]*(?:\[[^\]]*\])[^}]*\}/g,'').replace(/SCORES:\{[^}]+\}/g,'').replace(/VERDICT_JSON:\{[^}]+\}/,'').trim().replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
+    addMsg('assistant',clean);
+    if(sc)applyScores(sc);
+    if(v){
+      renderVerdict(v);done=true;qCount=10;
+      document.getElementById('stepLbl').textContent='Audit complete';
+      document.getElementById('inp').placeholder='Audit complete. Reports ready below.';
+      document.getElementById('sendBtn').disabled=true;
+      await genEmails();
+      document.getElementById('emailSection').style.display='block';
+      return;
+    }
+  }catch(e){rmTyping();addMsg('assistant','Connectivity issue — please try again.');}
+  busy=false;document.getElementById('sendBtn').disabled=false;
+}
+
+document.getElementById('scanBtn').addEventListener('click',doScan);
+document.getElementById('urlInput').addEventListener('keydown',e=>{if(e.key==='Enter')doScan();});
+document.getElementById('sendBtn').addEventListener('click',send);
+document.getElementById('inp').addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}});
+document.getElementById('inp').addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,90)+'px';});
+updateDial();
+</script>
+</body>
+</html>
