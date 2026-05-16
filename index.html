@@ -1589,58 +1589,46 @@ function generatePDF(){
   };
 }
 
-const ANTHROPIC_HEADERS = {
-  'Content-Type': 'application/json'
-};
-const API_ENDPOINT = '/.netlify/functions/proxy';
-
-// Timeout wrapper — rejects after ms milliseconds
-function withTimeout(promise, ms=30000){
-  return Promise.race([
-    promise,
-    new Promise((_,reject)=>setTimeout(()=>reject(new Error('timeout')),ms))
-  ]);
-}
-
 async function callAPI(userText){
   if(userText) history.push({role:'user',content:userText});
-  try{
-    const res=await withTimeout(fetch(API_ENDPOINT,{
-      method:'POST',headers:ANTHROPIC_HEADERS,
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1200,system:buildSys(),messages:history})
-    }));
-    const data=await res.json();
-    if(data.error){console.error('API error:',data.error);throw new Error(data.error.message);}
-    const raw=data.content.map(b=>b.text||'').join('');
-    history.push({role:'assistant',content:raw});
-    return raw;
-  }catch(e){
-    console.error('callAPI failed:',e);
-    throw e;
-  }
+  const res=await fetch('/.netlify/functions/proxy',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      model:'claude-sonnet-4-20250514',
+      max_tokens:1200,
+      system:buildSys(),
+      messages:history
+    })
+  });
+  const data=await res.json();
+  if(data.error) throw new Error(data.error.message);
+  const raw=data.content.map(b=>b.text||'').join('');
+  history.push({role:'assistant',content:raw});
+  return raw;
 }
 
 async function callScrape(url){
   try{
-    const res=await withTimeout(fetch(API_ENDPOINT,{
-      method:'POST',headers:ANTHROPIC_HEADERS,
+    const res=await fetch('/.netlify/functions/proxy',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',max_tokens:800,
-        system:`You are a fintech research analyst. Based on your training knowledge about the company at the given URL, return a JSON object with what you know. Return ONLY raw JSON (no markdown, no fences, no explanation):
+        model:'claude-sonnet-4-20250514',
+        max_tokens:600,
+        system:`You are a fintech research analyst. Based on your training knowledge return ONLY a raw JSON object, no markdown, no explanation:
 {"companyName":"...","oneLiner":"...","stage":"...","estimatedARR":"...","keyInvestors":"...","coreIntegrations":"...","regulatoryStatus":"...","boardProblemFit":"...","notableClients":"...","founded":"...","teamSize":"...","flags":["..."]}
-Use "Unknown" for fields you are not confident about. flags = genuine gaps or concerns only. If you don't recognize the company, return all fields as "Unknown".`,
-        messages:[{role:'user',content:`What do you know about this company from your training data? URL: ${url}`}]
+Use "Unknown" for anything you are not confident about.`,
+        messages:[{role:'user',content:'What do you know about: '+url}]
       })
-    }));
+    });
     const data=await res.json();
-    if(data.error) throw new Error(data.error.message);
+    if(data.error) return null;
     const raw=data.content.map(b=>b.text||'').join('');
-    const clean=raw.replace(/```json|```/g,'').trim();
-    const parsed=JSON.parse(clean);
-    const knownCount=Object.values(parsed).filter(v=>v&&v!=='Unknown'&&!(Array.isArray(v)&&v.every(x=>x==='None'||x==='Unknown'))).length;
-    return knownCount>=2?parsed:null;
+    const parsed=JSON.parse(raw.replace(/```json|```/g,'').trim());
+    const known=Object.values(parsed).filter(v=>v&&v!=='Unknown').length;
+    return known>=2?parsed:null;
   }catch(e){
-    console.error('callScrape failed:',e);
     return null;
   }
 }
