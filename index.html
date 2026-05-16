@@ -1274,16 +1274,17 @@ function handleMNDA(checked){
   mndaRequested=checked;
   document.getElementById('mndaConfirm').style.display=checked?'block':'none';
   if(checked){
-    // Log MNDA request to audit data
     auditData.mndaRequested=true;
-    // Send a quiet system note into the conversation so the analyst is aware
-    history.push({role:'user',content:'[SYSTEM NOTE: This fintech has requested an MNDA before sharing sensitive details. Please acknowledge this professionally in your next response, reassure them about confidentiality, and let them know Tom Penton\'s team will be in touch. Continue the audit at whatever pace they are comfortable with.]'});
-    callAPI('').then(reply=>{
-      const sc=parseSc(reply);
-      const clean=reply.replace(/SCORES:\{[^}]*(?:\[[^\]]*\])[^}]*\}/g,'').replace(/SCORES:\{[^}]+\}/g,'').replace(/VERDICT_JSON:\{[^}]+\}/,'').trim().replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
-      if(clean) addMsg('assistant',clean);
-      if(sc) applyScores(sc);
-    }).catch(()=>{});
+    // Just add a note to history — don't trigger a new API call
+    history.push({
+      role:'user',
+      content:'I would like to request a Mutual NDA before sharing sensitive details.'
+    });
+    history.push({
+      role:'assistant',
+      content:'Understood — and that is a professional and prudent request. I have noted your MNDA request. Tom Penton\'s team will reach out within 1 business day to execute the agreement. In the meantime, please feel free to answer at whatever level of detail you are comfortable with. We can fill in the specifics post-MNDA. Let\'s continue.'
+    });
+    addMsg('assistant','Understood — and that is a professional and prudent request. I have noted your MNDA request. Tom Penton\'s team will reach out within 1 business day to execute the agreement. In the meantime, please feel free to answer at whatever level of detail you are comfortable with. Let\'s continue.');
   }
 }
 
@@ -1713,10 +1714,10 @@ async function doScan(){
   document.getElementById('scanPanel').style.opacity='0.6';
   btn.innerHTML='<i class="ti ti-check" aria-hidden="true"></i> Scanned';
   document.getElementById('stepLbl').textContent='Audit in progress';
-  // Show MNDA checkbox panel
-  document.getElementById('mndaPanel').style.display='block';
   await new Promise(r=>setTimeout(r,400));
   await startAudit();
+  // Show MNDA panel only after audit has started
+  document.getElementById('mndaPanel').style.display='block';
 }
 async function startAudit(){
   busy=true;showTyping();
