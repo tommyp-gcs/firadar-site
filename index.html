@@ -750,7 +750,6 @@ footer {
 
       </div>
 
-      <!-- MNDA Banner -->
       <div style="background:linear-gradient(135deg,rgba(255,77,85,0.1),rgba(255,77,85,0.03));border:1px solid rgba(255,77,85,0.25);border-radius:var(--radius-lg);padding:1.5rem 2rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;">
         <div style="width:44px;height:44px;border:1.5px solid var(--coral);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
           <i class="ti ti-lock" aria-hidden="true" style="color:var(--coral);font-size:20px"></i>
@@ -1051,27 +1050,9 @@ footer {
           </div>
           <div class="ag-intel-strip" id="intelStrip" style="display:none"></div>
         </div>
-
-        <!-- MNDA PANEL — shown after scan, before audit begins -->
-        <div id="mndaPanel" style="display:none;margin:.5rem 1rem;border:.5px solid rgba(255,77,85,0.3);border-radius:8px;overflow:hidden;">
-          <div style="background:rgba(255,77,85,0.06);padding:.65rem 1rem;display:flex;align-items:flex-start;gap:12px;">
-            <div style="flex-shrink:0;margin-top:2px;">
-              <input type="checkbox" id="mndaCheck" style="width:16px;height:16px;accent-color:#ff4d55;cursor:pointer;" onchange="handleMNDA(this.checked)"/>
-            </div>
-            <div>
-              <label for="mndaCheck" style="font-size:12px;font-weight:600;color:#14233b;font-family:'Inter',sans-serif;cursor:pointer;display:block;margin-bottom:3px;">
-                I'd like to execute a Mutual NDA before proceeding
-              </label>
-              <div style="font-size:11px;color:#8892a0;font-family:'DM Mono',monospace;line-height:1.6;">
-                Check this box and Tom Penton's team will reach out within 1 business day to execute an MNDA before any sensitive information is shared. Your audit session will continue — just let the analyst know when you're ready.
-              </div>
-            </div>
             <div style="flex-shrink:0;">
               <i class="ti ti-lock" aria-hidden="true" style="color:#ff4d55;font-size:18px;opacity:.7"></i>
             </div>
-          </div>
-          <div id="mndaConfirm" style="display:none;background:#EAF3DE;padding:.5rem 1rem;font-size:11px;font-family:'DM Mono',monospace;color:#3B6D11;letter-spacing:.04em;">
-            ✓ MNDA request noted — Tom's team will be in touch within 1 business day. You may continue the audit at whatever level of detail you're comfortable with.
           </div>
         </div>
 
@@ -1202,7 +1183,6 @@ const DIM_MAX=[200,150,150,150,200,150];
 const DIM_LABELS=['Track record','Core compat.','Regulatory','Board fit','Client proof','Unit econ.'];
 let history=[],intel='',qCount=0,done=false,busy=false;
 let scores=[0,0,0,0,0,0];
-let mndaRequested=false;
 let auditData={companyName:'',contactName:'',contactEmail:'',verdict:null,analystSummary:''};
 
 function totalScore(){return scores.reduce((a,b)=>a+b,0)}
@@ -1273,13 +1253,12 @@ function rmTyping(id){const el=document.getElementById(id||'typDot');if(el)el.re
 
 function buildSys(){
   const is=intel?`\n\nPRE-LOADED INTEL:\n${intel}\nSkip answered questions. Reference facts. Focus on gaps.\n`:'';
-  const mndaSec=mndaRequested?`\n\nMNDA STATUS: This fintech has checked the MNDA box and requested a Mutual NDA. You have already acknowledged this. For sensitive questions (ARR, named clients, investors, cap table), remind them they can answer at a high level now and provide full details post-MNDA. Never pressure them for specifics they seem reluctant to share. Note in your conclusion that the MNDA process will be initiated.\n`:'';
   return `You are the Lead Strategic Analyst for FiRadar, an elite Fintech Accelerator led by Managing Partner Tom Penton with a network of 5,000+ C-level Bank and Credit Union executives. FiRadar has 27 years of boardroom trust and 8 successful exits.
 
 OBJECTIVE: Conduct an Institutional Readiness Audit for: (1) FiRadar Network, (2) Investment/Acceleration, (3) Sales Acceleration.
 
 TONE: Professional, direct, authoritative, slightly skeptical. Bank-speak: SOC2, Core-integration, ROI, FFIEC, OCC, BSA/AML, ALCO, NRR, capital efficiency, Top-3 Board priorities.
-${is}${mndaSec}
+${is}
 After EVERY message output:
 SCORES:{"trackRecord":N,"coreCompat":N,"regulatory":N,"boardFit":N,"clientProof":N,"unitEcon":N,"bumps":[{"dim":0,"gained":N,"reason":"≤5 words"}]}
 Max: trackRecord=200,coreCompat=150,regulatory=150,boardFit=150,clientProof=200,unitEcon=150. Only increase scores.
@@ -1288,7 +1267,7 @@ RUBRIC: trackRecord: seed=40-80,SeriesA+=100-160,exits=160-200. coreCompat: midd
 
 RULES: One question at a time. Concise. Push back on vague: "Our 5,000+ CEO network requires specifics." Mention score incentive occasionally. After 4-6 answers deliver conclusion.
 
-CONCLUSION: "I have sufficient data for the preliminary triage. Based on FiRadar's rigorous Green-Light standards — the same framework behind our 8 successful exits — I will escalate this to Managing Partner Tom Penton. [2-3 sentence assessment]. To receive the full Gap Analysis, please confirm: name, email, and company."${mndaRequested?` Note that the MNDA process will be initiated in parallel.`:''}
+CONCLUSION: "I have sufficient data for the preliminary triage. Based on FiRadar's rigorous Green-Light standards — the same framework behind our 8 successful exits — I will escalate this to Managing Partner Tom Penton. [2-3 sentence assessment]. To receive the full Gap Analysis, please confirm: name, email, and company."
 
 Then on separate lines:
 SCORES:{...,"bumps":[]}
@@ -1379,7 +1358,6 @@ COMPANY:         ${co}
 CONTACT:         ${contact}${auditData.contactEmail?' · '+auditData.contactEmail:''}
 FIRADAR SCORE:   ${total}/1000 — ${ti.label}
 AUDIT DATE:      ${date}
-MNDA REQUESTED:  ${auditData.mndaRequested?'YES — initiate MNDA process':'No'}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 TRIAGE OUTCOME
@@ -1675,16 +1653,7 @@ function renderChips(d){
   if(unk.length){const c=document.createElement('div');c.className='ag-chip gr';c.textContent=unk.length+' gaps to probe';strip.appendChild(c);}
 }
 
-function handleMNDA(checked){
-  mndaRequested=checked;
-  document.getElementById('mndaConfirm').style.display=checked?'block':'none';
-  if(checked){
-    auditData.mndaRequested=true;
-    addMsg('assistant','Understood — a very professional and prudent request. I have noted your MNDA request and Tom Penton\'s team will reach out within 1 business day to execute the agreement. Please continue answering at whatever level of detail you are comfortable with.');
-    history.push({role:'user',content:'I would like to request a Mutual NDA before sharing sensitive details.'});
-    history.push({role:'assistant',content:'Understood — a very professional and prudent request. I have noted your MNDA request and Tom Penton\'s team will reach out within 1 business day to execute the agreement. Please continue answering at whatever level of detail you are comfortable with.'});
-  }
-}
+
 
 async function doScan(){
   const url=document.getElementById('urlInput').value.trim();
@@ -1723,9 +1692,6 @@ async function doScan(){
   document.getElementById('scanPanel').style.opacity='0.6';
   btn.innerHTML='<i class="ti ti-check" aria-hidden="true"></i> Scanned';
   document.getElementById('stepLbl').textContent='Audit in progress';
-
-  // Step 4: Show MNDA panel
-  document.getElementById('mndaPanel').style.display='block';
 
   // Step 5: Short pause then start audit
   await new Promise(r=>setTimeout(r,600));
