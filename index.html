@@ -1270,23 +1270,6 @@ function showTyping(id){
 }
 function rmTyping(id){const el=document.getElementById(id||'typDot');if(el)el.remove()}
 
-function handleMNDA(checked){
-  mndaRequested=checked;
-  document.getElementById('mndaConfirm').style.display=checked?'block':'none';
-  if(checked){
-    auditData.mndaRequested=true;
-    // Just add a note to history — don't trigger a new API call
-    history.push({
-      role:'user',
-      content:'I would like to request a Mutual NDA before sharing sensitive details.'
-    });
-    history.push({
-      role:'assistant',
-      content:'Understood — and that is a professional and prudent request. I have noted your MNDA request. Tom Penton\'s team will reach out within 1 business day to execute the agreement. In the meantime, please feel free to answer at whatever level of detail you are comfortable with. We can fill in the specifics post-MNDA. Let\'s continue.'
-    });
-    addMsg('assistant','Understood — and that is a professional and prudent request. I have noted your MNDA request. Tom Penton\'s team will reach out within 1 business day to execute the agreement. In the meantime, please feel free to answer at whatever level of detail you are comfortable with. Let\'s continue.');
-  }
-}
 
 function buildSys(){
   const is=intel?`\n\nPRE-LOADED INTEL:\n${intel}\nSkip answered questions. Reference facts. Focus on gaps.\n`:'';
@@ -1692,67 +1675,125 @@ function renderChips(d){
   if(unk.length){const c=document.createElement('div');c.className='ag-chip gr';c.textContent=unk.length+' gaps to probe';strip.appendChild(c);}
 }
 
+function handleMNDA(checked){
+  mndaRequested=checked;
+  document.getElementById('mndaConfirm').style.display=checked?'block':'none';
+  if(checked){
+    auditData.mndaRequested=true;
+    addMsg('assistant','Understood — a very professional and prudent request. I have noted your MNDA request and Tom Penton\'s team will reach out within 1 business day to execute the agreement. Please continue answering at whatever level of detail you are comfortable with.');
+    history.push({role:'user',content:'I would like to request a Mutual NDA before sharing sensitive details.'});
+    history.push({role:'assistant',content:'Understood — a very professional and prudent request. I have noted your MNDA request and Tom Penton\'s team will reach out within 1 business day to execute the agreement. Please continue answering at whatever level of detail you are comfortable with.'});
+  }
+}
+
 async function doScan(){
-  const url=document.getElementById('urlInput').value.trim();if(!url)return;
-  const btn=document.getElementById('scanBtn');btn.disabled=true;btn.innerHTML='<i class="ti ti-loader" aria-hidden="true"></i> Scanning...';
+  const url=document.getElementById('urlInput').value.trim();
+  if(!url) return;
+
+  // Lock scan UI
+  const btn=document.getElementById('scanBtn');
+  btn.disabled=true;
+  btn.innerHTML='<i class="ti ti-loader" aria-hidden="true"></i> Scanning...';
+
+  // Step 1: Try to scrape intel
   showTyping('sTyp');
-  let d=null;try{d=await callScrape(url);}catch(e){}
+  let d=null;
+  try{ d=await callScrape(url); }catch(e){ console.error('Scrape error:',e); }
   rmTyping('sTyp');
+
+  // Step 2: Show intel result
   if(d){
     intel=JSON.stringify(d,null,2);
     auditData.companyName=d.companyName&&d.companyName!=='Unknown'?d.companyName:'';
     renderChips(d);
     const name=auditData.companyName||'this company';
     let msg=`Intel acquired on <strong>${name}</strong>.`;
-    if(d.oneLiner&&d.oneLiner!=='Unknown')msg+=' '+d.oneLiner+'.';
-    if(d.stage&&d.stage!=='Unknown')msg+=` Currently at <strong>${d.stage}</strong> stage.`;
-    if(d.keyInvestors&&d.keyInvestors!=='Unknown')msg+=` Backed by ${d.keyInvestors}.`;
-    if(d.flags&&d.flags.filter(f=>f&&f!=='None').length>0)msg+=`<br><br><strong>Gaps flagged:</strong> ${d.flags.filter(f=>f&&f!=='None').join('; ')}.`;
+    if(d.oneLiner&&d.oneLiner!=='Unknown') msg+=' '+d.oneLiner+'.';
+    if(d.stage&&d.stage!=='Unknown') msg+=` Currently at <strong>${d.stage}</strong> stage.`;
+    if(d.keyInvestors&&d.keyInvestors!=='Unknown') msg+=` Backed by ${d.keyInvestors}.`;
+    if(d.flags&&d.flags.filter(f=>f&&f!=='None').length>0) msg+=`<br><br><strong>Gaps flagged:</strong> ${d.flags.filter(f=>f&&f!=='None').join('; ')}.`;
     msg+='<br><br>Initiating audit — focusing on unverified dimensions.';
     addMsg('assistant',msg,true);
-  }else{intel='';addMsg('assistant','URL scan returned limited data. Proceeding with full audit questionnaire.',true);}
+  } else {
+    intel='';
+    addMsg('assistant','URL scan returned limited data. Proceeding with full audit questionnaire.',true);
+  }
+
+  // Step 3: Update scan UI
   document.getElementById('scanPanel').style.opacity='0.6';
   btn.innerHTML='<i class="ti ti-check" aria-hidden="true"></i> Scanned';
   document.getElementById('stepLbl').textContent='Audit in progress';
-  await new Promise(r=>setTimeout(r,400));
-  await startAudit();
-  // Show MNDA panel only after audit has started
+
+  // Step 4: Show MNDA panel
   document.getElementById('mndaPanel').style.display='block';
+
+  // Step 5: Short pause then start audit
+  await new Promise(r=>setTimeout(r,600));
+
+  // Step 6: Start the audit — this is the API call
+  await startAudit();
 }
+
 async function startAudit(){
-  busy=true;showTyping();
+  busy=true;
+  showTyping();
   try{
-    const reply=await callAPI(intel?'I have shared my URL. Please begin the audit.':'I am ready to begin.');
+    const userMsg=intel?'I have shared my URL. Please begin the audit.':'I am ready to begin the audit.';
+    const reply=await callAPI(userMsg);
     rmTyping();
     const sc=parseSc(reply);
-    const clean=reply.replace(/SCORES:\{[^}]*(?:\[[^\]]*\])[^}]*\}/g,'').replace(/SCORES:\{[^}]+\}/g,'').replace(/VERDICT_JSON:\{[^}]+\}/,'').trim().replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
-    addMsg('assistant',clean);
-    if(sc)applyScores(sc);
+    const clean=reply
+      .replace(/SCORES:\{[^}]*(?:\[[^\]]*\])[^}]*\}/g,'')
+      .replace(/SCORES:\{[^}]+\}/g,'')
+      .replace(/VERDICT_JSON:\{[^}]+\}/,'')
+      .trim()
+      .replace(/\n\n/g,'<br><br>')
+      .replace(/\n/g,'<br>');
+    if(clean) addMsg('assistant',clean);
+    if(sc) applyScores(sc);
   }catch(e){
     rmTyping();
-    addMsg('assistant','Connection issue — please refresh and try again. If the problem persists, contact tom.penton@firadar.com.');
+    console.error('startAudit error:',e);
+    addMsg('assistant','I apologize — there was a connection issue starting the audit. Please refresh the page and try again.');
   }
-  qCount=1;document.getElementById('stepLbl').textContent='Audit step 1 / 10';
-  busy=false;document.getElementById('inp').disabled=false;document.getElementById('sendBtn').disabled=false;
+  qCount=1;
+  document.getElementById('stepLbl').textContent='Audit step 1 / 10';
+  busy=false;
+  document.getElementById('inp').disabled=false;
+  document.getElementById('sendBtn').disabled=false;
 }
+
 async function send(){
-  if(busy||done)return;
+  if(busy||done) return;
   const inp=document.getElementById('inp');
-  const txt=inp.value.trim();if(!txt)return;
-  inp.value='';inp.style.height='auto';
-  document.getElementById('sendBtn').disabled=true;busy=true;
+  const txt=inp.value.trim();
+  if(!txt) return;
+  inp.value='';
+  inp.style.height='auto';
+  document.getElementById('sendBtn').disabled=true;
+  busy=true;
   addMsg('user',txt.replace(/\n/g,'<br>'));
   qCount=Math.min(qCount+1,10);
   document.getElementById('stepLbl').textContent='Audit step '+qCount+' / 10';
   showTyping();
   try{
-    const reply=await callAPI(txt);rmTyping();
-    const sc=parseSc(reply);const v=parseV(reply);
-    const clean=reply.replace(/SCORES:\{[^}]*(?:\[[^\]]*\])[^}]*\}/g,'').replace(/SCORES:\{[^}]+\}/g,'').replace(/VERDICT_JSON:\{[^}]+\}/,'').trim().replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
-    addMsg('assistant',clean);
-    if(sc)applyScores(sc);
+    const reply=await callAPI(txt);
+    rmTyping();
+    const sc=parseSc(reply);
+    const v=parseV(reply);
+    const clean=reply
+      .replace(/SCORES:\{[^}]*(?:\[[^\]]*\])[^}]*\}/g,'')
+      .replace(/SCORES:\{[^}]+\}/g,'')
+      .replace(/VERDICT_JSON:\{[^}]+\}/,'')
+      .trim()
+      .replace(/\n\n/g,'<br><br>')
+      .replace(/\n/g,'<br>');
+    if(clean) addMsg('assistant',clean);
+    if(sc) applyScores(sc);
     if(v){
-      renderVerdict(v);done=true;qCount=10;
+      renderVerdict(v);
+      done=true;
+      qCount=10;
       document.getElementById('stepLbl').textContent='Audit complete';
       document.getElementById('inp').placeholder='Audit complete. Reports ready below.';
       document.getElementById('sendBtn').disabled=true;
@@ -1760,8 +1801,13 @@ async function send(){
       document.getElementById('emailSection').style.display='block';
       return;
     }
-  }catch(e){rmTyping();addMsg('assistant','Connectivity issue — please try again.');}
-  busy=false;document.getElementById('sendBtn').disabled=false;
+  }catch(e){
+    rmTyping();
+    console.error('send error:',e);
+    addMsg('assistant','Connectivity issue — please try again.');
+  }
+  busy=false;
+  document.getElementById('sendBtn').disabled=false;
 }
 
 document.getElementById('scanBtn').addEventListener('click',doScan);
