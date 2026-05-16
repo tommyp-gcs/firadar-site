@@ -1595,7 +1595,7 @@ async function callAPI(userText){
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({
-      model:'claude-sonnet-4-20250514',
+      model:'claude-sonnet-4-5',
       max_tokens:1200,
       system:buildSys(),
       messages:history
@@ -1614,7 +1614,7 @@ async function callScrape(url){
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
+        model:'claude-sonnet-4-5',
         max_tokens:600,
         system:`You are a fintech research analyst. Based on your training knowledge return ONLY a raw JSON object, no markdown, no explanation:
 {"companyName":"...","oneLiner":"...","stage":"...","estimatedARR":"...","keyInvestors":"...","coreIntegrations":"...","regulatoryStatus":"...","boardProblemFit":"...","notableClients":"...","founded":"...","teamSize":"...","flags":["..."]}
