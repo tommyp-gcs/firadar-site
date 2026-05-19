@@ -1183,7 +1183,11 @@ const DIM_MAX=[200,150,150,150,200,150];
 const DIM_LABELS=['Track record','Core compat.','Regulatory','Board fit','Client proof','Unit econ.'];
 let history=[],intel='',qCount=0,done=false,busy=false;
 let scores=[0,0,0,0,0,0];
-let auditData={companyName:'',contactName:'',contactEmail:'',verdict:null,analystSummary:''};
+let auditData={
+  companyName:'',contactName:'',contactEmail:'',
+  verdict:null,analystSummary:'',
+  mndaAsked:false,mndaSigned:false,mndaTimestamp:''
+};
 
 function totalScore(){return scores.reduce((a,b)=>a+b,0)}
 function scoreColor(s){const p=s/1000;if(p>=.75)return'#1D9E75';if(p>=.5)return'#BA7517';if(p>=.25)return'#D85A30';return'#E24B4A'}
@@ -1252,27 +1256,41 @@ function rmTyping(id){const el=document.getElementById(id||'typDot');if(el)el.re
 
 
 function buildSys(){
-  const is=intel?`\n\nPRE-LOADED INTEL:\n${intel}\nSkip answered questions. Reference facts. Focus on gaps.\n`:'';
+  const is=intel?`\n\nPRE-LOADED INTEL:\n${intel}\nUse this to award baseline SCORES immediately. Skip questions already answered. Reference specific facts. Focus on gaps.\n`:'';
+  const mndaSec=auditData.mndaSigned?`\n\nMNDA STATUS: EXECUTED. The fintech has agreed to the Mutual NDA at ${auditData.mndaTimestamp}. You may now ask sensitive questions freely — ARR, named clients, cap table, investors, margins. Reference the MNDA agreement in your questions to signal trust.\n`:auditData.mndaAsked?`\n\nMNDA STATUS: ASKED BUT NOT YET CONFIRMED. Wait for their confirmation before proceeding with sensitive questions.\n`:'';
   return `You are the Lead Strategic Analyst for FiRadar, an elite Fintech Accelerator led by Managing Partner Tom Penton with a network of 5,000+ C-level Bank and Credit Union executives. FiRadar has 27 years of boardroom trust and 8 successful exits.
 
 OBJECTIVE: Conduct an Institutional Readiness Audit for: (1) FiRadar Network, (2) Investment/Acceleration, (3) Sales Acceleration.
 
 TONE: Professional, direct, authoritative, slightly skeptical. Bank-speak: SOC2, Core-integration, ROI, FFIEC, OCC, BSA/AML, ALCO, NRR, capital efficiency, Top-3 Board priorities.
-${is}
+${is}${mndaSec}
 After EVERY message output:
 SCORES:{"trackRecord":N,"coreCompat":N,"regulatory":N,"boardFit":N,"clientProof":N,"unitEcon":N,"bumps":[{"dim":0,"gained":N,"reason":"≤5 words"}]}
-Max: trackRecord=200,coreCompat=150,regulatory=150,boardFit=150,clientProof=200,unitEcon=150. Only increase scores.
+Max: trackRecord=200,coreCompat=150,regulatory=150,boardFit=150,clientProof=200,unitEcon=150. Only increase scores. Award baseline scores immediately from pre-loaded intel.
 
 RUBRIC: trackRecord: seed=40-80,SeriesA+=100-160,exits=160-200. coreCompat: middleware=30,native=80,certified core partner=120-150. regulatory: SOC2I=60,SOC2II=100,FFIEC=130-150. boardFit: adjacent=40,Deposits/Fraud/Efficiency=80-120,+ROI proof=130-150. clientProof: pilots=30,1-5 named FIs=60-100,10+ with AUM data=130-200. unitEcon: pre-revenue=20,ARR+NRR=80-130,NRR>110%=140-150.
 
-RULES: One question at a time. Concise. Push back on vague: "Our 5,000+ CEO network requires specifics." Mention score incentive occasionally. After 4-6 answers deliver conclusion.
+AUDIT FLOW — follow this sequence strictly:
 
-CONCLUSION: "I have sufficient data for the preliminary triage. Based on FiRadar's rigorous Green-Light standards — the same framework behind our 8 successful exits — I will escalate this to Managing Partner Tom Penton. [2-3 sentence assessment]. To receive the full Gap Analysis, please confirm: name, email, and company."
+STEP 1 — OPENING: Greet them, reference the intel scan, display their baseline score context, ask 1-2 non-sensitive surface questions (product category, founding story, team size).
+
+STEP 2 — MNDA: After 1-2 surface questions, say exactly:
+"Based on what I've seen so far, your preliminary score has potential to reach significantly higher — but to unlock the full audit and give you access to FiRadar's investment committee and Tom Penton's network, I'll need you to execute a Mutual Non-Disclosure Agreement. This protects both parties as we discuss sensitive financial and operational details. Do you agree to execute the FiRadar Mutual NDA?"
+Then output: MNDA_REQUESTED
+
+STEP 3 — MNDA CONFIRMED: When they say yes/agree/I agree, respond:
+"Excellent. Your agreement has been recorded and timestamped. This constitutes a binding Mutual NDA between you and FiRadar. Tom Penton's team will follow up with the formal executed document. Let's continue — your answers from this point are fully protected."
+Then output: MNDA_SIGNED
+
+STEP 4 — FULL AUDIT: Now ask sensitive questions freely — ARR, named clients, cap table, investors. Remind them occasionally their answers are NDA-protected.
+
+STEP 5 — CONCLUSION: After 4-6 substantive answers post-MNDA:
+"I have sufficient data for the preliminary triage. Based on FiRadar's rigorous Green-Light standards — the same framework behind our 8 successful exits — I will escalate this to Managing Partner Tom Penton. [2-3 sentence assessment in bank-speak]. To receive the full Gap Analysis, please confirm: your name, email, and company."
 
 Then on separate lines:
 SCORES:{...,"bumps":[]}
-VERDICT_JSON:{"network":"green|amber|red","investment":"green|amber|red","salesAccel":"green|amber|red","summary":"one sentence","analystNotes":"2-3 sentence gap analysis"}`;
-}
+VERDICT_JSON:{"network":"green|amber|red","investment":"green|amber|red","salesAccel":"green|amber|red","summary":"one sentence","analystNotes":"2-3 sentence gap analysis"}`;}
+
 
 function parseSc(text){const m=text.match(/SCORES:(\{[^}]*(?:\[[^\]]*\])[^}]*\})/);if(!m)return null;try{return JSON.parse(m[1]);}catch(e){return null}}
 function parseV(text){const m=text.match(/VERDICT_JSON:(\{[^}]+\})/);if(!m)return null;try{return JSON.parse(m[1]);}catch(e){return null}}
@@ -1293,6 +1311,24 @@ function renderVerdict(v){
     </div>`;
   chat.appendChild(card);scrollBot();
   auditData.verdict=v;auditData.analystSummary=v.analystNotes||v.summary;
+}
+
+function showMNDACard(){
+  const chat=document.getElementById('chat');
+  const card=document.createElement('div');
+  card.style.cssText='background:#EAF3DE;border:.5px solid #C0DD97;border-radius:8px;padding:.75rem 1rem;margin-top:.25rem;animation:fadeUp .4s ease;';
+  card.innerHTML=`
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+      <i class="ti ti-lock-check" aria-hidden="true" style="color:#3B6D11;font-size:16px"></i>
+      <span style="font-size:11px;font-weight:700;font-family:'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#3B6D11">Mutual NDA Executed</span>
+    </div>
+    <div style="font-size:12px;color:#3B6D11;font-family:'Poppins',sans-serif;line-height:1.6;">
+      Agreement recorded and timestamped: <strong>${auditData.mndaTimestamp}</strong><br/>
+      Parties: <strong>${auditData.companyName||'Fintech Company'}</strong> &amp; <strong>FiRadar / Tom Penton</strong><br/>
+      A formal executed copy will be emailed to both parties at audit close.
+    </div>`;
+  chat.appendChild(card);
+  scrollBot();
 }
 
 async function genEmails(){
@@ -1358,6 +1394,7 @@ COMPANY:         ${co}
 CONTACT:         ${contact}${auditData.contactEmail?' · '+auditData.contactEmail:''}
 FIRADAR SCORE:   ${total}/1000 — ${ti.label}
 AUDIT DATE:      ${date}
+MNDA STATUS:     ${auditData.mndaSigned?`EXECUTED — ${auditData.mndaTimestamp}`:'Not executed'}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 TRIAGE OUTCOME
@@ -1561,6 +1598,15 @@ function generatePDF(){
       <div style="font-size:12px;color:#4A4740;line-height:1.65">${auditData.action||action}</div>
     </div>
 
+    <div style="margin-top:24px;font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#C8922A;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #C8922A">MNDA Status</div>
+    ${auditData.mndaSigned
+      ?`<div style="background:#EAF3DE;border:1px solid #C0DD97;border-left:4px solid #1D9E75;padding:12px 14px;border-radius:4px;">
+          <div style="font-size:11px;font-weight:700;font-family:'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#1D9E75;margin-bottom:5px;">✓ EXECUTED</div>
+          <div style="font-size:12px;color:#3B6D11;line-height:1.6;">Mutual NDA agreed and timestamped: <strong>${auditData.mndaTimestamp}</strong><br/>Parties: ${auditData.companyName||'Fintech Company'} &amp; FiRadar / Tom Penton</div>
+        </div>`
+      :`<div style="background:#f5f2ed;border:1px solid #d8d4ce;padding:10px 14px;border-radius:4px;font-size:12px;color:#8A8680;">Not executed during this audit session.</div>`
+    }
+
     <div style="margin-top:24px;font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#C8922A;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #C8922A">About FiRadar</div>
     <p style="font-size:11.5px;color:#8A8680;line-height:1.7">FiRadar is an elite Fintech Accelerator and Advisory firm representing Managing Partner Tom Penton and 5,000+ C-level Bank and Credit Union executives. With 27 years of boardroom trust and 8 successful exits, FiRadar's Green-Light framework is the standard for institutional readiness in the FI ecosystem.</p>
   </div>
@@ -1700,6 +1746,8 @@ async function startAudit(){
       .replace(/SCORES:\{[^}]*(?:\[[^\]]*\])[^}]*\}/g,'')
       .replace(/SCORES:\{[^}]+\}/g,'')
       .replace(/VERDICT_JSON:\{[^}]+\}/,'')
+      .replace(/MNDA_REQUESTED/g,'')
+      .replace(/MNDA_SIGNED/g,'')
       .trim()
       .replace(/\n\n/g,'<br><br>')
       .replace(/\n/g,'<br>');
@@ -1733,12 +1781,26 @@ async function send(){
   try{
     const reply=await callAPI(txt);
     rmTyping();
+
+    // Detect MNDA signals in reply
+    if(reply.includes('MNDA_REQUESTED')&&!auditData.mndaAsked){
+      auditData.mndaAsked=true;
+    }
+    if(reply.includes('MNDA_SIGNED')&&!auditData.mndaSigned){
+      auditData.mndaSigned=true;
+      auditData.mndaTimestamp=new Date().toLocaleString('en-US',{dateStyle:'long',timeStyle:'short'});
+      // Show MNDA confirmation card
+      showMNDACard();
+    }
+
     const sc=parseSc(reply);
     const v=parseV(reply);
     const clean=reply
       .replace(/SCORES:\{[^}]*(?:\[[^\]]*\])[^}]*\}/g,'')
       .replace(/SCORES:\{[^}]+\}/g,'')
       .replace(/VERDICT_JSON:\{[^}]+\}/,'')
+      .replace(/MNDA_REQUESTED/g,'')
+      .replace(/MNDA_SIGNED/g,'')
       .trim()
       .replace(/\n\n/g,'<br><br>')
       .replace(/\n/g,'<br>');
