@@ -1264,9 +1264,10 @@ OBJECTIVE: Conduct an Institutional Readiness Audit for: (1) FiRadar Network, (2
 
 TONE: Professional, direct, authoritative, slightly skeptical. Bank-speak: SOC2, Core-integration, ROI, FFIEC, OCC, BSA/AML, ALCO, NRR, capital efficiency, Top-3 Board priorities.
 ${is}${mndaSec}
-After EVERY message output:
+After EVERY message — including your very FIRST response — output:
 SCORES:{"trackRecord":N,"coreCompat":N,"regulatory":N,"boardFit":N,"clientProof":N,"unitEcon":N,"bumps":[{"dim":0,"gained":N,"reason":"≤5 words"}]}
-Max: trackRecord=200,coreCompat=150,regulatory=150,boardFit=150,clientProof=200,unitEcon=150. Only increase scores. Award baseline scores immediately from pre-loaded intel.
+CRITICAL: Your FIRST response MUST include a SCORES block with baseline points from the pre-loaded intel. Do NOT output zero scores if intel is available — award points for everything you can verify from the intel immediately.
+Max: trackRecord=200,coreCompat=150,regulatory=150,boardFit=150,clientProof=200,unitEcon=150. Only increase scores. bumps = dims that gained points this turn only.
 
 RUBRIC: trackRecord: seed=40-80,SeriesA+=100-160,exits=160-200. coreCompat: middleware=30,native=80,certified core partner=120-150. regulatory: SOC2I=60,SOC2II=100,FFIEC=130-150. boardFit: adjacent=40,Deposits/Fraud/Efficiency=80-120,+ROI proof=130-150. clientProof: pilots=30,1-5 named FIs=60-100,10+ with AUM data=130-200. unitEcon: pre-revenue=20,ARR+NRR=80-130,NRR>110%=140-150.
 
@@ -1738,8 +1739,8 @@ async function startAudit(){
   busy=true;
   showTyping();
   try{
-    const userMsg=intel?'I have shared my URL. Please begin the audit.':'I am ready to begin the audit.';
-    const reply=await callAPI(userMsg);
+    const intelSummary=intel?`I have shared my company URL and you have pre-loaded intel on us. Please begin by immediately outputting a SCORES block based on what the intel already reveals, then greet me and ask your first surface question.`:`I am ready to begin the audit. Please output an initial SCORES block (all zeros since no intel is available), greet me, and ask your first question.`;
+    const reply=await callAPI(intelSummary);
     rmTyping();
     const sc=parseSc(reply);
     const clean=reply
@@ -1752,7 +1753,22 @@ async function startAudit(){
       .replace(/\n\n/g,'<br><br>')
       .replace(/\n/g,'<br>');
     if(clean) addMsg('assistant',clean);
-    if(sc) applyScores(sc);
+    if(sc){
+      applyScores(sc);
+      // Show score bump notification if intel gave us baseline points
+      const baseTotal=totalScore();
+      if(baseTotal>0){
+        const chat=document.getElementById('chat');
+        const el=document.createElement('div');
+        el.className='ag-msg';
+        const inner=document.createElement('div');
+        inner.className='ag-bump';
+        inner.innerHTML=`<i class="ti ti-radar" aria-hidden="true" style="font-size:13px"></i> Baseline score: ${baseTotal}/1000 — based on intel scan. Answer questions to increase your score.`;
+        el.appendChild(inner);
+        chat.appendChild(el);
+        scrollBot();
+      }
+    }
   }catch(e){
     rmTyping();
     console.error('startAudit error:',e);
