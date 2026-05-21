@@ -552,15 +552,139 @@ footer {
 
 /* Responsive */
 @media (max-width: 768px) {
-  nav { padding: 0 1.5rem; }
+  /* NAV */
+  nav { padding: 0 1.25rem; height: 64px; }
   .nav-links { display: none; }
-  section { padding: 4rem 1.5rem; }
-  #hero { padding: 6rem 1.5rem 4rem; }
-  .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .nav-logo-text { font-size: 20px; }
+
+  /* HERO */
+  #hero { padding: 5.5rem 1.25rem 3rem; min-height: auto; }
+  .hero-headline { font-size: 2.4rem; line-height: 1.05; }
+  .hero-sub { font-size: 0.95rem; }
+  .hero-stats { gap: 1.25rem; flex-wrap: wrap; }
+  .hero-stats > div { flex: 1; min-width: 120px; }
+  .hero-stat-num { font-size: 2rem; }
+  .hero-actions { flex-direction: column; align-items: stretch; }
+  .hero-actions a { text-align: center; justify-content: center; }
+  .hero-glow { display: none; }
+
+  /* SECTIONS */
+  section { padding: 3.5rem 1.25rem; }
+  .section-headline { font-size: 1.8rem; }
+
+  /* ABOUT */
+  .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .about-card-num { font-size: 2rem; }
+
+  /* PROOF */
   .proof-grid { grid-template-columns: 1fr; }
-  .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
-  .proof-banner { flex-direction: column; text-align: center; }
+  .proof-banner { flex-direction: column; text-align: center; gap: 1.25rem; }
+  .proof-banner a { width: 100%; justify-content: center; }
+  .proof-num { font-size: 2.2rem; }
+
+  /* EXITS */
+  [style*="grid-template-columns: repeat(3,1fr)"] {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* TEAM */
+  .team-grid { grid-template-columns: 1fr; }
+  .team-card-body { padding: 1.25rem; }
+
+  /* TESTIMONIALS */
+  #testimonials [style*="grid-template-columns:repeat(3,1fr)"] {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* AUDIT AGENT */
+  .audit-embed { border-radius: 0; margin: 0 -1.25rem; }
+  .ag-score-panel { grid-template-columns: 1fr; }
+  .ag-score-main { border-right: none; border-bottom: .5px solid #e8e4de; padding: .75rem 1rem; }
   .ag-dims { display: none; }
+  .ag-chat { max-height: 280px; min-height: 280px; padding: .75rem 1rem; }
+  .ag-bub { max-width: 90%; font-size: 12.5px; }
+  .ag-input-row { padding: .5rem .75rem; }
+  .ag-scan-body { flex-direction: column; gap: 6px; }
+  .ag-scan-btn { width: 100%; justify-content: center; }
+
+  /* EMAIL PANEL */
+  .ag-email-tabs { overflow-x: auto; }
+  .ag-email-tab { font-size: 9px; padding: .4rem .5rem; white-space: nowrap; }
+  .ag-email-pane { padding: .75rem; }
+  .ag-email-actions { flex-direction: column; }
+  [style*="grid-template-columns:1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* SEND BOTH BANNER */
+  #emailSection > div:first-child {
+    flex-direction: column;
+    gap: .75rem;
+    padding: .75rem;
+  }
+  #emailSection > div:first-child > div:last-child {
+    flex-direction: column;
+    width: 100%;
+  }
+  #emailSection > div:first-child button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* SCORE DIAL */
+  .ag-score-main { flex-direction: row; gap: 1rem; }
+  .ag-dial { width: 56px; height: 56px; flex-shrink: 0; }
+  .ag-dial svg { width: 56px; height: 56px; }
+  .ag-score-big { font-size: 15px; }
+
+  /* FOOTER */
+  footer { padding: 3rem 1.25rem; }
+  .footer-links { flex-wrap: wrap; gap: 1rem; justify-content: center; }
+  .footer-links a { font-size: 10px; }
+
+  /* BUTTONS */
+  .btn-primary, .btn-ghost { padding: .75rem 1.5rem; font-size: 12px; }
+
+  /* INSTITUTIONAL PEDIGREE */
+  [style*="display:flex;align-items:center;gap:1.5rem"] {
+    flex-direction: column !important;
+    gap: 1rem !important;
+  }
+
+  /* PROOF BANNER SEND BOTH */
+  .proof-banner-text { font-size: 1.3rem; }
+
+  /* TEAM PEDIGREE BANNER */
+  .team-grid + div { flex-direction: column !important; }
+
+  /* MOBILE HAMBURGER MENU */
+  .nav-mobile-cta {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    background: var(--coral);
+    color: #fff;
+    padding: .4rem .9rem;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: .04em;
+  }
+}
+
+/* Show mobile CTA only on mobile */
+.nav-mobile-cta { display: none; }
+
+@media (max-width: 480px) {
+  .hero-headline { font-size: 2rem; }
+  .hero-stat-num { font-size: 1.75rem; }
+  .section-headline { font-size: 1.6rem; }
+  .ag-chat { max-height: 240px; min-height: 240px; }
+  .team-avatar { width: 56px; height: 56px; font-size: 1.1rem; }
 }
 </style>
 </head>
@@ -590,6 +714,7 @@ footer {
     <a href="#audit">Take the Audit</a>
     <a href="#audit" class="nav-cta">Start Audit <i class="ti ti-arrow-right" aria-hidden="true" style="font-size:12px"></i></a>
   </div>
+  <a href="#audit" class="nav-mobile-cta">Start Audit <i class="ti ti-arrow-right" aria-hidden="true" style="font-size:11px"></i></a>
 </nav>
 
 <!-- HERO -->
