@@ -10,36 +10,55 @@ exports.handler = async function(event) {
     return { statusCode: 204, headers, body: '' };
   }
 
-  if (event.httpMethod === 'GET') {
-    return { statusCode: 200, headers, body: JSON.stringify({ status: 'FiRadar proxy live' }) };
-  }
-
-  // Handle website fetch requests
-  if (event.queryStringParameters && event.queryStringParameters.fetchUrl) {
+  // Handle website fetch requests — check BEFORE the generic GET handler
+  const fetchUrl = event.queryStringParameters && event.queryStringParameters.fetchUrl;
+  if (fetchUrl) {
     try {
-      const targetUrl = decodeURIComponent(event.queryStringParameters.fetchUrl);
+      const targetUrl = decodeURIComponent(fetchUrl);
+      console.log('Fetching URL:', targetUrl);
       const response = await fetch(targetUrl, {
         headers: {
-          'User-Agent': 'Mozilla/5.0 (compatible; FiRadar/1.0; +https://firadar.finance)',
+          'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
           'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+          'Accept-Language': 'en-US,en;q=0.5',
         },
         redirect: 'follow'
       });
       const html = await response.text();
+      console.log('Fetched HTML length:', html.length);
       // Extract meaningful text — strip HTML tags, scripts, styles
       const clean = html
         .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, ' ')
         .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, ' ')
+        .replace(/<nav[^>]*>[\s\S]*?<\/nav>/gi, ' ')
+        .replace(/<footer[^>]*>[\s\S]*?<\/footer>/gi, ' ')
+        .replace(/<header[^>]*>[\s\S]*?<\/header>/gi, ' ')
         .replace(/<[^>]+>/g, ' ')
         .replace(/\s+/g, ' ')
         .trim()
-        .slice(0, 8000); // First 8000 chars is plenty
-      return { statusCode: 200, headers, body: JSON.stringify({ content: clean, url: targetUrl }) };
+        .slice(0, 8000);
+      console.log('Clean text length:', clean.length);
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({ content: clean, url: targetUrl, length: clean.length })
+      };
     } catch (err) {
-      return { statusCode: 200, headers, body: JSON.stringify({ content: '', error: err.message }) };
+      console.error('Fetch error:', err.message);
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({ content: '', error: err.message })
+      };
     }
   }
 
+  // Generic GET health check
+  if (event.httpMethod === 'GET') {
+    return { statusCode: 200, headers, body: JSON.stringify({ status: 'FiRadar proxy live' }) };
+  }
+
+  // Handle Anthropic API calls
   try {
     const apiKey = process.env.ANTHROPIC_API_KEY;
     if (!apiKey) return { statusCode: 500, headers, body: JSON.stringify({ error: { message: 'API key not configured' } }) };
@@ -60,6 +79,7 @@ exports.handler = async function(event) {
     return { statusCode: 200, headers, body: JSON.stringify(data) };
 
   } catch (err) {
+    console.error('Proxy error:', err);
     return { statusCode: 500, headers, body: JSON.stringify({ error: { message: err.message } }) };
   }
 };
