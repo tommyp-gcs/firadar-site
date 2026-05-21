@@ -730,7 +730,7 @@ footer {
       We Audit.<br>We <em>Invest.</em><br>We Accelerate.
     </h1>
     <p class="hero-sub">
-      FiRadar is an elite strategic advisory firm and accelerator. We bridge the gap between Fintech innovation and institutional stability. For the few who pass our 10-point Strategic Audit, we provide the capital, the core integration expertise, and the direct line to 5,000+ C-level Bank and CU leaders to drive rapid scale.
+      FiRadar is an elite strategic advisory firm and accelerator. We bridge the gap between Fintech innovation and Financial Institution (FI) stability. For the few who pass our 10-point Strategic Audit, we provide the capital, the core integration expertise, and the direct line to 5,000+ C-level FI leaders to drive rapid scale.
     </p>
     <div class="hero-actions">
       <a href="#audit" class="btn-primary">
@@ -775,7 +775,7 @@ footer {
         <div class="section-label">Who We Are</div>
         <h2 class="section-headline">27 Years of Boardroom Trust.<br><em>8 Successful Exits.</em></h2>
         <p class="about-body">
-          FiRadar is led by <strong>Managing Partner Tom Penton</strong>, a Gartner veteran and a collective of veteran C-level banking executives. With over two decades of trust built in the boardrooms of the nation's leading FIs, we know exactly what it takes to turn a "tech solution" into an "institutional standard."
+          FiRadar is led by <strong>Managing Partner Tom Penton</strong>, a Gartner veteran, alongside a collective of veteran C-level compliance, legal, and technology executives. With over two decades of trust built in the boardrooms of the nation's leading FIs, our team knows exactly what it takes to turn a "tech solution" into an "institutional standard."
         </p>
         <div class="about-quote">
           "We don't just advise — we put skin in the game."
@@ -802,7 +802,7 @@ footer {
         <div class="about-card">
           <div class="about-card-num">03</div>
           <div class="about-card-title">The Network</div>
-          <div class="about-card-body">Tom Penton's direct relationships with 5,000+ Bank and Credit Union CEOs, CIOs, and CFOs become your sales channel. We don't make introductions — we open doors that take others decades to find.</div>
+          <div class="about-card-body">The FiRadar team's direct relationships with 5,000+ FI CEOs, CIOs, and CFOs become your sales channel. We don't make introductions — we open doors that take others decades to find.</div>
         </div>
       </div>
     </div>
@@ -827,7 +827,7 @@ footer {
         <div class="proof-icon"><i class="ti ti-users" aria-hidden="true"></i></div>
         <div class="proof-num">5<span>K+</span></div>
         <div class="proof-title">The Network</div>
-        <div class="proof-desc">Instant access to 5,000+ Decision Makers — Bank and Credit Union CEOs, CIOs, and CFOs ready to evaluate institutional-grade solutions.</div>
+        <div class="proof-desc">Instant access to 5,000+ Decision Makers — FI CEOs, CIOs, and CFOs ready to evaluate institutional-grade solutions.</div>
       </div>
       <div class="proof-item">
         <div class="proof-icon"><i class="ti ti-trending-up" aria-hidden="true"></i></div>
@@ -893,7 +893,7 @@ footer {
     <div class="proof-banner">
       <div>
         <div class="proof-banner-text">"The gap between a great fintech and an institutional standard is almost always readiness — not capability."</div>
-        <div class="proof-banner-sub">— Tom Penton, Managing Partner, FiRadar</div>
+        <div class="proof-banner-sub">— FiRadar Managing Partner Tom Penton</div>
       </div>
       <a href="#audit" class="btn-primary" style="flex-shrink:0;white-space:nowrap">
         Take the Audit
@@ -909,7 +909,7 @@ footer {
     <div class="section-label">The Leadership</div>
     <h2 class="section-headline">The Team Behind<br><em>Every Green-Light.</em></h2>
     <p class="team-intro">
-      FiRadar's advisory team combines decades of institutional sales, regulatory mastery, and deep technology expertise — the exact disciplines that determine whether a fintech succeeds or stalls inside a bank or credit union.
+      FiRadar's advisory team combines decades of institutional sales, regulatory mastery, and deep technology expertise — the exact disciplines that determine whether a fintech succeeds or stalls inside an FI.
     </p>
     <div class="team-grid">
 
@@ -923,7 +923,7 @@ footer {
         </div>
         <div class="team-card-body">
           <p class="team-bio">
-            Tom founded BankRadar — now evolving into FiRadar to serve the full spectrum of Banks and Credit Unions. A former SVP of Sales at Gartner across Asia Pacific and Latin America, Tom has spent 27 years building trust in FI boardrooms. His firm Pentonian has driven game-changing sales results for fintech firms across the nation, and his personal relationships with 5,000+ C-level Bank and CU executives are FiRadar's most valuable asset.
+            Tom founded BankRadar — now evolving into FiRadar to serve the full spectrum of Financial Institutions (FIs). A former SVP of Sales at Gartner across Asia Pacific and Latin America, Tom has spent 27 years building trust in FI boardrooms. Under his leadership, FiRadar has assembled an advisory team whose collective relationships with 5,000+ C-level FI executives represent the firm's most powerful asset.
           </p>
           <div class="team-tags">
             <span class="team-tag gold">27 Yrs FI Experience</span>
@@ -1385,7 +1385,7 @@ function buildSys(){
   const ws=websiteText?`\n\nACTUAL WEBSITE CONTENT (fetched directly from their site — treat this as ground truth, it overrides any prior assumptions you have about this company):\n${websiteText}\n`:'';
   const intelSec = ws || is ? `${ws}${is}\nUse the above to award baseline SCORES immediately. The website content is the most accurate source — prioritize it over training data. Skip questions already answered. Reference specific facts. Focus on gaps.\n` : '';
   const mndaSec=auditData.mndaSigned?`\n\nMNDA STATUS: EXECUTED. The fintech has agreed to the Mutual NDA at ${auditData.mndaTimestamp}. You may now ask sensitive questions freely — ARR, named clients, cap table, investors, margins. Reference the MNDA agreement in your questions to signal trust.\n`:auditData.mndaAsked?`\n\nMNDA STATUS: ASKED BUT NOT YET CONFIRMED. Wait for their confirmation before proceeding with sensitive questions.\n`:'';
-  return `You are the Lead Strategic Analyst for FiRadar, an elite Fintech Accelerator led by Managing Partner Tom Penton with a network of 5,000+ C-level Bank and Credit Union executives. FiRadar has 27 years of boardroom trust and 8 successful exits.
+  return `You are the Lead Strategic Analyst for FiRadar, an elite Fintech Accelerator and Advisory firm with a network of 5,000+ C-level Financial Institution (FI) executives. FiRadar has 27 years of boardroom trust and 8 successful exits. The firm is led by Managing Partner Tom Penton alongside a seasoned team of C-level compliance, legal, and technology advisors.
 
 OBJECTIVE: Conduct an Institutional Readiness Audit for: (1) FiRadar Network, (2) Investment/Acceleration, (3) Sales Acceleration.
 
@@ -1506,10 +1506,9 @@ To confirm next steps or update any information from the audit, reply directly t
 
 Regards,
 
-Tom Penton
-Managing Partner, FiRadar
+The FiRadar Advisory Team
 tom.penton@firadar.finance | www.firadar.finance
-Network of 5,000+ Bank & Credit Union Executives
+5,000+ FI Executives · 8 Successful Exits · 27 Years of Boardroom Trust
 
 FiRadar — We Audit. We Invest. We Accelerate.`;
 
@@ -1775,7 +1774,7 @@ function generatePDF(){
     }
 
     <div style="margin-top:24px;font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#C8922A;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #C8922A">About FiRadar</div>
-    <p style="font-size:11.5px;color:#8A8680;line-height:1.7">FiRadar is an elite Fintech Accelerator and Advisory firm representing Managing Partner Tom Penton and 5,000+ C-level Bank and Credit Union executives. With 27 years of boardroom trust and 8 successful exits, FiRadar's Green-Light framework is the standard for institutional readiness in the FI ecosystem.</p>
+    <p style="font-size:11.5px;color:#8A8680;line-height:1.7">FiRadar is an elite Fintech Accelerator and Advisory firm with 5,000+ C-level FI executive relationships. Led by Managing Partner Tom Penton alongside a seasoned team of C-level compliance, legal, and technology advisors, FiRadar's Green-Light framework — built on 27 years of boardroom trust and 8 successful exits — is the standard for institutional readiness in the FI ecosystem.</p>
   </div>
 </div>
 
