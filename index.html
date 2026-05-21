@@ -1181,7 +1181,7 @@ footer {
 const DIMS=['trackRecord','coreCompat','regulatory','boardFit','clientProof','unitEcon'];
 const DIM_MAX=[200,150,150,150,200,150];
 const DIM_LABELS=['Track record','Core compat.','Regulatory','Board fit','Client proof','Unit econ.'];
-let history=[],intel='',qCount=0,done=false,busy=false;
+let history=[],intel='',websiteText='',qCount=0,done=false,busy=false;
 let scores=[0,0,0,0,0,0];
 let auditData={
   companyName:'',contactName:'',contactEmail:'',
@@ -1256,14 +1256,18 @@ function rmTyping(id){const el=document.getElementById(id||'typDot');if(el)el.re
 
 
 function buildSys(){
-  const is=intel?`\n\nPRE-LOADED INTEL:\n${intel}\nUse this to award baseline SCORES immediately. Skip questions already answered. Reference specific facts. Focus on gaps.\n`:'';
+  const is=intel?`\n\nPRE-LOADED INTEL (structured summary):\n${intel}\n`:'';
+  const ws=websiteText?`\n\nACTUAL WEBSITE CONTENT (fetched directly from their site — treat this as ground truth, it overrides any prior assumptions you have about this company):\n${websiteText}\n`:'';
+  const intelSec = ws || is ? `${ws}${is}\nUse the above to award baseline SCORES immediately. The website content is the most accurate source — prioritize it over training data. Skip questions already answered. Reference specific facts. Focus on gaps.\n` : '';
   const mndaSec=auditData.mndaSigned?`\n\nMNDA STATUS: EXECUTED. The fintech has agreed to the Mutual NDA at ${auditData.mndaTimestamp}. You may now ask sensitive questions freely — ARR, named clients, cap table, investors, margins. Reference the MNDA agreement in your questions to signal trust.\n`:auditData.mndaAsked?`\n\nMNDA STATUS: ASKED BUT NOT YET CONFIRMED. Wait for their confirmation before proceeding with sensitive questions.\n`:'';
   return `You are the Lead Strategic Analyst for FiRadar, an elite Fintech Accelerator led by Managing Partner Tom Penton with a network of 5,000+ C-level Bank and Credit Union executives. FiRadar has 27 years of boardroom trust and 8 successful exits.
 
 OBJECTIVE: Conduct an Institutional Readiness Audit for: (1) FiRadar Network, (2) Investment/Acceleration, (3) Sales Acceleration.
 
 TONE: Professional, direct, authoritative, slightly skeptical. Bank-speak: SOC2, Core-integration, ROI, FFIEC, OCC, BSA/AML, ALCO, NRR, capital efficiency, Top-3 Board priorities.
-${is}${mndaSec}
+
+CRITICAL INSTRUCTION: You have been provided the ACTUAL WEBSITE CONTENT fetched directly from the fintech's site. This is ground truth. Do NOT contradict it with your training data. If the website says they are a "data execution platform" then that is what they are — do not call them something else.
+${intelSec}${mndaSec}
 After EVERY message — including your very FIRST response — output:
 SCORES:{"trackRecord":N,"coreCompat":N,"regulatory":N,"boardFit":N,"clientProof":N,"unitEcon":N,"bumps":[{"dim":0,"gained":N,"reason":"≤5 words"}]}
 CRITICAL: Your FIRST response MUST include a SCORES block with baseline points from the pre-loaded intel. Do NOT output zero scores if intel is available — award points for everything you can verify from the intel immediately.
@@ -1701,6 +1705,8 @@ async function callScrape(url){
       const fetchData = await fetchRes.json();
       if(fetchData.content && fetchData.content.length > 100){
         websiteContent = fetchData.content;
+        websiteText = websiteContent; // Store globally for buildSys
+        console.log('Website fetched successfully:', websiteContent.length, 'chars');
       }
     }catch(e){
       console.log('Website fetch failed, falling back to training data:', e);
