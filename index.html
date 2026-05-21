@@ -1064,7 +1064,7 @@ footer {
         </div>
         <div class="ag-footer">
           <span id="stepLbl">Paste your URL above to begin the audit</span>
-          <span>FiRadar © 2025 — Confidential</span>
+          <span>FiRadar © 2026 — Confidential</span>
         </div>
 
         <div class="ag-email" id="emailSection" style="display:none">
@@ -1097,13 +1097,13 @@ footer {
           <div class="ag-email-pane active" id="paneFin">
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.6rem">
               <div class="ag-email-field"><div class="ag-email-field-lbl">To — Fintech founder</div><input id="fintechEmail" placeholder="founder@company.com" type="email"/></div>
-              <div class="ag-email-field"><div class="ag-email-field-lbl">From</div><input id="fromEmail" value="tom.penton@firadar.com" type="email"/></div>
+              <div class="ag-email-field"><div class="ag-email-field-lbl">From</div><input id="fromEmail" value="tom.penton@firadar.finance" type="email"/></div>
             </div>
             <div class="ag-email-field-lbl" style="margin-bottom:4px">Email preview</div>
             <div class="ag-email-preview" id="fintechPreview">Generating...</div>
             <div class="ag-email-actions">
               <button class="ag-email-btn" onclick="copyEmail('fin')"><i class="ti ti-copy" aria-hidden="true" style="font-size:13px"></i>Copy</button>
-              <button class="ag-email-btn primary" onclick="openMailto('fin')"><i class="ti ti-mail" aria-hidden="true" style="font-size:13px"></i>Open in Mail</button>
+              <button class="ag-email-btn primary" onclick="openMailto('fin')"><i class="ti ti-mail" aria-hidden="true" style="font-size:13px"></i>Send Email</button>
             </div>
             <div class="ag-email-status" id="finStatus"></div>
           </div>
@@ -1111,14 +1111,14 @@ footer {
           <!-- TAB: INTERNAL BRIEF -->
           <div class="ag-email-pane" id="paneInt">
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.6rem">
-              <div class="ag-email-field"><div class="ag-email-field-lbl">To — Investment committee</div><input id="internalEmail" value="investment@firadar.com" type="email"/></div>
-              <div class="ag-email-field"><div class="ag-email-field-lbl">From</div><input id="fromEmailInt" value="analyst@firadar.com" type="email"/></div>
+              <div class="ag-email-field"><div class="ag-email-field-lbl">To — Investment committee</div><input id="internalEmail" value="investment@firadar.finance" type="email"/></div>
+              <div class="ag-email-field"><div class="ag-email-field-lbl">From</div><input id="fromEmailInt" value="analyst@firadar.finance" type="email"/></div>
             </div>
             <div class="ag-email-field-lbl" style="margin-bottom:4px">Brief preview</div>
             <div class="ag-email-preview" id="internalPreview">Generating...</div>
             <div class="ag-email-actions">
               <button class="ag-email-btn" onclick="copyEmail('int')"><i class="ti ti-copy" aria-hidden="true" style="font-size:13px"></i>Copy</button>
-              <button class="ag-email-btn primary" onclick="openMailto('int')"><i class="ti ti-mail" aria-hidden="true" style="font-size:13px"></i>Open in Mail</button>
+              <button class="ag-email-btn primary" onclick="openMailto('int')"><i class="ti ti-mail" aria-hidden="true" style="font-size:13px"></i>Send Email</button>
             </div>
             <div class="ag-email-status" id="intStatus"></div>
           </div>
@@ -1172,9 +1172,9 @@ footer {
     <a href="#proof">Track Record</a>
     <a href="#team">Team</a>
     <a href="#audit">Take the Audit</a>
-    <a href="mailto:tom.penton@firadar.com">Contact Tom</a>
+    <a href="mailto:tom.penton@firadar.finance">Contact Tom</a>
   </div>
-  <div class="footer-copy">© 2025 FiRadar Strategic Advisory. All rights reserved. · tom.penton@firadar.com</div>
+  <div class="footer-copy">© 2026 FiRadar Strategic Advisory. All rights reserved. · tom.penton@firadar.finance</div>
 </footer>
 
 <script>
@@ -1379,7 +1379,7 @@ Regards,
 
 Tom Penton
 Managing Partner, FiRadar
-tom.penton@firadar.com | www.firadar.com
+tom.penton@firadar.finance | www.firadar.finance
 Network of 5,000+ Bank & Credit Union Executives
 
 FiRadar — We Audit. We Invest. We Accelerate.`;
@@ -1423,7 +1423,7 @@ ${action}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Audit completed via FiRadar Strategic Audit Suite
-Lead Analyst · analyst@firadar.com
+Lead Analyst · analyst@firadar.finance
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
 
   document.getElementById('fintechPreview').textContent=fe;
@@ -1435,6 +1435,21 @@ Lead Analyst · analyst@firadar.com
   auditData.total=total;
   auditData.tier=ti.label;
   auditData.fl=fl;
+}
+
+async function sendEmailViaProxy(to, from, subject, body){
+  try{
+    const res = await fetch('/.netlify/functions/send-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ to, from, subject, body })
+    });
+    const data = await res.json();
+    return data.success === true;
+  } catch(e) {
+    console.error('Send email error:', e);
+    return false;
+  }
 }
 
 function switchTab(tab){
@@ -1455,32 +1470,54 @@ function copyEmail(type){
   });
 }
 
-function openMailto(type){
+async function openMailto(type){
   const isFin=type==='fin';
   const to=document.getElementById(isFin?'fintechEmail':'internalEmail').value;
+  const from=isFin?'tom.penton@firadar.finance':'analyst@firadar.finance';
   const preview=document.getElementById(isFin?'fintechPreview':'internalPreview').textContent;
   const lines=preview.split('\n');
   const subj=lines[0].replace('Subject: ','');
   const body=lines.slice(2).join('\n');
-  window.open(`mailto:${to}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`,'_blank');
+  const st=document.getElementById(isFin?'finStatus':'intStatus');
+  st.textContent='Sending...';
+  const ok=await sendEmailViaProxy(to,from,subj,body);
+  st.textContent=ok?'✓ Email sent successfully!':'⚠ Failed — check email address';
+  setTimeout(()=>st.textContent='',4000);
 }
 
-function openBothMailto(){
-  // Fire fintech email
+async function openBothMailto(){
+  const btn=document.querySelector('[onclick="openBothMailto()"]');
+  if(btn){ btn.disabled=true; btn.innerHTML='<i class="ti ti-loader" aria-hidden="true" style="font-size:13px"></i> Sending...'; }
+
   const fto=document.getElementById('fintechEmail').value;
+  const ito=document.getElementById('internalEmail').value;
   const fp=document.getElementById('fintechPreview').textContent.split('\n');
-  const fs=fp[0].replace('Subject: ','');const fb=fp.slice(2).join('\n');
-  if(fto) window.open(`mailto:${fto}?subject=${encodeURIComponent(fs)}&body=${encodeURIComponent(fb)}`,'_blank');
-  // Fire internal email after short delay
-  setTimeout(()=>{
-    const ito=document.getElementById('internalEmail').value;
-    const ip=document.getElementById('internalPreview').textContent.split('\n');
-    const is_=ip[0].replace('Subject: ','');const ib=ip.slice(2).join('\n');
-    if(ito) window.open(`mailto:${ito}?subject=${encodeURIComponent(is_)}&body=${encodeURIComponent(ib)}`,'_blank');
-  },600);
+  const ip=document.getElementById('internalPreview').textContent.split('\n');
+  const fs=fp[0].replace('Subject: ','');
+  const fb=fp.slice(2).join('\n');
+  const is_=ip[0].replace('Subject: ','');
+  const ib=ip.slice(2).join('\n');
+
   const st=document.getElementById('bothStatus');
-  st.textContent='✓ Both emails opened — review and send';
-  setTimeout(()=>st.textContent='',4000);
+  let sent=0;
+
+  if(fto){
+    const ok=await sendEmailViaProxy(fto,'tom.penton@firadar.finance',fs,fb);
+    if(ok) sent++;
+    else { st.textContent='⚠ Fintech email failed — check address'; }
+  }
+
+  if(ito){
+    const ok=await sendEmailViaProxy(ito,'analyst@firadar.finance',is_,ib);
+    if(ok) sent++;
+    else { st.textContent='⚠ Internal email failed — check address'; }
+  }
+
+  if(sent===2) st.textContent='✓ Both emails sent successfully!';
+  else if(sent===1) st.textContent='✓ One email sent — check the other address';
+
+  setTimeout(()=>st.textContent='',5000);
+  if(btn){ btn.disabled=false; btn.innerHTML='<i class="ti ti-send" aria-hidden="true" style="font-size:13px"></i>Send Both Emails'; }
 }
 
 function generatePDF(){
@@ -1617,7 +1654,7 @@ function generatePDF(){
 <div style="background:#0B1628;padding:20px 48px;display:flex;align-items:center;justify-content:space-between;margin-top:auto">
   <div>
     <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff">FiRadar</div>
-    <div style="font-size:10px;font-family:'DM Mono',monospace;color:rgba(255,255,255,.4);letter-spacing:.06em">tom.penton@firadar.com · www.firadar.com</div>
+    <div style="font-size:10px;font-family:'DM Mono',monospace;color:rgba(255,255,255,.4);letter-spacing:.06em">tom.penton@firadar.finance · www.firadar.finance</div>
   </div>
   <div style="font-size:10px;font-family:'DM Mono',monospace;color:rgba(255,255,255,.3);text-align:right">
     Confidential — Investment Committee Use Only<br/>
