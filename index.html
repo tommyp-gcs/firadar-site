@@ -1694,25 +1694,41 @@ async function callAPI(userText){
 
 async function callScrape(url){
   try{
-    const res=await fetch('/.netlify/functions/proxy',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-5',
-        max_tokens:600,
-        system:`You are a fintech research analyst. Based on your training knowledge return ONLY a raw JSON object, no markdown, no explanation:
-{"companyName":"...","oneLiner":"...","stage":"...","estimatedARR":"...","keyInvestors":"...","coreIntegrations":"...","regulatoryStatus":"...","boardProblemFit":"...","notableClients":"...","founded":"...","teamSize":"...","flags":["..."]}
-Use "Unknown" for anything you are not confident about.`,
-        messages:[{role:'user',content:'What do you know about: '+url}]
+    // Step 1: Fetch actual website content via proxy
+    let websiteContent = '';
+    try{
+      const fetchRes = await fetch(`/.netlify/functions/proxy?fetchUrl=${encodeURIComponent(url)}`);
+      const fetchData = await fetchRes.json();
+      if(fetchData.content && fetchData.content.length > 100){
+        websiteContent = fetchData.content;
+      }
+    }catch(e){
+      console.log('Website fetch failed, falling back to training data:', e);
+    }
+
+    // Step 2: Ask Claude to analyze — using real content if available, training data as fallback
+    const prompt = websiteContent
+      ? `Analyze this company based on their ACTUAL website content below. Be precise — use only what the website actually says, do not guess or use prior knowledge that contradicts the website content.\n\nWebsite URL: ${url}\n\nWebsite content:\n${websiteContent}\n\nReturn ONLY a raw JSON object (no markdown, no fences):\n{"companyName":"...","oneLiner":"...","stage":"...","estimatedARR":"...","keyInvestors":"...","coreIntegrations":"...","regulatoryStatus":"...","boardProblemFit":"...","notableClients":"...","founded":"...","teamSize":"...","flags":["..."]}\nUse "Unknown" for anything not mentioned on the website. flags = genuine gaps or concerns only.`
+      : `Based on your training knowledge, what do you know about the company at: ${url}\n\nReturn ONLY a raw JSON object (no markdown, no fences):\n{"companyName":"...","oneLiner":"...","stage":"...","estimatedARR":"...","keyInvestors":"...","coreIntegrations":"...","regulatoryStatus":"...","boardProblemFit":"...","notableClients":"...","founded":"...","teamSize":"...","flags":["..."]}\nUse "Unknown" for anything you are not confident about.`;
+
+    const res = await fetch('/.netlify/functions/proxy', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-5',
+        max_tokens: 800,
+        system: 'You are a precise fintech research analyst. When given actual website content, analyze ONLY what is explicitly stated. Never contradict what the website says with prior assumptions.',
+        messages: [{ role: 'user', content: prompt }]
       })
     });
-    const data=await res.json();
+    const data = await res.json();
     if(data.error) return null;
-    const raw=data.content.map(b=>b.text||'').join('');
-    const parsed=JSON.parse(raw.replace(/```json|```/g,'').trim());
-    const known=Object.values(parsed).filter(v=>v&&v!=='Unknown').length;
-    return known>=2?parsed:null;
+    const raw = data.content.map(b => b.text || '').join('');
+    const parsed = JSON.parse(raw.replace(/```json|```/g, '').trim());
+    const known = Object.values(parsed).filter(v => v && v !== 'Unknown').length;
+    return known >= 2 ? parsed : null;
   }catch(e){
+    console.error('callScrape failed:', e);
     return null;
   }
 }
