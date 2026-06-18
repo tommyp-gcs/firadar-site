@@ -647,7 +647,11 @@ footer {
   /* BUTTONS */
   .btn-primary, .btn-ghost { padding: .75rem 1.5rem; font-size: 12px; }
 
-  /* INSTITUTIONAL PEDIGREE */
+  /* CONTACT FORM */
+  #contact [style*="grid-template-columns:1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+  #contact > div > div { padding: 1.5rem !important; }
   [style*="display:flex;align-items:center;gap:1.5rem"] {
     flex-direction: column !important;
     gap: 1rem !important;
@@ -711,6 +715,7 @@ footer {
     <a href="#proof">Track Record</a>
     <a href="#team">Team</a>
     <a href="#testimonials">Testimonials</a>
+    <a href="#contact">Contact</a>
     <a href="#audit">Take the Audit</a>
     <a href="#audit" class="nav-cta">Start Audit <i class="ti ti-arrow-right" aria-hidden="true" style="font-size:12px"></i></a>
   </div>
@@ -1280,6 +1285,57 @@ footer {
   </div>
 </section>
 
+<!-- CONTACT -->
+<section id="contact" style="background:var(--navy);">
+  <div class="section-inner">
+    <div class="section-label">Prefer to Talk First?</div>
+    <h2 class="section-headline" style="color:#fff;margin-bottom:1rem;">Contact <em>FiRadar.</em></h2>
+    <p style="font-size:1.05rem;color:rgba(255,255,255,0.55);max-width:560px;line-height:1.8;margin-bottom:2.5rem;font-family:'Poppins',sans-serif;">
+      Not ready to run the full audit, or need to discuss something sensitive before sharing details live? Send us a message directly and a member of the FiRadar team will follow up.
+    </p>
+
+    <div style="max-width:640px;background:var(--navy-mid);border:1px solid rgba(255,77,85,0.15);border-radius:var(--radius-lg);padding:2rem;">
+      <div id="contactFormWrap">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
+          <div>
+            <label style="font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);display:block;margin-bottom:6px;">Name *</label>
+            <input id="contactName" type="text" placeholder="Jane Smith" style="width:100%;padding:.6rem .75rem;border-radius:6px;border:.5px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);color:#fff;font-family:'Poppins',sans-serif;font-size:13px;outline:none;"/>
+          </div>
+          <div>
+            <label style="font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);display:block;margin-bottom:6px;">Email *</label>
+            <input id="contactEmailInput" type="email" placeholder="jane@company.com" style="width:100%;padding:.6rem .75rem;border-radius:6px;border:.5px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);color:#fff;font-family:'Poppins',sans-serif;font-size:13px;outline:none;"/>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
+          <div>
+            <label style="font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);display:block;margin-bottom:6px;">Company</label>
+            <input id="contactCompany" type="text" placeholder="Company name" style="width:100%;padding:.6rem .75rem;border-radius:6px;border:.5px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);color:#fff;font-family:'Poppins',sans-serif;font-size:13px;outline:none;"/>
+          </div>
+          <div>
+            <label style="font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);display:block;margin-bottom:6px;">I am a...</label>
+            <select id="contactType" style="width:100%;padding:.6rem .75rem;border-radius:6px;border:.5px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);color:#fff;font-family:'Poppins',sans-serif;font-size:13px;outline:none;">
+              <option value="Fintech" style="color:#000;">Fintech</option>
+              <option value="Bank" style="color:#000;">Bank Executive</option>
+              <option value="Credit Union" style="color:#000;">Credit Union Executive</option>
+              <option value="Investor" style="color:#000;">Investor / Partner</option>
+              <option value="Other" style="color:#000;">Other</option>
+            </select>
+          </div>
+        </div>
+        <div style="margin-bottom:1.25rem;">
+          <label style="font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);display:block;margin-bottom:6px;">Message *</label>
+          <textarea id="contactMessage" rows="4" placeholder="Tell us a bit about what you'd like to discuss..." style="width:100%;padding:.6rem .75rem;border-radius:6px;border:.5px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);color:#fff;font-family:'Poppins',sans-serif;font-size:13px;outline:none;resize:vertical;"></textarea>
+        </div>
+        <button onclick="submitContactForm()" id="contactSubmitBtn" style="background:var(--coral);color:#fff;border:none;padding:.7rem 1.75rem;border-radius:6px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;letter-spacing:.04em;cursor:pointer;display:flex;align-items:center;gap:8px;transition:opacity .15s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+          <i class="ti ti-send" aria-hidden="true" style="font-size:14px"></i>
+          Send Message
+        </button>
+        <div id="contactStatus" style="margin-top:10px;font-size:12px;font-family:'DM Mono',monospace;min-height:18px;"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">
@@ -1297,7 +1353,7 @@ footer {
     <a href="#proof">Track Record</a>
     <a href="#team">Team</a>
     <a href="#audit">Take the Audit</a>
-    <a href="mailto:tom.penton@firadar.finance">Contact Tom</a>
+    <a href="#contact">Contact Us</a>
   </div>
   <div class="footer-copy">© 2026 FiRadar Strategic Advisory. All rights reserved. · tom.penton@firadar.finance</div>
 </footer>
@@ -1393,9 +1449,14 @@ TONE: Professional, direct, authoritative, slightly skeptical. Bank-speak: SOC2,
 
 CRITICAL INSTRUCTION: You have been provided the ACTUAL WEBSITE CONTENT fetched directly from the fintech's site. This is ground truth. Do NOT contradict it with your training data. If the website says they are a "data execution platform" then that is what they are — do not call them something else.
 ${intelSec}${mndaSec}
-After EVERY message — including your very FIRST response — output:
+After EVERY single message you send — with ZERO exceptions, including your very FIRST message of the entire conversation — you MUST end your response with a SCORES block on its own line, in this EXACT format:
 SCORES:{"trackRecord":N,"coreCompat":N,"regulatory":N,"boardFit":N,"clientProof":N,"unitEcon":N,"bumps":[{"dim":0,"gained":N,"reason":"≤5 words"}]}
-CRITICAL: Your FIRST response MUST include a SCORES block with baseline points from the pre-loaded intel. Do NOT output zero scores if intel is available — award points for everything you can verify from the intel immediately.
+
+This is NON-NEGOTIABLE. Example of a valid first message:
+"Welcome! I've reviewed [Company]'s profile — [observation]. Let's start: [question]?
+SCORES:{"trackRecord":80,"coreCompat":40,"regulatory":0,"boardFit":60,"clientProof":90,"unitEcon":20,"bumps":[{"dim":0,"gained":80,"reason":"Seed stage funding confirmed"},{"dim":3,"gained":60,"reason":"Solves fraud priority"},{"dim":4,"gained":90,"reason":"10+ named FI clients"}]}"
+
+If pre-loaded intel or website content is available, your FIRST SCORES block must reflect real baseline points derived from it — never output all zeros when information is available. If no intel is available, output SCORES with all dimensions at 0 rather than omitting the block entirely. The SCORES block must NEVER be skipped, regardless of message length or content.
 Max: trackRecord=200,coreCompat=150,regulatory=150,boardFit=150,clientProof=200,unitEcon=150. Only increase scores. bumps = dims that gained points this turn only.
 
 RUBRIC: trackRecord: seed=40-80,SeriesA+=100-160,exits=160-200. coreCompat: middleware=30,native=80,certified core partner=120-150. regulatory: SOC2I=60,SOC2II=100,FFIEC=130-150. boardFit: adjacent=40,Deposits/Fraud/Efficiency=80-120,+ROI proof=130-150. clientProof: pilots=30,1-5 named FIs=60-100,10+ with AUM data=130-200. unitEcon: pre-revenue=20,ARR+NRR=80-130,NRR>110%=140-150.
@@ -1422,8 +1483,68 @@ SCORES:{...,"bumps":[]}
 VERDICT_JSON:{"network":"green|amber|red","investment":"green|amber|red","salesAccel":"green|amber|red","summary":"one sentence","analystNotes":"2-3 sentence gap analysis"}`;}
 
 
-function parseSc(text){const m=text.match(/SCORES:(\{[^}]*(?:\[[^\]]*\])[^}]*\})/);if(!m)return null;try{return JSON.parse(m[1]);}catch(e){return null}}
-function parseV(text){const m=text.match(/VERDICT_JSON:(\{[^}]+\})/);if(!m)return null;try{return JSON.parse(m[1]);}catch(e){return null}}
+function parseSc(text){
+  const idx = text.indexOf('SCORES:');
+  if(idx === -1) return null;
+  // Find the opening brace after SCORES:
+  let start = text.indexOf('{', idx);
+  if(start === -1) return null;
+  // Walk forward tracking brace depth to find the matching closing brace
+  let depth = 0;
+  for(let i = start; i < text.length; i++){
+    if(text[i] === '{') depth++;
+    if(text[i] === '}') depth--;
+    if(depth === 0){
+      const jsonStr = text.slice(start, i+1);
+      try{ return JSON.parse(jsonStr); }
+      catch(e){ console.error('parseSc JSON error:', e, jsonStr); return null; }
+    }
+  }
+  return null;
+}
+
+// Removes a labeled JSON block (e.g. "SCORES:{...}") from text using brace-depth matching,
+// which is robust to nested braces/brackets unlike a fixed regex.
+function stripBlock(text, label){
+  const idx = text.indexOf(label+':');
+  if(idx === -1) return text;
+  const start = text.indexOf('{', idx);
+  if(start === -1) return text;
+  let depth = 0;
+  for(let i = start; i < text.length; i++){
+    if(text[i] === '{') depth++;
+    if(text[i] === '}') depth--;
+    if(depth === 0){
+      return text.slice(0, idx) + text.slice(i+1);
+    }
+  }
+  return text;
+}
+
+function cleanReply(text){
+  let out = text;
+  out = stripBlock(out, 'SCORES');
+  out = stripBlock(out, 'VERDICT_JSON');
+  out = out.replace(/MNDA_REQUESTED/g,'').replace(/MNDA_SIGNED/g,'');
+  return out.trim().replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
+}
+function parseV(text){
+  const idx = text.indexOf('VERDICT_JSON:');
+  if(idx === -1) return null;
+  const start = text.indexOf('{', idx);
+  if(start === -1) return null;
+  let depth = 0;
+  for(let i = start; i < text.length; i++){
+    if(text[i] === '{') depth++;
+    if(text[i] === '}') depth--;
+    if(depth === 0){
+      const jsonStr = text.slice(start, i+1);
+      try{ return JSON.parse(jsonStr); }
+      catch(e){ console.error('parseV JSON error:', e, jsonStr); return null; }
+    }
+  }
+  return null;
+}
 
 function renderVerdict(v){
   const fl={green:'Strong fit',amber:'Potential / gaps',red:'Not ready'};
@@ -1722,6 +1843,84 @@ async function sendEmailViaProxy(to, from, subject, body){
   } catch(e) {
     console.error('Send email error:', e);
     return false;
+  }
+}
+
+// Fires a quiet alert to Tom the moment someone starts an audit —
+// captures the lead even if they abandon before completing.
+let auditStartAlertSent = false;
+async function sendAuditStartedAlert(url, companyName){
+  if(auditStartAlertSent) return; // only fire once per session
+  auditStartAlertSent = true;
+  try{
+    const name = companyName || 'Unknown company (name not detected from scan)';
+    const timestamp = new Date().toLocaleString('en-US',{dateStyle:'long',timeStyle:'short'});
+    const subject = `[Audit Started] ${name}`;
+    const body = `A new FiRadar audit session has started.\n\n` +
+      `Company: ${name}\n` +
+      `Website: ${url}\n` +
+      `Started: ${timestamp}\n\n` +
+      `This is an automatic notification sent the moment the audit begins — it does not mean the audit has been completed. If you don't receive a completed audit report (score + verdict) for this company afterward, the founder may have started but not finished. Consider a personal follow-up.\n\n` +
+      `— FiRadar Audit Agent`;
+    await sendEmailViaProxy('tom.penton@firadar.finance', 'analyst@firadar.finance', subject, body);
+  }catch(e){
+    console.error('sendAuditStartedAlert failed:', e);
+  }
+}
+
+async function submitContactForm(){
+  const name = document.getElementById('contactName').value.trim();
+  const email = document.getElementById('contactEmailInput').value.trim();
+  const company = document.getElementById('contactCompany').value.trim();
+  const type = document.getElementById('contactType').value;
+  const message = document.getElementById('contactMessage').value.trim();
+  const status = document.getElementById('contactStatus');
+  const btn = document.getElementById('contactSubmitBtn');
+
+  if(!name || !email || !message){
+    status.style.color = '#ff7078';
+    status.textContent = '⚠ Please fill in Name, Email, and Message.';
+    return;
+  }
+
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if(!emailPattern.test(email)){
+    status.style.color = '#ff7078';
+    status.textContent = '⚠ Please enter a valid email address.';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = '<i class="ti ti-loader" aria-hidden="true" style="font-size:14px"></i> Sending...';
+  status.style.color = 'rgba(255,255,255,0.6)';
+  status.textContent = '';
+
+  const subject = `[FiRadar Contact] ${type} inquiry from ${name}${company?' — '+company:''}`;
+  const body = `New contact form submission from firadar.finance\n\n` +
+    `Name: ${name}\n` +
+    `Email: ${email}\n` +
+    `Company: ${company||'Not provided'}\n` +
+    `Type: ${type}\n\n` +
+    `Message:\n${message}\n\n` +
+    `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+    `Submitted: ${new Date().toLocaleString('en-US',{dateStyle:'long',timeStyle:'short'})}\n` +
+    `Reply directly to: ${email}`;
+
+  const ok = await sendEmailViaProxy('tom.penton@firadar.finance', email, subject, body);
+
+  btn.disabled = false;
+  btn.innerHTML = '<i class="ti ti-send" aria-hidden="true" style="font-size:14px"></i> Send Message';
+
+  if(ok){
+    document.getElementById('contactFormWrap').innerHTML = `
+      <div style="text-align:center;padding:1.5rem 0;">
+        <i class="ti ti-circle-check" aria-hidden="true" style="font-size:36px;color:#ff4d55;margin-bottom:.75rem;display:block;"></i>
+        <div style="font-size:16px;font-weight:700;color:#fff;font-family:'Inter',sans-serif;margin-bottom:.4rem;">Message sent!</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.55);font-family:'Poppins',sans-serif;">Thank you, ${name}. The FiRadar team will follow up at ${email} shortly.</div>
+      </div>`;
+  } else {
+    status.style.color = '#ff7078';
+    status.textContent = '⚠ Something went wrong — please try again or email tom.penton@firadar.finance directly.';
   }
 }
 
@@ -2056,6 +2255,9 @@ async function doScan(){
   btn.innerHTML='<i class="ti ti-check" aria-hidden="true"></i> Scanned';
   document.getElementById('stepLbl').textContent='Audit in progress';
 
+  // Step 4: Fire a silent "audit started" alert to Tom — fires regardless of completion
+  sendAuditStartedAlert(url, auditData.companyName);
+
   // Step 5: Short pause then start audit
   await new Promise(r=>setTimeout(r,600));
 
@@ -2071,15 +2273,7 @@ async function startAudit(){
     const reply=await callAPI(intelSummary);
     rmTyping();
     const sc=parseSc(reply);
-    const clean=reply
-      .replace(/SCORES:\{[^}]*(?:\[[^\]]*\])[^}]*\}/g,'')
-      .replace(/SCORES:\{[^}]+\}/g,'')
-      .replace(/VERDICT_JSON:\{[^}]+\}/,'')
-      .replace(/MNDA_REQUESTED/g,'')
-      .replace(/MNDA_SIGNED/g,'')
-      .trim()
-      .replace(/\n\n/g,'<br><br>')
-      .replace(/\n/g,'<br>');
+    const clean=cleanReply(reply);
     if(clean) addMsg('assistant',clean);
     if(sc){
       applyScores(sc);
@@ -2095,6 +2289,29 @@ async function startAudit(){
         el.appendChild(inner);
         chat.appendChild(el);
         scrollBot();
+      }
+    } else {
+      // SAFETY NET: Claude didn't output a parseable SCORES block.
+      // Force a follow-up scoring call so the founder always sees an initial number.
+      console.warn('No SCORES block in opening reply — forcing a scoring follow-up.');
+      try{
+        const forceReply = await callAPI('Please output your SCORES block now based on the intel and conversation so far. Output ONLY the SCORES block, nothing else.');
+        const forceSc = parseSc(forceReply);
+        if(forceSc){
+          applyScores(forceSc);
+          const baseTotal=totalScore();
+          const chat=document.getElementById('chat');
+          const el=document.createElement('div');
+          el.className='ag-msg';
+          const inner=document.createElement('div');
+          inner.className='ag-bump';
+          inner.innerHTML=`<i class="ti ti-radar" aria-hidden="true" style="font-size:13px"></i> Baseline score: ${baseTotal}/1000 — based on intel scan. Answer questions to increase your score.`;
+          el.appendChild(inner);
+          chat.appendChild(el);
+          scrollBot();
+        }
+      }catch(e2){
+        console.error('Forced scoring follow-up also failed:', e2);
       }
     }
   }catch(e){
@@ -2140,15 +2357,7 @@ async function send(){
 
     const sc=parseSc(reply);
     const v=parseV(reply);
-    const clean=reply
-      .replace(/SCORES:\{[^}]*(?:\[[^\]]*\])[^}]*\}/g,'')
-      .replace(/SCORES:\{[^}]+\}/g,'')
-      .replace(/VERDICT_JSON:\{[^}]+\}/,'')
-      .replace(/MNDA_REQUESTED/g,'')
-      .replace(/MNDA_SIGNED/g,'')
-      .trim()
-      .replace(/\n\n/g,'<br><br>')
-      .replace(/\n/g,'<br>');
+    const clean=cleanReply(reply);
     if(clean) addMsg('assistant',clean);
     if(sc) applyScores(sc);
     if(v){
