@@ -1831,14 +1831,15 @@ Lead Analyst · analyst@firadar.finance
   }
 }
 
-async function sendEmailViaProxy(to, from, subject, body){
+async function sendEmailViaProxy(to, from, subject, body, replyTo){
   try{
     const res = await fetch('/.netlify/functions/send-email', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ to, from, subject, body })
+      body: JSON.stringify({ to, from, subject, body, replyTo })
     });
     const data = await res.json();
+    if(!data.success) console.error('Send email failed, server response:', data);
     return data.success === true;
   } catch(e) {
     console.error('Send email error:', e);
@@ -1906,7 +1907,7 @@ async function submitContactForm(){
     `Submitted: ${new Date().toLocaleString('en-US',{dateStyle:'long',timeStyle:'short'})}\n` +
     `Reply directly to: ${email}`;
 
-  const ok = await sendEmailViaProxy('tom.penton@firadar.finance', email, subject, body);
+  const ok = await sendEmailViaProxy('tom.penton@firadar.finance', 'tom.penton@firadar.finance', subject, body, email);
 
   btn.disabled = false;
   btn.innerHTML = '<i class="ti ti-send" aria-hidden="true" style="font-size:14px"></i> Send Message';
