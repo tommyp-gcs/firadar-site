@@ -1909,6 +1909,22 @@ async function submitContactForm(){
 
   const ok = await sendEmailViaProxy('tom.penton@firadar.finance', 'tom.penton@firadar.finance', subject, body, email);
 
+  if(ok){
+    // Fire a friendly auto-reply to the visitor — doesn't block the success state if it fails
+    const fiPhrase = (type === 'Bank' || type === 'Credit Union') ? 'your FI' : 'your desired FI partnerships';
+    const autoReplySubject = `You're on the radar — thanks for reaching out to FiRadar`;
+    const autoReplyBody = `${name},\n\n` +
+      `Thank you for your inquiry to FiRadar. You are on the radar.\n\n` +
+      `We would love to learn more about you and how you want to further fortify ${fiPhrase}. One of our team will be back to you shortly.\n\n` +
+      `If that's not fast enough, go straight to tom.penton@firadar.finance to get something scheduled.\n\n` +
+      `Talk soon,\n` +
+      `The FiRadar Advisory Team\n` +
+      `www.firadar.finance\n\n` +
+      `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+      `For reference, here's what you sent us:\n\n"${message}"`;
+    sendEmailViaProxy(email, 'tom.penton@firadar.finance', autoReplySubject, autoReplyBody).catch(e => console.error('Auto-reply failed:', e));
+  }
+
   btn.disabled = false;
   btn.innerHTML = '<i class="ti ti-send" aria-hidden="true" style="font-size:14px"></i> Send Message';
 
@@ -1916,8 +1932,8 @@ async function submitContactForm(){
     document.getElementById('contactFormWrap').innerHTML = `
       <div style="text-align:center;padding:1.5rem 0;">
         <i class="ti ti-circle-check" aria-hidden="true" style="font-size:36px;color:#ff4d55;margin-bottom:.75rem;display:block;"></i>
-        <div style="font-size:16px;font-weight:700;color:#fff;font-family:'Inter',sans-serif;margin-bottom:.4rem;">Message sent!</div>
-        <div style="font-size:13px;color:rgba(255,255,255,0.55);font-family:'Poppins',sans-serif;">Thank you, ${name}. The FiRadar team will follow up at ${email} shortly.</div>
+        <div style="font-size:16px;font-weight:700;color:#fff;font-family:'Inter',sans-serif;margin-bottom:.4rem;">You're on the radar!</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.55);font-family:'Poppins',sans-serif;">Thank you, ${name}. Check your inbox at ${email} for a quick confirmation, and the FiRadar team will follow up shortly.</div>
       </div>`;
   } else {
     status.style.color = '#ff7078';
