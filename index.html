@@ -97,19 +97,19 @@ nav {
 }
 .nav-cta:hover { background: var(--coral-light) !important; }
 .nav-cta-alt {
-  background: transparent !important;
-  color: var(--white) !important;
+  background: var(--white) !important;
+  color: var(--navy) !important;
   padding: 0.6rem 1.4rem !important;
   border-radius: var(--radius) !important;
   font-weight: 700 !important;
   font-size: 13px !important;
   letter-spacing: 0.02em !important;
-  transition: background 0.2s, border-color 0.2s !important;
+  transition: background 0.2s, color 0.2s !important;
   line-height: normal !important;
   white-space: nowrap !important;
-  border: 1px solid rgba(255,255,255,0.3) !important;
+  border: 1px solid var(--white) !important;
 }
-.nav-cta-alt:hover { border-color: var(--coral) !important; color: var(--coral-light) !important; }
+.nav-cta-alt:hover { background: var(--coral-pale) !important; color: var(--navy) !important; }
 
 /* ── HERO ── */
 #hero {
@@ -1309,7 +1309,7 @@ footer {
   <div class="section-inner">
     <div class="audit-header">
       <div class="section-label">The FiRadar FI Digital Benchmark</div>
-      <h2 class="section-headline" style="text-align:center">How Does Your Bank Stack Up?<br><em>Benchmarked Against the Gold Standard.</em></h2>
+      <h2 class="section-headline" style="text-align:center">How Does your CU/Bank/FI Stack Up?<br><em>Benchmarked Against the Gold Standard.</em></h2>
       <p class="audit-subtext">
         U.S. Bank was named Best-in-Class for the second consecutive year in Javelin Strategy &amp; Research's 2025 Mobile and Online Banking Scorecards — scoring 70% of available points against a 42% industry median. Our AI Digital Benchmark Analyst scans your bank or credit union's website, scores your digital experience against that gold standard across 6 dimensions, and surfaces the specific fintech categories that close your gaps.
       </p>
@@ -1370,9 +1370,9 @@ footer {
         </div>
 
         <div class="ag-scan" id="fiScanPanel">
-          <div class="ag-scan-hdr"><i class="ti ti-scan" aria-hidden="true"></i>Bank Scanner — paste your bank or credit union's website to start</div>
+          <div class="ag-scan-hdr"><i class="ti ti-scan" aria-hidden="true"></i>Bank Scanner — paste any FI, CU, or bank's website to start</div>
           <div class="ag-scan-body">
-            <input class="ag-scan-input" id="fiUrlInput" placeholder="https://yourbank.com"/>
+            <input class="ag-scan-input" id="fiUrlInput" placeholder="Enter the FI/CU/Bank domain.com you want to audit"/>
             <button class="ag-scan-btn" id="fiScanBtn"><i class="ti ti-bolt" aria-hidden="true"></i>Scan &amp; Begin</button>
           </div>
           <div class="ag-intel-strip" id="fiIntelStrip" style="display:none"></div>
