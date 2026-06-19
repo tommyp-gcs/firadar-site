@@ -96,6 +96,20 @@ nav {
   white-space: nowrap !important;
 }
 .nav-cta:hover { background: var(--coral-light) !important; }
+.nav-cta-alt {
+  background: transparent !important;
+  color: var(--white) !important;
+  padding: 0.6rem 1.4rem !important;
+  border-radius: var(--radius) !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  letter-spacing: 0.02em !important;
+  transition: background 0.2s, border-color 0.2s !important;
+  line-height: normal !important;
+  white-space: nowrap !important;
+  border: 1px solid rgba(255,255,255,0.3) !important;
+}
+.nav-cta-alt:hover { border-color: var(--coral) !important; color: var(--coral-light) !important; }
 
 /* ── HERO ── */
 #hero {
@@ -716,10 +730,10 @@ footer {
     <a href="#team">Team</a>
     <a href="#testimonials">Testimonials</a>
     <a href="#contact">Contact</a>
-    <a href="#audit">Take the Audit</a>
-    <a href="#audit" class="nav-cta">Start Audit <i class="ti ti-arrow-right" aria-hidden="true" style="font-size:12px"></i></a>
+    <a href="#audit" class="nav-cta"><i class="ti ti-clipboard-check" aria-hidden="true" style="font-size:12px"></i> Fintech Audit</a>
+    <a href="#fi-audit" class="nav-cta-alt"><i class="ti ti-building-bank" aria-hidden="true" style="font-size:12px"></i> FI Audit</a>
   </div>
-  <a href="#audit" class="nav-mobile-cta">Start Audit <i class="ti ti-arrow-right" aria-hidden="true" style="font-size:11px"></i></a>
+  <a href="#hero" class="nav-mobile-cta">Take an Audit <i class="ti ti-arrow-right" aria-hidden="true" style="font-size:11px"></i></a>
 </nav>
 
 <!-- HERO -->
@@ -737,10 +751,15 @@ footer {
     <p class="hero-sub">
       FiRadar is an elite strategic advisory firm and accelerator. We bridge the gap between Fintech innovation and Financial Institution (FI) stability. For the few who pass our 10-point Strategic Audit, we provide the capital, the core integration expertise, and the direct line to 5,000+ C-level FI leaders to drive rapid scale.
     </p>
+    <div style="font-size:11px;font-family:'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:.75rem;">Choose your audit — fintech, or bank/credit union</div>
     <div class="hero-actions">
       <a href="#audit" class="btn-primary">
         <i class="ti ti-clipboard-check" aria-hidden="true"></i>
-        Take the Strategic Audit
+        Fintech Audit
+      </a>
+      <a href="#fi-audit" class="btn-primary" style="background:var(--navy);border:1px solid var(--coral);">
+        <i class="ti ti-building-bank" aria-hidden="true"></i>
+        FI Audit
       </a>
       <a href="#about" class="btn-ghost">
         Our Methodology
@@ -1285,6 +1304,179 @@ footer {
   </div>
 </section>
 
+<!-- FI AUDIT -->
+<section id="fi-audit" style="background:var(--cream);">
+  <div class="section-inner">
+    <div class="audit-header">
+      <div class="section-label">The FiRadar FI Digital Benchmark</div>
+      <h2 class="section-headline" style="text-align:center">How Does Your Bank Stack Up?<br><em>Benchmarked Against the Gold Standard.</em></h2>
+      <p class="audit-subtext">
+        U.S. Bank was named Best-in-Class for the second consecutive year in Javelin Strategy &amp; Research's 2025 Mobile and Online Banking Scorecards — scoring 70% of available points against a 42% industry median. Our AI Digital Benchmark Analyst scans your bank or credit union's website, scores your digital experience against that gold standard across 6 dimensions, and surfaces the specific fintech categories that close your gaps.
+      </p>
+      <div class="audit-warning">
+        <i class="ti ti-clock" aria-hidden="true" style="font-size:12px"></i>
+        Free benchmark — no sign-up required — takes about 5 minutes
+      </div>
+    </div>
+
+    <!-- EMBEDDED AGENT -->
+    <div class="audit-embed">
+      <div class="fr-agent">
+
+        <div class="fr-agent-header">
+          <div class="fr-agent-logo">
+            <div class="fr-agent-logo-icon">
+              <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+                <path d="M8 16 Q8 8 16 8" stroke="#ff4d55" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+                <path d="M5 19 Q4 8 16 5" stroke="#ff4d55" stroke-width="2.8" fill="none" stroke-linecap="round" opacity="0.7"/>
+                <path d="M11 14 Q11 11 16 11" stroke="#ff4d55" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+                <circle cx="16" cy="16" r="2" fill="#ff4d55"/>
+              </svg>
+            </div>
+            <div>
+              <div class="fr-agent-logo-text">Fi<span>Radar</span></div>
+              <div class="fr-agent-logo-sub">FI Digital Benchmark</div>
+            </div>
+          </div>
+          <div class="fr-agent-status"><div class="fr-agent-dot"></div>Benchmark Analyst online</div>
+        </div>
+
+        <div class="ag-score-panel">
+          <div class="ag-score-main">
+            <div class="ag-dial">
+              <svg viewBox="0 0 64 64">
+                <circle cx="32" cy="32" r="26" fill="none" stroke-width="5" stroke="#e8e4de"/>
+                <circle cx="32" cy="32" r="26" fill="none" stroke-width="5" id="fiDialArc" stroke="#1D9E75" stroke-dasharray="163.4" stroke-dashoffset="163.4" stroke-linecap="round" transform="rotate(-90 32 32)" style="transition:stroke-dashoffset .8s ease,stroke .5s ease"/>
+              </svg>
+              <div class="ag-dial-num">
+                <span class="ag-score-big" id="fiScoreBig">0</span>
+                <span class="ag-score-max">/1000</span>
+              </div>
+            </div>
+            <div>
+              <div class="ag-score-label">Digital Benchmark Score</div>
+              <div class="ag-score-tier t0" id="fiTierLabel">Awaiting scan</div>
+              <div class="ag-tier-sub" id="fiTierSub">vs. the U.S. Bank gold standard</div>
+            </div>
+          </div>
+          <div class="ag-dims">
+            <div class="ag-dim-row"><span class="ag-dim-label">Ease of use</span><div class="ag-dim-bar-wrap"><div class="ag-dim-bar" id="fid0" style="width:0%"></div></div><span class="ag-dim-val" id="fidv0">0</span></div>
+            <div class="ag-dim-row"><span class="ag-dim-label">Security</span><div class="ag-dim-bar-wrap"><div class="ag-dim-bar" id="fid1" style="width:0%"></div></div><span class="ag-dim-val" id="fidv1">0</span></div>
+            <div class="ag-dim-row"><span class="ag-dim-label">Money movement</span><div class="ag-dim-bar-wrap"><div class="ag-dim-bar" id="fid2" style="width:0%"></div></div><span class="ag-dim-val" id="fidv2">0</span></div>
+            <div class="ag-dim-row"><span class="ag-dim-label">Cust. service</span><div class="ag-dim-bar-wrap"><div class="ag-dim-bar" id="fid3" style="width:0%"></div></div><span class="ag-dim-val" id="fidv3">0</span></div>
+            <div class="ag-dim-row"><span class="ag-dim-label">Fin. fitness</span><div class="ag-dim-bar-wrap"><div class="ag-dim-bar" id="fid4" style="width:0%"></div></div><span class="ag-dim-val" id="fidv4">0</span></div>
+            <div class="ag-dim-row"><span class="ag-dim-label">Relationship</span><div class="ag-dim-bar-wrap"><div class="ag-dim-bar" id="fid5" style="width:0%"></div></div><span class="ag-dim-val" id="fidv5">0</span></div>
+          </div>
+        </div>
+
+        <div class="ag-scan" id="fiScanPanel">
+          <div class="ag-scan-hdr"><i class="ti ti-scan" aria-hidden="true"></i>Bank Scanner — paste your bank or credit union's website to start</div>
+          <div class="ag-scan-body">
+            <input class="ag-scan-input" id="fiUrlInput" placeholder="https://yourbank.com"/>
+            <button class="ag-scan-btn" id="fiScanBtn"><i class="ti ti-bolt" aria-hidden="true"></i>Scan &amp; Begin</button>
+          </div>
+          <div class="ag-intel-strip" id="fiIntelStrip" style="display:none"></div>
+        </div>
+
+        <div class="ag-chat" id="fiChat"></div>
+
+        <div class="ag-input-row">
+          <textarea class="ag-textarea" id="fiInp" placeholder="Respond to the analyst..." rows="1" disabled></textarea>
+          <button class="ag-send" id="fiSendBtn" disabled><i class="ti ti-arrow-up" aria-hidden="true"></i></button>
+        </div>
+        <div class="ag-footer">
+          <span id="fiStepLbl">Paste your bank or credit union's URL above to begin</span>
+          <span>FiRadar © 2026 — Benchmark Tool</span>
+        </div>
+
+        <div class="ag-email" id="fiEmailSection" style="display:none">
+
+          <!-- SEND BOTH BANNER -->
+          <div style="background:#0B1628;padding:.75rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+            <div>
+              <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;margin-bottom:2px">Report Ready</div>
+              <div style="font-size:11px;font-family:'DM Mono',monospace;color:rgba(255,255,255,.45);letter-spacing:.04em">Your benchmark report + Internal lead brief + PDF</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+              <button onclick="fiOpenBothMailto()" style="display:flex;align-items:center;gap:6px;padding:.45rem 1rem;border-radius:6px;background:#C8922A;color:#0B1628;border:none;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:.06em;cursor:pointer;transition:opacity .15s;white-space:nowrap" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+                <i class="ti ti-send" aria-hidden="true" style="font-size:13px"></i>Send Both Emails
+              </button>
+              <button onclick="fiGeneratePDF()" style="display:flex;align-items:center;gap:6px;padding:.45rem 1rem;border-radius:6px;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.25);font-family:'Syne',sans-serif;font-size:12px;font-weight:600;letter-spacing:.06em;cursor:pointer;transition:opacity .15s;white-space:nowrap" onmouseover="this.style.borderColor='#C8922A';this.style.color='#C8922A'" onmouseout="this.style.borderColor='rgba(255,255,255,.25)';this.style.color='#fff'">
+                <i class="ti ti-file-download" aria-hidden="true" style="font-size:13px"></i>Download PDF Report
+              </button>
+            </div>
+            <div class="ag-email-status" id="fiBothStatus" style="width:100%;color:#C8922A;padding:0;margin:0;text-align:right"></div>
+          </div>
+
+          <!-- THREE TABS -->
+          <div class="ag-email-tabs">
+            <button class="ag-email-tab active" id="fiTabRep" onclick="fiSwitchTab('rep')"><i class="ti ti-send" aria-hidden="true" style="font-size:11px;margin-right:4px"></i>Your Report</button>
+            <button class="ag-email-tab" id="fiTabInt" onclick="fiSwitchTab('int')"><i class="ti ti-building-bank" aria-hidden="true" style="font-size:11px;margin-right:4px"></i>Internal Lead</button>
+            <button class="ag-email-tab" id="fiTabPdf" onclick="fiSwitchTab('pdf')" style="border-left:.5px solid #e8e4de"><i class="ti ti-file-text" aria-hidden="true" style="font-size:11px;margin-right:4px"></i>PDF Preview</button>
+          </div>
+
+          <!-- TAB: YOUR REPORT -->
+          <div class="ag-email-pane active" id="fiPaneRep">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.6rem">
+              <div class="ag-email-field"><div class="ag-email-field-lbl">To — Bank/CU contact</div><input id="fiReportEmail" placeholder="you@yourbank.com" type="email"/></div>
+              <div class="ag-email-field"><div class="ag-email-field-lbl">From</div><input id="fiFromEmail" value="tom.penton@firadar.finance" type="email"/></div>
+            </div>
+            <div class="ag-email-field-lbl" style="margin-bottom:4px">Email preview</div>
+            <div class="ag-email-preview" id="fiReportPreview">Generating...</div>
+            <div class="ag-email-actions">
+              <button class="ag-email-btn" onclick="fiCopyEmail('rep')"><i class="ti ti-copy" aria-hidden="true" style="font-size:13px"></i>Copy</button>
+              <button class="ag-email-btn primary" onclick="fiOpenMailto('rep')"><i class="ti ti-mail" aria-hidden="true" style="font-size:13px"></i>Send Email</button>
+            </div>
+            <div class="ag-email-status" id="fiRepStatus"></div>
+          </div>
+
+          <!-- TAB: INTERNAL LEAD -->
+          <div class="ag-email-pane" id="fiPaneInt">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.6rem">
+              <div class="ag-email-field"><div class="ag-email-field-lbl">To — FiRadar matching team</div><input id="fiInternalEmail" value="investment@firadar.finance" type="email"/></div>
+              <div class="ag-email-field"><div class="ag-email-field-lbl">From</div><input id="fiFromEmailInt" value="analyst@firadar.finance" type="email"/></div>
+            </div>
+            <div class="ag-email-field-lbl" style="margin-bottom:4px">Brief preview</div>
+            <div class="ag-email-preview" id="fiInternalPreview">Generating...</div>
+            <div class="ag-email-actions">
+              <button class="ag-email-btn" onclick="fiCopyEmail('int')"><i class="ti ti-copy" aria-hidden="true" style="font-size:13px"></i>Copy</button>
+              <button class="ag-email-btn primary" onclick="fiOpenMailto('int')"><i class="ti ti-mail" aria-hidden="true" style="font-size:13px"></i>Send Email</button>
+            </div>
+            <div class="ag-email-status" id="fiIntStatus"></div>
+          </div>
+
+          <!-- TAB: PDF PREVIEW -->
+          <div class="ag-email-pane" id="fiPanePdf">
+            <div style="background:#FAF7F2;border:.5px solid #d8d4ce;border-radius:7px;padding:1.25rem;margin-bottom:.75rem">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:.75rem">
+                <div style="width:32px;height:32px;background:#0B1628;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="ti ti-file-text" aria-hidden="true" style="color:#C8922A;font-size:15px"></i></div>
+                <div>
+                  <div style="font-size:12px;font-weight:700;color:#0B1628">FiRadar FI Digital Benchmark Report</div>
+                  <div style="font-size:10px;font-family:'DM Mono',monospace;color:#8A8680;letter-spacing:.06em">Score dial · Dimension breakdown · Gap analysis · Print-ready</div>
+                </div>
+              </div>
+              <div style="font-size:12px;color:#4A4740;line-height:1.7">
+                The PDF report contains: <strong>institution overview</strong>, <strong>Digital Benchmark score dial</strong>, <strong>all 6 dimension bars</strong>, <strong>gap analysis vs. U.S. Bank</strong>, and <strong>recommended fintech match categories</strong> — formatted for print or sharing internally.
+              </div>
+            </div>
+            <div style="display:flex;gap:8px">
+              <button class="ag-email-btn primary" onclick="fiGeneratePDF()" style="flex:2"><i class="ti ti-printer" aria-hidden="true" style="font-size:13px"></i>Open & Print / Save as PDF</button>
+              <button class="ag-email-btn" onclick="fiGeneratePDF()" style="flex:1"><i class="ti ti-eye" aria-hidden="true" style="font-size:13px"></i>Preview</button>
+            </div>
+            <div style="margin-top:.65rem;font-size:10px;font-family:'DM Mono',monospace;color:#8A8680;line-height:1.6">
+              Tip: When the print dialog opens, select <strong>Save as PDF</strong> as your printer to download. On Mac use ⌘+P, on Windows Ctrl+P.
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <!-- END EMBEDDED AGENT -->
+
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact" style="background:var(--navy);">
   <div class="section-inner">
@@ -1353,6 +1545,7 @@ footer {
     <a href="#proof">Track Record</a>
     <a href="#team">Team</a>
     <a href="#audit">Take the Audit</a>
+    <a href="#fi-audit">FI Benchmark</a>
     <a href="#contact">Contact Us</a>
   </div>
   <div class="footer-copy">© 2026 FiRadar Strategic Advisory. All rights reserved. · tom.penton@firadar.finance</div>
@@ -2403,6 +2596,691 @@ document.getElementById('sendBtn').addEventListener('click',send);
 document.getElementById('inp').addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}});
 document.getElementById('inp').addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,90)+'px';});
 updateDial();
+
+/* ════════════════════════════════════════════════════════════════
+   FI DIGITAL BENCHMARK AGENT
+   Scores a bank/credit union's digital experience vs. U.S. Bank —
+   Javelin Strategy & Research's 2x consecutive Best-in-Class winner
+   (2025 Mobile + Online Banking Scorecards). Reuses parseSc/parseV/
+   stripBlock/cleanReply/scoreColor from the Fintech Audit engine
+   above since those are pure, label-driven helpers with no shared
+   state. Fully open flow — no NDA gate; name/email are only
+   requested once, at the end, to deliver the report.
+   ════════════════════════════════════════════════════════════════ */
+const FI_DIMS=['easeOfUse','security','moneyMovement','custService','finFitness','relDeepening'];
+const FI_DIM_MAX=[150,200,150,150,200,150];
+const FI_DIM_LABELS=['Ease of use','Security','Money movement','Cust. service','Fin. fitness','Relationship'];
+let fiHistory=[],fiIntel='',fiWebsiteText='',fiQCount=0,fiDone=false,fiBusy=false;
+let fiScores=[0,0,0,0,0,0];
+let fiAuditData={
+  institutionName:'',institutionType:'',contactName:'',contactEmail:'',
+  verdict:null,analystSummary:'',recommendedCategories:[]
+};
+
+function fiTotalScore(){return fiScores.reduce((a,b)=>a+b,0)}
+function fiTierInfo(s){
+  if(s===0)return{label:'Awaiting scan',sub:'Scan your site to begin',cls:'t0'};
+  if(s<250)return{label:'Legacy experience',sub:'Significant modernization gaps vs. gold standard',cls:'t1'};
+  if(s<500)return{label:'Developing',sub:'Behind the digital curve — clear gaps to close',cls:'t2'};
+  if(s<750)return{label:'Competitive',sub:'Strong foundation — targeted gaps remain',cls:'t3'};
+  return{label:'Best-in-class tier',sub:'Near gold-standard parity',cls:'t4'};
+}
+function fiUpdateDial(){
+  const total=fiTotalScore();
+  const arc=document.getElementById('fiDialArc');
+  arc.style.strokeDashoffset=163.4-(total/1000)*163.4;
+  arc.style.stroke=scoreColor(total);
+  document.getElementById('fiScoreBig').textContent=total;
+  const ti=fiTierInfo(total);
+  const tl=document.getElementById('fiTierLabel');tl.textContent=ti.label;tl.className='ag-score-tier '+ti.cls;
+  document.getElementById('fiTierSub').textContent=ti.sub;
+  FI_DIMS.forEach((_,i)=>{
+    const pct=Math.round((fiScores[i]/FI_DIM_MAX[i])*100);
+    document.getElementById('fid'+i).style.width=pct+'%';
+    document.getElementById('fid'+i).style.background=scoreColor(fiScores[i]/FI_DIM_MAX[i]*1000);
+    document.getElementById('fidv'+i).textContent=fiScores[i];
+  });
+}
+function fiShowBump(bumps){
+  const chat=document.getElementById('fiChat');
+  bumps.forEach(({dim,gained,reason})=>{
+    if(gained<=0)return;
+    const el=document.createElement('div');el.className='ag-msg';
+    const inner=document.createElement('div');inner.className='ag-bump';
+    inner.innerHTML=`<i class="ti ti-trending-up" aria-hidden="true" style="font-size:13px"></i> +${gained} pts · ${FI_DIM_LABELS[dim]} — ${reason}`;
+    el.appendChild(inner);chat.appendChild(el);
+  });
+  chat.scrollTop=chat.scrollHeight;
+}
+function fiApplyScores(sc){
+  if(!sc)return;
+  FI_DIMS.forEach((k,i)=>{if(sc[k]!==undefined)fiScores[i]=Math.max(fiScores[i],sc[k]);});
+  fiUpdateDial();
+  if(sc.bumps&&sc.bumps.length>0)fiShowBump(sc.bumps.filter(b=>b.gained>0));
+}
+function fiScrollBot(){const c=document.getElementById('fiChat');c.scrollTop=c.scrollHeight}
+function fiAddMsg(role,html,isIntel){
+  const chat=document.getElementById('fiChat');
+  const wrap=document.createElement('div');wrap.className='ag-msg'+(role==='user'?' user':'');
+  const av=document.createElement('div');
+  if(isIntel){av.className='ag-av intel';av.textContent='INT';}
+  else if(role==='user'){av.className='ag-av u';av.textContent='YOU';}
+  else{av.className='ag-av';av.textContent='DA';}
+  const bub=document.createElement('div');bub.className='ag-bub';
+  if(isIntel){const t=document.createElement('div');t.className='tag itag';t.textContent='Site Scan · Pre-loaded';bub.appendChild(t);}
+  else if(role==='assistant'){const t=document.createElement('div');t.className='tag';t.textContent='Benchmark Analyst · FiRadar';bub.appendChild(t);}
+  const cnt=document.createElement('div');cnt.innerHTML=html;bub.appendChild(cnt);
+  wrap.appendChild(av);wrap.appendChild(bub);chat.appendChild(wrap);fiScrollBot();
+}
+function fiShowTyping(id){
+  const chat=document.getElementById('fiChat');
+  const w=document.createElement('div');w.className='ag-msg';w.id=id||'fiTypDot';
+  const av=document.createElement('div');av.className='ag-av';av.textContent='DA';
+  const b=document.createElement('div');b.className='ag-bub ag-typing';b.innerHTML='<span></span><span></span><span></span>';
+  w.appendChild(av);w.appendChild(b);chat.appendChild(w);fiScrollBot();
+}
+function fiRmTyping(id){const el=document.getElementById(id||'fiTypDot');if(el)el.remove()}
+
+function buildFiSys(){
+  const is=fiIntel?`\n\nPRE-LOADED INTEL (structured summary):\n${fiIntel}\n`:'';
+  const ws=fiWebsiteText?`\n\nACTUAL WEBSITE CONTENT (fetched directly from their site — treat this as ground truth, it overrides any prior assumptions you have about this institution):\n${fiWebsiteText}\n`:'';
+  const intelSec = ws || is ? `${ws}${is}\nUse the above to award baseline SCORES immediately. The website content is the most accurate source — prioritize it over training data. Skip questions already answered. Reference specific facts. Focus on gaps vs. the U.S. Bank benchmark.\n` : '';
+  return `You are the Lead Digital Benchmark Analyst for FiRadar, an elite Fintech Accelerator and Advisory firm with a network of 5,000+ C-level Financial Institution (FI) executives and a curated portfolio of vetted fintech solutions. FiRadar has 27 years of boardroom trust. The firm is led by Managing Partner Tom Penton.
+
+OBJECTIVE: Run a Digital Experience Benchmark for a bank or credit union, scoring it against U.S. Bank — named Best-in-Class for the second consecutive year in Javelin Strategy & Research's 2025 Mobile and Online Banking Scorecards, scoring 70% of available points against a 42% industry median, and topping the Financial Fitness, Customer Service, Money Movement, and Relationship Deepening categories. Treat U.S. Bank's capabilities as the gold-standard ceiling for each dimension below.
+
+GOAL FOR FIRADAR: every meaningful gap you identify should be paired with the CATEGORY of fintech solution that would close it (e.g. "conversational AI / virtual assistant platforms", "embedded P2P & instant payments infrastructure", "PFM / financial wellness & insights tools", "identity verification & fraud-decisioning platforms", "personalization & data orchestration platforms", "loyalty & cross-sell engagement tools"). Name CATEGORIES only, never a specific vendor — FiRadar's team does the actual matching afterward.
+
+TONE: Professional, consultative, peer-to-peer — like a benchmarking conversation with a bank or credit union's digital/innovation executive, not a sales pitch. Bank-speak welcome: core integration, open banking, FFIEC, NCUA, member experience, digital adoption, NPS.
+
+CRITICAL INSTRUCTION: Where provided, you have ACTUAL WEBSITE CONTENT fetched directly from the institution's site. This is ground truth — do not contradict it with assumptions or prior training data.
+${intelSec}
+After EVERY single message you send — with ZERO exceptions, including your very FIRST message of the entire conversation — you MUST end your response with a SCORES block on its own line, in this EXACT format:
+SCORES:{"easeOfUse":N,"security":N,"moneyMovement":N,"custService":N,"finFitness":N,"relDeepening":N,"bumps":[{"dim":0,"gained":N,"reason":"≤5 words"}]}
+
+This is NON-NEGOTIABLE. Example of a valid first message:
+"Welcome! I scanned [Institution]'s site — [observation]. Let's start: [question]?
+SCORES:{"easeOfUse":60,"security":40,"moneyMovement":30,"custService":20,"finFitness":50,"relDeepening":40,"bumps":[{"dim":0,"gained":60,"reason":"Clean mobile-first site"},{"dim":4,"gained":50,"reason":"Budgeting tool visible on site"}]}"
+
+If pre-loaded intel or website content is available, your FIRST SCORES block must reflect real baseline points derived from it — never output all zeros when information is available. If no intel is available, output SCORES with all dimensions at 0 rather than omitting the block entirely. The SCORES block must NEVER be skipped, regardless of message length or content.
+Max: easeOfUse=150,security=200,moneyMovement=150,custService=150,finFitness=200,relDeepening=150. Only increase scores. bumps = dims that gained points this turn only.
+
+RUBRIC (each dimension scored relative to U.S. Bank's capability in that area):
+easeOfUse: dated/branch-dependent=20-50, modern responsive site & app=60-100, streamlined digital account opening + intuitive navigation (U.S. Bank tier)=110-150.
+security: basic password login=20-60, MFA/biometric login=70-120, real-time fraud alerts + granular card controls + third-party data-sharing oversight (U.S. Bank tier)=130-200.
+moneyMovement: basic online bill pay=20-50, P2P (e.g. Zelle) + standard transfers=60-100, instant/early-pay + account aggregation/open banking (U.S. Bank tier)=110-150.
+custService: phone/branch only=10-40, live chat=50-90, AI virtual assistant + 24/7 in-app secure messaging (U.S. Bank tier)=100-150.
+finFitness: no tools=10-40, basic spend categorization=50-100, personalized insights + credit monitoring + financial wellness goal tracking (U.S. Bank tier)=110-200.
+relDeepening: no cross-sell=10-40, generic offers=50-90, personalized next-best-product + integrated loyalty (U.S. Bank tier)=100-150.
+
+BENCHMARK FLOW — follow this sequence strictly:
+
+STEP 1 — OPENING: Greet them, reference the site scan, give baseline score context, ask 1-2 light surface questions (institution type — bank or credit union, approximate asset size or customer/member count, current core or digital banking vendor).
+
+STEP 2 — DIAGNOSTIC: Ask 5-7 targeted questions, one at a time, probing whichever dimensions the scan didn't already confirm. Examples: biometric login? real-time P2P like Zelle? an AI chat or virtual assistant? budgeting/financial wellness tools? open banking or account aggregation? personalized next-best-product offers? Briefly tie each question to why it matters for the score or for member/customer experience.
+
+STEP 3 — CONCLUSION: After 6-9 total exchanges, say something like:
+"I have enough to finalize your Digital Benchmark. [2-3 sentence assessment comparing them to the U.S. Bank gold standard, naming the 2-3 biggest gaps]. To send you the full report — including the fintech categories that would close these gaps — what's your name, email, and institution?"
+
+Then on separate lines:
+SCORES:{...,"bumps":[]}
+VERDICT_JSON:{"tier":"emerging|developing|competitive|leading","summary":"one sentence comparing them to U.S. Bank","gapAnalysis":"2-3 sentence gap analysis","recommendedCategories":["Category A","Category B","Category C"]}`;
+}
+
+function fiRenderChips(d){
+  const strip=document.getElementById('fiIntelStrip');strip.innerHTML='';strip.style.display='flex';
+  [{k:'institutionName',l:'Institution'},{k:'institutionType',l:'Type'},{k:'estimatedAssets',l:'Assets'},{k:'coreProvider',l:'Core'},{k:'digitalFeaturesDetected',l:'Digital'},{k:'mobileAppRating',l:'App rating'},{k:'personalizationSignals',l:'Personalization'}]
+    .forEach(f=>{if(d[f.k]&&d[f.k]!=='Unknown'){const c=document.createElement('div');c.className='ag-chip g';c.textContent=f.l+': '+d[f.k];strip.appendChild(c);}});
+  if(d.flags)d.flags.forEach(f=>{if(f&&f!=='None'){const c=document.createElement('div');c.className='ag-chip a';c.textContent='⚠ '+f;strip.appendChild(c);}});
+  const unk=['coreProvider','digitalFeaturesDetected','mobileAppRating','personalizationSignals'].filter(k=>!d[k]||d[k]==='Unknown');
+  if(unk.length){const c=document.createElement('div');c.className='ag-chip gr';c.textContent=unk.length+' gaps to probe';strip.appendChild(c);}
+}
+
+async function fiCallAPI(userText){
+  if(userText) fiHistory.push({role:'user',content:userText});
+  const res=await fetch('/.netlify/functions/proxy',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      model:'claude-sonnet-4-5',
+      max_tokens:1200,
+      system:buildFiSys(),
+      messages:fiHistory
+    })
+  });
+  const data=await res.json();
+  if(data.error) throw new Error(data.error.message);
+  const raw=data.content.map(b=>b.text||'').join('');
+  fiHistory.push({role:'assistant',content:raw});
+  return raw;
+}
+
+async function fiCallScrape(url){
+  try{
+    let websiteContent='';
+    try{
+      const fetchRes=await fetch(`/.netlify/functions/proxy?fetchUrl=${encodeURIComponent(url)}`);
+      const fetchData=await fetchRes.json();
+      if(fetchData.content && fetchData.content.length>100){
+        websiteContent=fetchData.content;
+        fiWebsiteText=websiteContent;
+        console.log('FI website fetched successfully:',websiteContent.length,'chars');
+      }
+    }catch(e){
+      console.log('FI website fetch failed, falling back to training data:',e);
+    }
+
+    const prompt = websiteContent
+      ? `Analyze this bank or credit union based on their ACTUAL website content below. Be precise — use only what the website actually says, do not guess or use prior knowledge that contradicts it.\n\nWebsite URL: ${url}\n\nWebsite content:\n${websiteContent}\n\nReturn ONLY a raw JSON object (no markdown, no fences):\n{"institutionName":"...","institutionType":"Bank|Credit Union|Unknown","oneLiner":"...","estimatedAssets":"...","coreProvider":"...","digitalFeaturesDetected":"...","mobileAppRating":"...","personalizationSignals":"...","notableGaps":"...","flags":["..."]}\nUse "Unknown" for anything not mentioned on the website. flags = genuine digital-experience gaps versus a modern bank, or omit if none apparent.`
+      : `Based on your training knowledge, what do you know about the bank or credit union at: ${url}\n\nReturn ONLY a raw JSON object (no markdown, no fences):\n{"institutionName":"...","institutionType":"Bank|Credit Union|Unknown","oneLiner":"...","estimatedAssets":"...","coreProvider":"...","digitalFeaturesDetected":"...","mobileAppRating":"...","personalizationSignals":"...","notableGaps":"...","flags":["..."]}\nUse "Unknown" for anything you are not confident about.`;
+
+    const res = await fetch('/.netlify/functions/proxy', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-5',
+        max_tokens: 800,
+        system: 'You are a precise digital-banking research analyst. When given actual website content, analyze ONLY what is explicitly stated. Never contradict what the website says with prior assumptions.',
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await res.json();
+    if(data.error) return null;
+    const raw = data.content.map(b => b.text || '').join('');
+    const parsed = JSON.parse(raw.replace(/```json|```/g, '').trim());
+    const known = Object.values(parsed).filter(v => v && v !== 'Unknown').length;
+    return known >= 2 ? parsed : null;
+  }catch(e){
+    console.error('fiCallScrape failed:', e);
+    return null;
+  }
+}
+
+let fiStartAlertSent = false;
+async function fiSendBenchmarkStartedAlert(url, institutionName){
+  if(fiStartAlertSent) return;
+  fiStartAlertSent = true;
+  try{
+    const name = institutionName || 'Unknown institution (name not detected from scan)';
+    const timestamp = new Date().toLocaleString('en-US',{dateStyle:'long',timeStyle:'short'});
+    const subject = `[FI Benchmark Started] ${name}`;
+    const body = `A new FiRadar FI Digital Benchmark session has started.\n\n` +
+      `Institution: ${name}\n` +
+      `Website: ${url}\n` +
+      `Started: ${timestamp}\n\n` +
+      `This is an automatic notification sent the moment the benchmark begins — it does not mean it was completed. If you don't receive a completed report (score + recommended fintech categories) for this institution afterward, consider a personal follow-up.\n\n` +
+      `— FiRadar FI Benchmark Agent`;
+    await sendEmailViaProxy('tom.penton@firadar.finance', 'analyst@firadar.finance', subject, body);
+  }catch(e){
+    console.error('fiSendBenchmarkStartedAlert failed:', e);
+  }
+}
+
+async function fiDoScan(){
+  const url=document.getElementById('fiUrlInput').value.trim();
+  if(!url) return;
+
+  const btn=document.getElementById('fiScanBtn');
+  btn.disabled=true;
+  btn.innerHTML='<i class="ti ti-loader" aria-hidden="true"></i> Scanning...';
+
+  fiShowTyping('fiSTyp');
+  let d=null;
+  try{ d=await fiCallScrape(url); }catch(e){ console.error('FI scrape error:',e); }
+  fiRmTyping('fiSTyp');
+
+  if(d){
+    fiIntel=JSON.stringify(d,null,2);
+    fiAuditData.institutionName=d.institutionName&&d.institutionName!=='Unknown'?d.institutionName:'';
+    fiAuditData.institutionType=d.institutionType&&d.institutionType!=='Unknown'?d.institutionType:'';
+    fiRenderChips(d);
+    const name=fiAuditData.institutionName||'this institution';
+    let msg=`Scan complete on <strong>${name}</strong>.`;
+    if(d.oneLiner&&d.oneLiner!=='Unknown') msg+=' '+d.oneLiner+'.';
+    if(d.digitalFeaturesDetected&&d.digitalFeaturesDetected!=='Unknown') msg+=` Digital footprint detected: ${d.digitalFeaturesDetected}.`;
+    if(d.flags&&d.flags.filter(f=>f&&f!=='None').length>0) msg+=`<br><br><strong>Gaps flagged vs. gold standard:</strong> ${d.flags.filter(f=>f&&f!=='None').join('; ')}.`;
+    msg+='<br><br>Starting your Digital Benchmark — focusing on unconfirmed dimensions.';
+    fiAddMsg('assistant',msg,true);
+  } else {
+    fiIntel='';
+    fiAddMsg('assistant','Site scan returned limited data. Proceeding with the full benchmark questionnaire.',true);
+  }
+
+  document.getElementById('fiScanPanel').style.opacity='0.6';
+  btn.innerHTML='<i class="ti ti-check" aria-hidden="true"></i> Scanned';
+  document.getElementById('fiStepLbl').textContent='Benchmark in progress';
+
+  fiSendBenchmarkStartedAlert(url, fiAuditData.institutionName);
+
+  await new Promise(r=>setTimeout(r,600));
+  await fiStartAudit();
+}
+
+async function fiStartAudit(){
+  fiBusy=true;
+  fiShowTyping();
+  try{
+    const intelSummary=fiIntel?`I have shared my institution's URL and you have pre-loaded intel on us. Please begin by immediately outputting a SCORES block based on what the intel already reveals, then greet me and ask your first surface question.`:`I am ready to begin the benchmark. Please output an initial SCORES block (all zeros since no intel is available), greet me, and ask your first question.`;
+    const reply=await fiCallAPI(intelSummary);
+    fiRmTyping();
+    const sc=parseSc(reply);
+    const clean=cleanReply(reply);
+    if(clean) fiAddMsg('assistant',clean);
+    if(sc){
+      fiApplyScores(sc);
+      const baseTotal=fiTotalScore();
+      if(baseTotal>0){
+        const chat=document.getElementById('fiChat');
+        const el=document.createElement('div');
+        el.className='ag-msg';
+        const inner=document.createElement('div');
+        inner.className='ag-bump';
+        inner.innerHTML=`<i class="ti ti-radar" aria-hidden="true" style="font-size:13px"></i> Baseline score: ${baseTotal}/1000 — based on site scan. Answer questions to refine your score.`;
+        el.appendChild(inner);
+        chat.appendChild(el);
+        fiScrollBot();
+      }
+    } else {
+      console.warn('No SCORES block in FI opening reply — forcing a scoring follow-up.');
+      try{
+        const forceReply = await fiCallAPI('Please output your SCORES block now based on the intel and conversation so far. Output ONLY the SCORES block, nothing else.');
+        const forceSc = parseSc(forceReply);
+        if(forceSc){
+          fiApplyScores(forceSc);
+          const baseTotal=fiTotalScore();
+          const chat=document.getElementById('fiChat');
+          const el=document.createElement('div');
+          el.className='ag-msg';
+          const inner=document.createElement('div');
+          inner.className='ag-bump';
+          inner.innerHTML=`<i class="ti ti-radar" aria-hidden="true" style="font-size:13px"></i> Baseline score: ${baseTotal}/1000 — based on site scan. Answer questions to refine your score.`;
+          el.appendChild(inner);
+          chat.appendChild(el);
+          fiScrollBot();
+        }
+      }catch(e2){
+        console.error('FI forced scoring follow-up also failed:', e2);
+      }
+    }
+  }catch(e){
+    fiRmTyping();
+    console.error('fiStartAudit error:',e);
+    fiAddMsg('assistant','I apologize — there was a connection issue starting your benchmark. Please refresh the page and try again.');
+  }
+  fiQCount=1;
+  document.getElementById('fiStepLbl').textContent='Benchmark step 1 / 10';
+  fiBusy=false;
+  document.getElementById('fiInp').disabled=false;
+  document.getElementById('fiSendBtn').disabled=false;
+}
+
+function fiRenderVerdict(v){
+  const chat=document.getElementById('fiChat');
+  const card=document.createElement('div');card.className='ag-verdict';
+  const total=fiTotalScore();const ti=fiTierInfo(total);
+  const tierLabels={emerging:'Emerging',developing:'Developing',competitive:'Competitive',leading:'Leading'};
+  const tierClass={emerging:'red',developing:'amber',competitive:'amber',leading:'green'};
+  const cats=v.recommendedCategories||[];
+  const catChips=cats.map(c=>`<span class="avb amber" style="margin:3px 4px 0 0;display:inline-block">${c}</span>`).join('');
+  card.innerHTML=`<div class="ag-verdict-title">Digital Benchmark Result</div>
+    <div class="ag-verdict-row"><span class="avl">vs. U.S. Bank Gold Standard</span><span class="avb ${tierClass[v.tier]||'amber'}">${tierLabels[v.tier]||v.tier||'—'}</span></div>
+    <div class="ag-verdict-sum">${v.summary||''}</div>
+    ${cats.length?`<div style="margin-top:10px;font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.06em;text-transform:uppercase;color:#8892a0;margin-bottom:4px">Recommended fintech categories to close the gap</div><div>${catChips}</div>`:''}
+    <div class="ag-final-banner">
+      <div><div class="ag-fsb-label">Final Benchmark Score</div><div style="font-size:10px;color:#8A8680;font-family:'DM Mono',monospace">${ti.label}</div></div>
+      <div class="ag-fsb-score" style="color:${scoreColor(total)}">${total}<span style="font-size:13px;color:#8A8680">/1000</span></div>
+    </div>`;
+  chat.appendChild(card);fiScrollBot();
+  fiAuditData.verdict=v;
+  fiAuditData.analystSummary=v.gapAnalysis||v.summary||'';
+  fiAuditData.recommendedCategories=cats;
+}
+
+async function fiSend(){
+  if(fiBusy||fiDone) return;
+  const inp=document.getElementById('fiInp');
+  const txt=inp.value.trim();
+  if(!txt) return;
+  inp.value='';
+  inp.style.height='auto';
+  document.getElementById('fiSendBtn').disabled=true;
+  fiBusy=true;
+  fiAddMsg('user',txt.replace(/\n/g,'<br>'));
+  fiQCount=Math.min(fiQCount+1,10);
+  document.getElementById('fiStepLbl').textContent='Benchmark step '+fiQCount+' / 10';
+  fiShowTyping();
+  try{
+    const reply=await fiCallAPI(txt);
+    fiRmTyping();
+    const sc=parseSc(reply);
+    const v=parseV(reply);
+    const clean=cleanReply(reply);
+    if(clean) fiAddMsg('assistant',clean);
+    if(sc) fiApplyScores(sc);
+    if(v){
+      fiRenderVerdict(v);
+      fiDone=true;
+      fiQCount=10;
+      document.getElementById('fiStepLbl').textContent='Benchmark complete';
+      document.getElementById('fiInp').placeholder='Benchmark complete. Your report is ready below.';
+      document.getElementById('fiSendBtn').disabled=true;
+      await fiGenEmails();
+      document.getElementById('fiEmailSection').style.display='block';
+      return;
+    }
+  }catch(e){
+    fiRmTyping();
+    console.error('fi send error:',e);
+    fiAddMsg('assistant','Connectivity issue — please try again.');
+  }
+  fiBusy=false;
+  document.getElementById('fiSendBtn').disabled=false;
+}
+
+async function fiGenEmails(){
+  const total=fiTotalScore();const ti=fiTierInfo(total);
+  const inst=fiAuditData.institutionName||'your institution';
+  const contact=fiAuditData.contactName||'there';
+  const v=fiAuditData.verdict||{tier:'developing',summary:'',gapAnalysis:'',recommendedCategories:[]};
+  const tierLabels={emerging:'Emerging',developing:'Developing',competitive:'Competitive',leading:'Leading'};
+  const dimLines=FI_DIMS.map((k,i)=>`  ${FI_DIM_LABELS[i].padEnd(18)} ${fiScores[i].toString().padStart(3)}/${FI_DIM_MAX[i]}`).join('\n');
+  const date=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  const cats=(v.recommendedCategories||[]).map(c=>`  • ${c}`).join('\n')||'  • Not enough data captured for category matching';
+  const tierLabel=tierLabels[v.tier]||ti.label;
+  const action=total>=750?'STRONG — Near gold-standard parity. Consider as a reference case / co-marketing opportunity.':total>=500?'TARGETED MATCH — Share 2-3 fintech introductions for the specific gap categories below.':'PRIORITY MATCH — Significant modernization opportunity. Fast-track fintech introductions across multiple categories.';
+
+  const fe=`Subject: Your FiRadar Digital Benchmark Score — ${total}/1000
+
+${contact},
+
+Thank you for running the FiRadar FI Digital Benchmark. Here's how ${inst} compares to U.S. Bank — named Best-in-Class for the second straight year in Javelin Strategy & Research's Mobile and Online Banking Scorecards.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+YOUR DIGITAL BENCHMARK SCORE: ${total}/1000
+TIER: ${tierLabel.toUpperCase()}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+DIMENSION BREAKDOWN (U.S. Bank = gold standard):
+${dimLines}
+
+ANALYST'S READ:
+${fiAuditData.analystSummary}
+
+RECOMMENDED FINTECH CATEGORIES TO CLOSE THE GAP:
+${cats}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NEXT STEPS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FiRadar's network includes vetted fintechs across each category above. Reply to this email and our team will send introductions matched to your specific gaps.
+
+Regards,
+
+The FiRadar Advisory Team
+tom.penton@firadar.finance | www.firadar.finance
+5,000+ FI Executives · 27 Years of Boardroom Trust
+
+FiRadar — We Audit. We Invest. We Accelerate.`;
+
+  const ie=`Subject: [FI LEAD] ${inst} — Score ${total}/1000 — ${tierLabel} — ACTION: ${total>=750?'STRONG':total>=500?'TARGETED MATCH':'PRIORITY MATCH'}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FIRADAR FI DIGITAL BENCHMARK — LEAD BRIEF
+${date} — Internal Use
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+INSTITUTION:     ${inst}
+TYPE:            ${fiAuditData.institutionType||'Unknown'}
+CONTACT:         ${contact}${fiAuditData.contactEmail?' · '+fiAuditData.contactEmail:''}
+BENCHMARK SCORE: ${total}/1000 — ${tierLabel}
+BENCHMARK DATE:  ${date}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DIMENSION SCORES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+${dimLines}
+
+  TOTAL SCORE:           ${total}/1000
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+GAP ANALYSIS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+${fiAuditData.analystSummary}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+RECOMMENDED FINTECH MATCH CATEGORIES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+${cats}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+RECOMMENDED ACTION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+${action}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Benchmark completed via FiRadar FI Digital Benchmark Tool
+Lead Analyst · analyst@firadar.finance
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+
+  document.getElementById('fiReportPreview').textContent=fe;
+  document.getElementById('fiInternalPreview').textContent=ie;
+  fiAuditData.reportEmail=fe;
+  fiAuditData.internalEmail=ie;
+  fiAuditData.date=date;
+  fiAuditData.action=action;
+  fiAuditData.total=total;
+  fiAuditData.tier=tierLabel;
+}
+
+function fiSwitchTab(tab){
+  const map={rep:['fiTabRep','fiPaneRep'],int:['fiTabInt','fiPaneInt'],pdf:['fiTabPdf','fiPanePdf']};
+  Object.entries(map).forEach(([t,[btnId,paneId]])=>{
+    const btn=document.getElementById(btnId);
+    const pane=document.getElementById(paneId);
+    if(btn) btn.className='ag-email-tab'+(tab===t?' active':'');
+    if(pane) pane.className='ag-email-pane'+(tab===t?' active':'');
+  });
+}
+
+function fiCopyEmail(type){
+  const el=document.getElementById(type==='rep'?'fiReportPreview':'fiInternalPreview');
+  navigator.clipboard.writeText(el.textContent).then(()=>{
+    const st=document.getElementById(type==='rep'?'fiRepStatus':'fiIntStatus');
+    st.textContent='✓ Copied to clipboard';setTimeout(()=>st.textContent='',2500);
+  });
+}
+
+async function fiOpenMailto(type){
+  const isRep=type==='rep';
+  const to=document.getElementById(isRep?'fiReportEmail':'fiInternalEmail').value;
+  const from=isRep?'tom.penton@firadar.finance':'analyst@firadar.finance';
+  const preview=document.getElementById(isRep?'fiReportPreview':'fiInternalPreview').textContent;
+  const lines=preview.split('\n');
+  const subj=lines[0].replace('Subject: ','');
+  const body=lines.slice(2).join('\n');
+  const st=document.getElementById(isRep?'fiRepStatus':'fiIntStatus');
+  st.textContent='Sending...';
+  const ok=await sendEmailViaProxy(to,from,subj,body);
+  st.textContent=ok?'✓ Email sent successfully!':'⚠ Failed — check email address';
+  setTimeout(()=>st.textContent='',4000);
+}
+
+async function fiOpenBothMailto(){
+  const btn=document.querySelector('[onclick="fiOpenBothMailto()"]');
+  if(btn){ btn.disabled=true; btn.innerHTML='<i class="ti ti-loader" aria-hidden="true" style="font-size:13px"></i> Sending...'; }
+
+  const rto=document.getElementById('fiReportEmail').value;
+  const ito=document.getElementById('fiInternalEmail').value;
+  const rp=document.getElementById('fiReportPreview').textContent.split('\n');
+  const ip=document.getElementById('fiInternalPreview').textContent.split('\n');
+  const rs=rp[0].replace('Subject: ','');
+  const rb=rp.slice(2).join('\n');
+  const is_=ip[0].replace('Subject: ','');
+  const ib=ip.slice(2).join('\n');
+
+  const st=document.getElementById('fiBothStatus');
+  let sent=0;
+
+  if(rto){
+    const ok=await sendEmailViaProxy(rto,'tom.penton@firadar.finance',rs,rb);
+    if(ok) sent++;
+    else { st.textContent='⚠ Report email failed — check address'; }
+  }
+
+  if(ito){
+    const ok=await sendEmailViaProxy(ito,'analyst@firadar.finance',is_,ib);
+    if(ok) sent++;
+    else { st.textContent='⚠ Internal email failed — check address'; }
+  }
+
+  if(sent===2) st.textContent='✓ Both emails sent successfully!';
+  else if(sent===1) st.textContent='✓ One email sent — check the other address';
+
+  setTimeout(()=>st.textContent='',5000);
+  if(btn){ btn.disabled=false; btn.innerHTML='<i class="ti ti-send" aria-hidden="true" style="font-size:13px"></i>Send Both Emails'; }
+}
+
+function fiGeneratePDF(){
+  const total=fiAuditData.total||fiTotalScore();
+  const ti=fiTierInfo(total);
+  const inst=fiAuditData.institutionName||'Institution';
+  const contact=fiAuditData.contactName||'—';
+  const date=fiAuditData.date||new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  const v=fiAuditData.verdict||{tier:'developing',recommendedCategories:[]};
+  const tierLabels={emerging:'Emerging',developing:'Developing',competitive:'Competitive',leading:'Leading'};
+  const tierLabel=fiAuditData.tier||tierLabels[v.tier]||ti.label;
+  const action=fiAuditData.action||'TARGETED MATCH';
+  const scoreColor_=total>=750?'#1D9E75':total>=500?'#BA7517':total>=250?'#D85A30':'#A32D2D';
+
+  const dimRows=FI_DIMS.map((k,i)=>{
+    const pct=Math.round((fiScores[i]/FI_DIM_MAX[i])*100);
+    const barColor=fiScores[i]/FI_DIM_MAX[i]>=.75?'#1D9E75':fiScores[i]/FI_DIM_MAX[i]>=.5?'#BA7517':'#D85A30';
+    return `<tr>
+      <td style="padding:8px 0;font-size:12px;color:#4A4740;font-family:'DM Mono',monospace;width:140px;vertical-align:middle;text-transform:uppercase;letter-spacing:.04em">${FI_DIM_LABELS[i]}</td>
+      <td style="padding:8px 12px;vertical-align:middle">
+        <div style="background:#e8e4de;border-radius:3px;height:8px;overflow:hidden">
+          <div style="width:${pct}%;height:100%;background:${barColor};border-radius:3px"></div>
+        </div>
+      </td>
+      <td style="padding:8px 0;font-size:12px;font-family:'DM Mono',monospace;color:#0B1628;text-align:right;width:60px;vertical-align:middle;font-weight:600">${fiScores[i]}<span style="color:#8A8680;font-weight:400">/${FI_DIM_MAX[i]}</span></td>
+    </tr>`;
+  }).join('');
+
+  const cats=fiAuditData.recommendedCategories&&fiAuditData.recommendedCategories.length
+    ? fiAuditData.recommendedCategories.map(c=>`<span style="display:inline-block;background:#FAEEDA;color:#854F0B;border:1px solid #FAC775;font-size:11px;font-family:'DM Mono',monospace;padding:4px 10px;border-radius:3px;margin:0 6px 6px 0">${c}</span>`).join('')
+    : `<span style="font-size:12px;color:#8A8680">Not enough data captured for category matching</span>`;
+
+  const actionColor=action.startsWith('STRONG')?'#1D9E75':action.startsWith('TARGETED')?'#BA7517':'#A32D2D';
+  const actionKey=action.startsWith('STRONG')?'STRONG':action.startsWith('TARGETED')?'TARGETED MATCH':'PRIORITY MATCH';
+
+  const pdfHTML=`<!DOCTYPE html><html><head><meta charset="UTF-8"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Syne',sans-serif;background:#fff;color:#0B1628;width:794px;margin:0 auto;padding:0}
+  @media print{body{width:100%}@page{margin:0;size:A4}}
+</style>
+</head><body>
+
+<!-- HEADER -->
+<div style="background:#0B1628;padding:36px 48px 28px;position:relative;overflow:hidden">
+  <div style="position:absolute;top:-60px;right:-60px;width:300px;height:300px;background:radial-gradient(circle,rgba(200,146,42,.15),transparent 65%);pointer-events:none"></div>
+  <div style="display:flex;align-items:center;justify-content:space-between">
+    <div style="display:flex;align-items:center;gap:14px">
+      <div style="width:40px;height:40px;border:1.5px solid #C8922A;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#C8922A">◎</div>
+      <div>
+        <div style="font-size:18px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#fff">FiRadar</div>
+        <div style="font-size:9px;letter-spacing:.18em;color:#C8922A;text-transform:uppercase;font-family:'DM Mono',monospace">FI Digital Benchmark</div>
+      </div>
+    </div>
+    <div style="text-align:right">
+      <div style="font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:4px">Benchmark Report</div>
+      <div style="font-size:11px;font-family:'DM Mono',monospace;color:rgba(255,255,255,.6)">${date}</div>
+    </div>
+  </div>
+  <div style="margin-top:28px;padding-top:24px;border-top:1px solid rgba(200,146,42,.2)">
+    <div style="font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#C8922A;margin-bottom:8px">Institution Benchmarked</div>
+    <div style="font-family:'DM Serif Display',serif;font-size:28px;color:#fff;font-weight:400;margin-bottom:4px">${inst}</div>
+    <div style="font-size:12px;color:rgba(255,255,255,.5);font-family:'DM Mono',monospace">Contact: ${contact}${fiAuditData.contactEmail?' · '+fiAuditData.contactEmail:''}</div>
+  </div>
+</div>
+
+<!-- SCORE BAND -->
+<div style="background:#FAF7F2;border-bottom:1px solid rgba(11,22,40,.1);padding:24px 48px;display:flex;align-items:center;gap:40px">
+  <div>
+    <div style="font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#8A8680;margin-bottom:6px">Digital Benchmark Score</div>
+    <div style="font-family:'DM Serif Display',serif;font-size:52px;line-height:1;color:${scoreColor_};font-weight:400">${total}<span style="font-size:22px;color:#8A8680">/1000</span></div>
+  </div>
+  <div style="flex:1;height:12px;background:#e8e4de;border-radius:6px;overflow:hidden">
+    <div style="width:${total/10}%;height:100%;background:${scoreColor_};border-radius:6px;transition:width 1s"></div>
+  </div>
+  <div style="text-align:right">
+    <div style="font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#8A8680;margin-bottom:4px">Tier</div>
+    <div style="font-size:15px;font-weight:700;color:${scoreColor_}">${tierLabel}</div>
+    <div style="margin-top:8px;background:${actionColor}20;color:${actionColor};border:1px solid ${actionColor}40;font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:3px;display:inline-block">${actionKey}</div>
+  </div>
+</div>
+
+<!-- BODY -->
+<div style="padding:32px 48px;display:grid;grid-template-columns:1fr 1fr;gap:32px">
+
+  <!-- LEFT: DIMENSIONS -->
+  <div>
+    <div style="font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#C8922A;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #C8922A">Dimension Scores (vs. U.S. Bank)</div>
+    <table style="width:100%;border-collapse:collapse">${dimRows}</table>
+    <div style="margin-top:10px;padding:10px 12px;background:#FAF7F2;border-radius:4px;display:flex;justify-content:space-between;align-items:center">
+      <span style="font-size:11px;font-family:'DM Mono',monospace;letter-spacing:.06em;text-transform:uppercase;color:#8A8680">Total Score</span>
+      <span style="font-size:16px;font-weight:700;font-family:'DM Mono',monospace;color:${scoreColor_}">${total}<span style="font-size:11px;color:#8A8680">/1000</span></span>
+    </div>
+
+    <div style="margin-top:28px;font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#C8922A;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #C8922A">Recommended Fintech Categories</div>
+    <div>${cats}</div>
+  </div>
+
+  <!-- RIGHT: ANALYST NOTES + ACTION -->
+  <div>
+    <div style="font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#C8922A;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #C8922A">Gap Analysis</div>
+    <p style="font-size:13px;color:#4A4740;line-height:1.75;margin-bottom:24px">${fiAuditData.analystSummary||'—'}</p>
+
+    <div style="font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#C8922A;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #C8922A">Recommended Action</div>
+    <div style="background:${actionColor}10;border:1px solid ${actionColor}30;border-left:4px solid ${actionColor};padding:14px 16px;border-radius:4px">
+      <div style="font-size:11px;font-weight:700;font-family:'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:${actionColor};margin-bottom:6px">${actionKey}</div>
+      <div style="font-size:12px;color:#4A4740;line-height:1.65">${action}</div>
+    </div>
+
+    <div style="margin-top:24px;font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#C8922A;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #C8922A">Benchmark Methodology</div>
+    <p style="font-size:11.5px;color:#8A8680;line-height:1.7">Scored against U.S. Bank, named Best-in-Class for the second consecutive year in Javelin Strategy &amp; Research's 2025 Mobile and Online Banking Scorecards, across six weighted digital-experience dimensions. FiRadar maps each identified gap to a category of vetted fintech solution from its 5,000+ FI-executive network.</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div style="background:#0B1628;padding:20px 48px;display:flex;align-items:center;justify-content:space-between;margin-top:auto">
+  <div>
+    <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff">FiRadar</div>
+    <div style="font-size:10px;font-family:'DM Mono',monospace;color:rgba(255,255,255,.4);letter-spacing:.06em">tom.penton@firadar.finance · www.firadar.finance</div>
+  </div>
+  <div style="font-size:10px;font-family:'DM Mono',monospace;color:rgba(255,255,255,.3);text-align:right">
+    FiRadar FI Digital Benchmark · ${date}
+  </div>
+</div>
+
+</body></html>`;
+
+  const win=window.open('','_blank','width=900,height=700');
+  if(!win){alert('Please allow popups to generate the PDF report.');return;}
+  win.document.write(pdfHTML);
+  win.document.close();
+  win.onload=function(){
+    setTimeout(()=>{win.focus();win.print();},500);
+  };
+}
+
+document.getElementById('fiScanBtn').addEventListener('click',fiDoScan);
+document.getElementById('fiUrlInput').addEventListener('keydown',e=>{if(e.key==='Enter')fiDoScan();});
+document.getElementById('fiSendBtn').addEventListener('click',fiSend);
+document.getElementById('fiInp').addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();fiSend();}});
+document.getElementById('fiInp').addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,90)+'px';});
+fiUpdateDial();
 </script>
 </body>
 </html>
