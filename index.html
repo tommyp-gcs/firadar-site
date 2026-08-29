@@ -2079,19 +2079,43 @@ async function sendEmailViaProxy(to, from, subject, body, replyTo){
 // Fires a quiet alert to Tom the moment someone starts an audit —
 // captures the lead even if they abandon before completing.
 let auditStartAlertSent = false;
-async function sendAuditStartedAlert(url, companyName){
-  if(auditStartAlertSent) return; // only fire once per session
+function cleanUrlShort(url){
+  try{
+    const u=new URL(url.startsWith('http')?url:'https://'+url);
+    return u.protocol+'//'+u.hostname;
+  }catch(e){ return url; }
+}
+
+async function sendAuditStartedAlert(url, companyName, initialScore, openingSummary){
+  if(auditStartAlertSent) return;
   auditStartAlertSent = true;
   try{
-    const name = companyName || 'Unknown company (name not detected from scan)';
+    const name = companyName || 'Unknown (not detected from scan)';
+    const cleanUrl = cleanUrlShort(url);
     const timestamp = new Date().toLocaleString('en-US',{dateStyle:'long',timeStyle:'short'});
-    const subject = `[Score Started] ${name}`;
-    const body = `A new FiRadar audit session has started.\n\n` +
-      `Company: ${name}\n` +
-      `Website: ${url}\n` +
-      `Started: ${timestamp}\n\n` +
-      `This is an automatic notification sent the moment the audit begins — it does not mean the audit has been completed. If you don't receive a completed audit report (score + verdict) for this company afterward, the founder may have started but not finished. Consider a personal follow-up.\n\n` +
-      `— FiRadar Score Agent`;
+    const total = initialScore || totalScore();
+    const ti = tierInfo(total);
+    const dimLines = DIMS.map((k,i)=>`  ${DIM_LABELS[i].padEnd(18)} ${scores[i].toString().padStart(3)}/${DIM_MAX[i]}`).join('\n');
+    const summary = openingSummary ? openingSummary.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim().slice(0,400) : '—';
+    const subject = `[Fintech Score Alert] ${name} — Initial Score: ${total}/1000`;
+    const body =
+`FIRADAR FINTECH SCORE ALERT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Company:    ${name}
+Website:    ${cleanUrl}
+Started:    ${timestamp}
+
+INITIAL SCORE: ${total}/1000 — ${ti.label}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DIMENSION BREAKDOWN:
+${dimLines}
+
+ANALYST OPENING SUMMARY:
+${summary}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NOTE: This alert fires after the first scoring exchange. If you don't receive a completed report afterward, the founder may have dropped off — consider a follow-up.
+
+— FiRadar Score Agent`;
     await sendEmailViaProxy('tom.penton@firadar.finance', 'analyst@firadar.finance', subject, body);
   }catch(e){
     console.error('sendAuditStartedAlert failed:', e);
@@ -2482,6 +2506,7 @@ async function doScan(){
   if(d){
     intel=JSON.stringify(d,null,2);
     auditData.companyName=d.companyName&&d.companyName!=='Unknown'?d.companyName:'';
+    auditData.url=url;
     renderChips(d);
     const name=auditData.companyName||'this company';
     let msg=`Intel acquired on <strong>${name}</strong>.`;
@@ -2493,6 +2518,7 @@ async function doScan(){
     addMsg('assistant',msg,true);
   } else {
     intel='';
+    auditData.url=url;
     addMsg('assistant','URL scan returned limited data. Proceeding with full audit questionnaire.',true);
   }
 
@@ -2501,13 +2527,10 @@ async function doScan(){
   btn.innerHTML='<i class="ti ti-check" aria-hidden="true"></i> Scanned';
   document.getElementById('stepLbl').textContent='Score in progress';
 
-  // Step 4: Fire a silent "audit started" alert to Tom — fires regardless of completion
-  sendAuditStartedAlert(url, auditData.companyName);
-
-  // Step 5: Short pause then start audit
+  // Step 4: Short pause then start audit
   await new Promise(r=>setTimeout(r,600));
 
-  // Step 6: Start the audit — this is the API call
+  // Step 5: Start the audit — this is the API call
   await startAudit();
 }
 
@@ -2570,6 +2593,10 @@ async function startAudit(){
   busy=false;
   document.getElementById('inp').disabled=false;
   document.getElementById('sendBtn').disabled=false;
+  // Fire alert now — scores and opening summary are ready
+  const openingMsg = history.filter(m=>m.role==='assistant')[0];
+  const openingSummary = openingMsg ? cleanReply(openingMsg.content) : '';
+  sendAuditStartedAlert(auditData.url||'', auditData.companyName, totalScore(), openingSummary);
 }
 
 async function send(){
@@ -2833,19 +2860,36 @@ async function fiCallScrape(url){
 }
 
 let fiStartAlertSent = false;
-async function fiSendBenchmarkStartedAlert(url, institutionName){
+async function fiSendBenchmarkStartedAlert(url, institutionName, initialScore, openingSummary){
   if(fiStartAlertSent) return;
   fiStartAlertSent = true;
   try{
-    const name = institutionName || 'Unknown institution (name not detected from scan)';
+    const name = institutionName || 'Unknown (not detected from scan)';
+    const cleanUrl = cleanUrlShort(url);
     const timestamp = new Date().toLocaleString('en-US',{dateStyle:'long',timeStyle:'short'});
-    const subject = `[FI Benchmark Started] ${name}`;
-    const body = `A new FiRadar FI Digital Benchmark session has started.\n\n` +
-      `Institution: ${name}\n` +
-      `Website: ${url}\n` +
-      `Started: ${timestamp}\n\n` +
-      `This is an automatic notification sent the moment the benchmark begins — it does not mean it was completed. If you don't receive a completed report (score + recommended fintech categories) for this institution afterward, consider a personal follow-up.\n\n` +
-      `— FiRadar FI Benchmark Agent`;
+    const total = initialScore || fiTotalScore();
+    const ti = fiTierInfo(total);
+    const dimLines = FI_DIMS.map((k,i)=>`  ${FI_DIM_LABELS[i].padEnd(18)} ${fiScores[i].toString().padStart(3)}/${FI_DIM_MAX[i]}`).join('\n');
+    const summary = openingSummary ? openingSummary.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim().slice(0,400) : '—';
+    const subject = `[FI Score Alert] ${name} — Initial Score: ${total}/1000`;
+    const body =
+`FIRADAR FI DIGITAL SCORE ALERT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Institution: ${name}
+Website:     ${cleanUrl}
+Started:     ${timestamp}
+
+INITIAL SCORE: ${total}/1000 — ${ti.label}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DIMENSION BREAKDOWN (vs. U.S. Bank gold standard):
+${dimLines}
+
+ANALYST OPENING SUMMARY:
+${summary}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NOTE: This alert fires after the first scoring exchange. If you don't receive a completed FI Score report afterward, the user may have dropped off — consider a follow-up.
+
+— FiRadar FI Score Agent`;
     await sendEmailViaProxy('tom.penton@firadar.finance', 'analyst@firadar.finance', subject, body);
   }catch(e){
     console.error('fiSendBenchmarkStartedAlert failed:', e);
@@ -2885,8 +2929,7 @@ async function fiDoScan(){
   document.getElementById('fiScanPanel').style.opacity='0.6';
   btn.innerHTML='<i class="ti ti-check" aria-hidden="true"></i> Scanned';
   document.getElementById('fiStepLbl').textContent='Benchmark in progress';
-
-  fiSendBenchmarkStartedAlert(url, fiAuditData.institutionName);
+  fiAuditData.url = url;
 
   await new Promise(r=>setTimeout(r,600));
   await fiStartAudit();
@@ -2948,6 +2991,10 @@ async function fiStartAudit(){
   fiBusy=false;
   document.getElementById('fiInp').disabled=false;
   document.getElementById('fiSendBtn').disabled=false;
+  // Fire alert now — scores and opening summary are ready
+  const fiOpeningMsg = fiHistory.filter(m=>m.role==='assistant')[0];
+  const fiOpeningSummary = fiOpeningMsg ? cleanReply(fiOpeningMsg.content) : '';
+  fiSendBenchmarkStartedAlert(fiAuditData.url||'', fiAuditData.institutionName, fiTotalScore(), fiOpeningSummary);
 }
 
 function fiRenderVerdict(v){
