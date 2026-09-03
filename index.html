@@ -1709,6 +1709,7 @@ STEP 5 — CONCLUSION: After 4-6 substantive answers post-MNDA:
 
 Then on separate lines:
 SCORES:{...,"bumps":[]}
+CONTACT_INFO:{"name":"Founder full name","email":"founder@company.com"}
 VERDICT_JSON:{"network":"green|amber|red","investment":"green|amber|red","salesAccel":"green|amber|red","summary":"one sentence","analystNotes":"2-3 sentence gap analysis"}`;}
 
 
@@ -1754,8 +1755,26 @@ function cleanReply(text){
   let out = text;
   out = stripBlock(out, 'SCORES');
   out = stripBlock(out, 'VERDICT_JSON');
+  out = stripBlock(out, 'CONTACT_INFO');
   out = out.replace(/MNDA_REQUESTED/g,'').replace(/MNDA_SIGNED/g,'');
   return out.trim().replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
+}
+function parseContact(text){
+  const idx = text.indexOf('CONTACT_INFO:');
+  if(idx === -1) return null;
+  const start = text.indexOf('{', idx);
+  if(start === -1) return null;
+  let depth = 0;
+  for(let i = start; i < text.length; i++){
+    if(text[i] === '{') depth++;
+    if(text[i] === '}') depth--;
+    if(depth === 0){
+      const jsonStr = text.slice(start, i+1);
+      try{ return JSON.parse(jsonStr); }
+      catch(e){ return null; }
+    }
+  }
+  return null;
 }
 function parseV(text){
   const idx = text.indexOf('VERDICT_JSON:');
@@ -2122,6 +2141,67 @@ NOTE: This alert fires after the first scoring exchange. If you don't receive a 
   }
 }
 
+// ─── HubSpot CRM Bridge ───────────────────────────────────────────────────
+// Pushes a contact into HubSpot via the Forms API (no backend needed —
+// HubSpot's /submissions endpoint is publicly writable with portal ID).
+// Portal ID: 246649053
+async function pushToHubSpot(fields){
+  try{
+    const PORTAL_ID = '246649053';
+    // Use HubSpot's legacy Forms v3 submissions endpoint — works without auth
+    const payload = {
+      fields: Object.entries(fields)
+        .filter(([,v])=>v)
+        .map(([name,value])=>({name,value:String(value)})),
+      context: {
+        pageUri: window.location.href,
+        pageName: document.title
+      }
+    };
+    // Use a dedicated form per submission type — HubSpot creates the contact
+    // from the email field automatically. We route to a single "catch-all"
+    // form here; swap in a real form GUID from HubSpot → Marketing → Forms
+    // if you want field mapping. The legacy endpoint accepts any portal form.
+    const FORM_GUID = 'firadar-contact'; // placeholder — see note below
+    const res = await fetch(
+      `https://api.hsforms.com/submissions/v3/integration/submit/${PORTAL_ID}/${FORM_GUID}`,
+      {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(payload)
+      }
+    );
+    if(res.ok || res.status===200){
+      console.log('HubSpot contact created/updated:', fields.email);
+    } else {
+      // Fall back to HubSpot Contacts API v1 (no form needed, just portal + email)
+      await pushToHubSpotDirect(fields);
+    }
+  }catch(e){
+    console.warn('HubSpot Forms push failed, trying direct:', e);
+    await pushToHubSpotDirect(fields);
+  }
+}
+
+async function pushToHubSpotDirect(fields){
+  // HubSpot Contacts API — creates or updates by email, no form GUID needed.
+  // This goes through the proxy to keep things same-origin and avoid CORS.
+  try{
+    const properties = Object.entries(fields)
+      .filter(([,v])=>v)
+      .map(([property,value])=>({property,value:String(value)}));
+    await fetch('/.netlify/functions/hubspot-contact',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({properties})
+    });
+    console.log('HubSpot direct contact push sent for:', fields.email);
+  }catch(e){
+    console.warn('HubSpot direct push failed:', e);
+  }
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
 async function submitContactForm(){
   const name = document.getElementById('contactName').value.trim();
   const email = document.getElementById('contactEmailInput').value.trim();
@@ -2163,6 +2243,19 @@ async function submitContactForm(){
   const ok = await sendEmailViaProxy('tom.penton@firadar.finance', 'tom.penton@firadar.finance', subject, body, email);
 
   if(ok){
+    // Push to HubSpot CRM
+    pushToHubSpot({
+      email,
+      firstname: name.split(' ')[0],
+      lastname: name.split(' ').slice(1).join(' ') || '',
+      company: company || '',
+      hs_lead_status: 'NEW',
+      message: message,
+      jobtitle: type || '',
+      website: '',
+      lifecyclestage: 'lead',
+      hs_analytics_source: 'DIRECT_TRAFFIC'
+    });
     // Fire a friendly auto-reply to the visitor — doesn't block the success state if it fails
     const fiPhrase = (type === 'Bank' || type === 'Credit Union') ? 'your FI' : 'your desired FI partnerships';
     const autoReplySubject = `You're on the radar — thanks for reaching out to FiRadar`;
@@ -2630,9 +2723,14 @@ async function send(){
 
     const sc=parseSc(reply);
     const v=parseV(reply);
+    const ci=parseContact(reply);
     const clean=cleanReply(reply);
     if(clean) addMsg('assistant',clean);
     if(sc) applyScores(sc);
+    if(ci){
+      if(ci.name && ci.name !== 'Founder full name') auditData.contactName = ci.name;
+      if(ci.email && ci.email !== 'founder@company.com' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ci.email)) auditData.contactEmail = ci.email;
+    }
     if(v){
       renderVerdict(v);
       done=true;
@@ -2642,6 +2740,20 @@ async function send(){
       document.getElementById('sendBtn').disabled=true;
       await genEmails();
       document.getElementById('emailSection').style.display='block';
+      // Push to HubSpot CRM
+      if(auditData.contactEmail){
+        pushToHubSpot({
+          email: auditData.contactEmail,
+          firstname: (auditData.contactName||'').split(' ')[0],
+          lastname: (auditData.contactName||'').split(' ').slice(1).join(' '),
+          company: auditData.companyName || '',
+          website: cleanUrlShort(auditData.url||''),
+          jobtitle: 'Fintech Founder',
+          lifecyclestage: 'lead',
+          hs_lead_status: 'NEW',
+          message: `FiRadar Fintech Score: ${totalScore()}/1000 — ${tierInfo(totalScore()).label}`
+        });
+      }
       return;
     }
   }catch(e){
@@ -2787,6 +2899,7 @@ STEP 3 — CONCLUSION: After 6-9 total exchanges, say something like:
 
 Then on separate lines:
 SCORES:{...,"bumps":[]}
+CONTACT_INFO:{"name":"Contact full name","email":"contact@institution.com"}
 VERDICT_JSON:{"tier":"emerging|developing|competitive|leading","summary":"one sentence comparing them to U.S. Bank","gapAnalysis":"2-3 sentence gap analysis","recommendedCategories":["Category A","Category B","Category C"]}`;
 }
 
@@ -3040,6 +3153,11 @@ async function fiSend(){
     const clean=cleanReply(reply);
     if(clean) fiAddMsg('assistant',clean);
     if(sc) fiApplyScores(sc);
+    const ci=parseContact(reply);
+    if(ci){
+      if(ci.name && ci.name !== 'Contact full name') fiAuditData.contactName = ci.name;
+      if(ci.email && ci.email !== 'contact@institution.com' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ci.email)) fiAuditData.contactEmail = ci.email;
+    }
     if(v){
       fiRenderVerdict(v);
       fiDone=true;
@@ -3049,6 +3167,20 @@ async function fiSend(){
       document.getElementById('fiSendBtn').disabled=true;
       await fiGenEmails();
       document.getElementById('fiEmailSection').style.display='block';
+      // Push to HubSpot CRM
+      if(fiAuditData.contactEmail){
+        pushToHubSpot({
+          email: fiAuditData.contactEmail,
+          firstname: (fiAuditData.contactName||'').split(' ')[0],
+          lastname: (fiAuditData.contactName||'').split(' ').slice(1).join(' '),
+          company: fiAuditData.institutionName || '',
+          website: cleanUrlShort(fiAuditData.url||''),
+          jobtitle: fiAuditData.institutionType || 'FI Executive',
+          lifecyclestage: 'lead',
+          hs_lead_status: 'NEW',
+          message: `FiRadar FI Digital Score: ${fiTotalScore()}/1000 — ${fiTierInfo(fiTotalScore()).label}`
+        });
+      }
       return;
     }
   }catch(e){
