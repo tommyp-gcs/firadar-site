@@ -1,508 +1,228 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="FiRadar Research — independent scoring reports on fintechs and financial institutions, powered by the FiRadar Score API.">
-  <meta property="og:title" content="FiRadar Research | FiRadar.Finance">
-  <meta property="og:description" content="Independent scoring reports on fintechs and financial institutions. Powered by FiRadar AI.">
-  <meta property="og:type" content="website">
-  <title>FiRadar Research | FiRadar.Finance</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Ten fintech moves U.S. banks and credit unions are making for 2027, with a self-assessment to compare your plan. Published by FiRadar.Finance.">
+<meta property="og:title" content="2027 Bank Fintech Radar | FiRadar Research">
+<meta property="og:description" content="Ten fintech moves banks are making for 2027 — and a short self-assessment so your institution can see how its plan compares.">
+<meta property="og:type" content="website">
+<title>2027 Bank Fintech Radar | FiRadar Research</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Public+Sans:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* ── FiRadar nav / footer layer (dark navy, matches site) ── */
+.fr-nav {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  height: 64px;
+  background: rgba(10,15,30,0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid #1e2d45;
+  display: flex;
+  align-items: center;
+  padding-inline: clamp(16px,4vw,48px);
+  gap: 32px;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+}
+.fr-nav-logo {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #00c2ff;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.fr-nav-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-left: auto;
+}
+.fr-nav-links a {
+  font-size: 13px;
+  font-weight: 500;
+  color: #6b7fa3;
+  text-decoration: none;
+  transition: color 0.15s;
+  font-family: 'Barlow Condensed', sans-serif;
+  letter-spacing: 0.04em;
+}
+.fr-nav-links a:hover { color: #e8edf5; }
+.fr-nav-links a.active { color: #00c2ff; }
+@media (max-width: 560px) { .fr-nav-links { display: none; } }
 
-    :root {
-      --bg:           #0a0f1e;
-      --bg2:          #080c18;
-      --surface:      #111827;
-      --surface2:     #1a2236;
-      --border:       #1e2d45;
-      --border2:      #243050;
-      --fg:           #e8edf5;
-      --fg2:          #c8d4e8;
-      --muted:        #6b7fa3;
-      --accent:       #00c2ff;
-      --accent2:      #0077ff;
-      --elite:        #f5c842;
-      --nav-h:        64px;
-      --font-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-      --font-body:    'Inter', system-ui, -apple-system, sans-serif;
-      --radius-sm: 6px;
-      --radius-md: 10px;
-      --radius-lg: 16px;
-    }
+.fr-footer {
+  background: #080c18;
+  border-top: 1px solid #1e2d45;
+  padding: clamp(28px,4vw,48px) clamp(16px,4vw,48px);
+  margin-top: 0;
+}
+.fr-footer-inner {
+  max-width: 880px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+.fr-footer-brand {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: #00c2ff;
+  letter-spacing: 0.04em;
+  margin-bottom: 5px;
+}
+.fr-footer-tag {
+  font-size: 12px;
+  color: #6b7fa3;
+  line-height: 1.6;
+  max-width: 260px;
+}
+.fr-footer-right {
+  font-size: 12px;
+  color: #6b7fa3;
+  text-align: right;
+  line-height: 1.8;
+}
+.fr-footer-right a { color: #00c2ff; text-decoration: none; }
+.fr-footer-right a:hover { text-decoration: underline; }
+@media (max-width: 520px) { .fr-footer-right { text-align: left; } }
 
-    html { scroll-behavior: smooth; }
+/* ── Page content (original design system, unchanged) ── */
+:root{
+  --bg:#f5f7f8; --surface:#ffffff; --ink:#132431; --muted:#566a77; --line:#d9e1e5;
+  --accent:#0d6e6a; --accent-soft:#e1f0ee; --signal:#a8620b; --signal-soft:#fbefdc;
+  --good:#1f7a43; --warn:#a8620b; --gap:#b23a3a;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Public Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1a21; --surface:#16242d; --ink:#e4ecef; --muted:#97aab4; --line:#293b46;
+  --accent:#4fbcb4; --accent-soft:#173a3a; --signal:#e3a24b; --signal-soft:#3a2c17;
+  --good:#5cc489; --warn:#e3a24b; --gap:#ec7b7b; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1a21; --surface:#16242d; --ink:#e4ecef; --muted:#97aab4; --line:#293b46;
+  --accent:#4fbcb4; --accent-soft:#173a3a; --signal:#e3a24b; --signal-soft:#3a2c17;
+  --good:#5cc489; --warn:#e3a24b; --gap:#ec7b7b; color-scheme:dark}
 
-    body {
-      background: var(--bg);
-      color: var(--fg);
-      font-family: var(--font-body);
-      font-size: 15px;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6}
+.wrap{max-width:880px;margin:0 auto;padding-inline:20px;padding-block:40px 72px;display:flex;flex-direction:column;gap:48px}
+h1,h2,h3{font-family:var(--f-display);line-height:1.15;text-wrap:balance;margin:0}
+p{margin:0}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+header{display:flex;flex-direction:column;gap:16px}
+header h1{font-size:clamp(34px,6vw,52px);font-weight:700;letter-spacing:-.01em}
+.lede{font-size:18px;color:var(--muted);max-width:62ch}
+.meta{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:13px;color:var(--muted)}
 
-    /* ── Nav ── */
-    .nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      height: var(--nav-h);
-      background: rgba(10,15,30,0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      padding-inline: clamp(16px, 4vw, 48px);
-      gap: 32px;
-    }
+.how{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:22px 24px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.how div{display:flex;flex-direction:column;gap:4px;min-width:0}
+.how b{font-family:var(--f-display);font-size:17px}
+.how span{font-size:14px;color:var(--muted)}
+.thesis{border-left:3px solid var(--signal);padding-left:18px;font-size:17px;max-width:66ch}
 
-    .nav-logo {
-      font-family: var(--font-display);
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      color: var(--accent);
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
+.section-head{display:flex;flex-direction:column;gap:8px}
+.section-head h2{font-size:28px}
+.section-head p{color:var(--muted);max-width:64ch}
 
-    .nav-links {
-      display: flex;
-      gap: 24px;
-      list-style: none;
-      margin-left: auto;
-    }
+.inst{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:22px 24px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 20px}
+label.f{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600;min-width:0}
+input[type=text],select,textarea{font:inherit;font-size:15px;font-weight:400;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:9px 11px;width:100%}
+textarea{resize:vertical;min-height:44px}
 
-    .nav-links a {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--muted);
-      transition: color 0.15s;
-    }
+.privacy-note{font-size:13px;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;line-height:1.55}
+.privacy-note strong{color:var(--ink);font-weight:600}
 
-    .nav-links a:hover { color: var(--fg); text-decoration: none; }
-    .nav-links a.active { color: var(--accent); }
+.extra-moves-section,.research-optin-section{display:flex;flex-direction:column;gap:14px;padding:24px;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.section-sub{font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:700;color:var(--ink);margin:0}
+.section-sub-desc{font-size:14px;color:var(--muted);margin:0;line-height:1.5}
+.extra-moves-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px}
+.check-item{display:flex;align-items:flex-start;gap:9px;font-size:14px;color:var(--ink);cursor:pointer;line-height:1.4;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);transition:border-color .15s,background .15s}
+.check-item:hover{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 5%,var(--bg))}
+.check-item input[type=checkbox]{width:16px;height:16px;flex-shrink:0;margin-top:1px;accent-color:var(--accent);cursor:pointer}
+.check-item input[type=checkbox]:checked+*{font-weight:600}
+.check-item:has(input:checked){border-color:var(--accent);background:color-mix(in srgb,var(--accent) 8%,var(--bg))}
+.extra-other-label{margin-top:4px}
 
-    @media (max-width: 560px) { .nav-links { display: none; } }
+.moves{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line)}
+.move{display:grid;grid-template-columns:56px minmax(0,1fr);gap:4px 20px;padding-block:30px;border-bottom:1px solid var(--line)}
+.num{font-family:var(--f-mono);font-size:14px;color:var(--muted);padding-top:6px}
+.move-body{display:flex;flex-direction:column;gap:14px;min-width:0}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;padding:3px 8px;border-radius:4px}
+.tag.h{background:var(--accent-soft);color:var(--accent)}
+.tag.m{background:var(--signal-soft);color:var(--signal)}
+.move h3{font-size:23px;font-weight:700}
+.signal{font-size:14px;color:var(--muted);display:flex;gap:10px;align-items:baseline}
+.signal::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:var(--signal);transform:translateY(-1px)}
+.ask{font-style:italic;color:var(--ink)}
 
-    /* ── Hero ── */
-    .hero {
-      background: linear-gradient(160deg, #0d1526 0%, #0a0f1e 50%, #080c18 100%);
-      border-bottom: 1px solid var(--border);
-      padding: clamp(48px, 8vw, 96px) clamp(16px, 4vw, 48px) clamp(40px, 6vw, 72px);
-      position: relative;
-      overflow: hidden;
-    }
+.answer{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px 18px;display:flex;flex-direction:column;gap:12px}
+.answer legend{font-size:13px;font-weight:600;padding:0;margin-bottom:10px}
+.answer fieldset{border:0;padding:0;margin:0;min-width:0}
+.opts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.opts label{position:relative;cursor:pointer}
+.opts input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.opts span{display:block;text-align:center;font-size:13px;line-height:1.3;padding:9px 6px;border:1px solid var(--line);border-radius:6px;background:var(--bg);transition:border-color .15s,background .15s}
+.opts input:focus-visible + span{outline:2px solid var(--accent);outline-offset:2px}
+.opts input:checked + span{border-color:var(--accent);background:var(--accent-soft);color:var(--ink);font-weight:600}
 
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(var(--border) 1px, transparent 1px),
-        linear-gradient(90deg, var(--border) 1px, transparent 1px);
-      background-size: 40px 40px;
-      opacity: 0.18;
-      pointer-events: none;
-    }
+.summary{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:26px;display:flex;flex-direction:column;gap:22px}
+.score-row{display:flex;flex-wrap:wrap;align-items:center;gap:24px}
+.score{font-family:var(--f-display);font-size:56px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.score small{font-size:20px;color:var(--muted)}
+.score-note{flex:1;min-width:220px;color:var(--muted);font-size:15px}
+.bar{display:flex;height:12px;border-radius:6px;overflow:hidden;background:var(--line)}
+.bar i{display:block;height:100%}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:var(--muted)}
+.legend b{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.cols h4{margin:0 0 8px;font-family:var(--f-display);font-size:16px}
+.cols ul{margin:0;padding-left:18px;font-size:14px;display:flex;flex-direction:column;gap:4px}
+.cols .empty{font-size:14px;color:var(--muted)}
+.actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+button{font:inherit;font-size:15px;font-weight:600;border-radius:6px;padding:11px 18px;cursor:pointer;border:1px solid var(--accent)}
+button.primary{background:var(--accent);color:var(--surface)}
+button.ghost{background:transparent;color:var(--accent)}
+button:disabled{opacity:.5;cursor:not-allowed}
+.status{font-size:14px;color:var(--muted)}
+.status.ok{color:var(--good)} .status.err{color:var(--gap)}
+pre.payload{margin:0;max-height:240px;overflow:auto;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:12px;font-family:var(--f-mono);font-size:12px;white-space:pre-wrap;word-break:break-word}
 
-    .hero::after {
-      content: '';
-      position: absolute;
-      top: -120px;
-      right: -80px;
-      width: 480px;
-      height: 480px;
-      background: radial-gradient(circle, rgba(0,194,255,0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
+.sources{font-size:13.5px;color:var(--muted);display:flex;flex-direction:column;gap:10px}
+.sources h2{font-size:20px;color:var(--ink)}
+.sources ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:3px}
+.page-footer{font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:18px}
 
-    .hero-inner {
-      max-width: 900px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-eyebrow {
-      font-family: var(--font-display);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .hero-eyebrow::before {
-      content: '';
-      display: block;
-      width: 24px;
-      height: 2px;
-      background: var(--accent);
-      flex-shrink: 0;
-    }
-
-    .hero-title {
-      font-family: var(--font-display);
-      font-size: clamp(44px, 7vw, 80px);
-      font-weight: 800;
-      line-height: 0.96;
-      letter-spacing: -0.01em;
-      color: var(--fg);
-      margin-bottom: 20px;
-    }
-
-    .hero-title em {
-      font-style: normal;
-      color: var(--accent);
-    }
-
-    .hero-sub {
-      font-size: clamp(15px, 2vw, 17px);
-      color: var(--fg2);
-      max-width: 560px;
-      line-height: 1.65;
-    }
-
-    /* ── Reports grid ── */
-    .reports-section {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: clamp(40px, 6vw, 72px) clamp(16px, 4vw, 48px);
-    }
-
-    .section-eyebrow {
-      font-family: var(--font-display);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 20px;
-    }
-
-    .reports-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px;
-    }
-
-    /* Report card */
-    .report-card {
-      display: block;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 28px 24px 24px;
-      text-decoration: none;
-      color: inherit;
-      transition: border-color 0.15s, background 0.15s, transform 0.15s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .report-card:hover {
-      border-color: var(--accent);
-      background: var(--surface2);
-      transform: translateY(-2px);
-      text-decoration: none;
-    }
-
-    .report-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-    }
-
-    .report-card-tag {
-      display: inline-block;
-      font-family: var(--font-display);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--accent);
-      background: rgba(0,194,255,0.1);
-      border: 1px solid rgba(0,194,255,0.25);
-      padding: 3px 8px;
-      border-radius: 4px;
-      margin-bottom: 14px;
-    }
-
-    .report-card-title {
-      font-family: var(--font-display);
-      font-size: 22px;
-      font-weight: 800;
-      line-height: 1.1;
-      color: var(--fg);
-      margin-bottom: 10px;
-    }
-
-    .report-card-desc {
-      font-size: 13px;
-      color: var(--fg2);
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
-
-    .report-card-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 20px;
-    }
-
-    .report-card-meta span {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .report-card-cta {
-      font-family: var(--font-display);
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--accent);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .report-card-cta::after {
-      content: '→';
-      transition: transform 0.15s;
-    }
-
-    .report-card:hover .report-card-cta::after {
-      transform: translateX(4px);
-    }
-
-    /* Coming soon card */
-    .report-card-soon {
-      background: transparent;
-      border: 1px dashed var(--border);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      min-height: 220px;
-      cursor: default;
-    }
-
-    .report-card-soon:hover {
-      border-color: var(--border2);
-      background: transparent;
-      transform: none;
-    }
-
-    .report-card-soon::before { display: none; }
-
-    .soon-icon {
-      font-size: 28px;
-      margin-bottom: 12px;
-      opacity: 0.4;
-    }
-
-    .soon-label {
-      font-family: var(--font-display);
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 6px;
-    }
-
-    .soon-sub {
-      font-size: 12px;
-      color: var(--muted);
-      opacity: 0.7;
-    }
-
-    /* ── About strip ── */
-    .about-strip {
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .about-inner {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: clamp(32px, 5vw, 56px) clamp(16px, 4vw, 48px);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px 56px;
-      align-items: start;
-    }
-
-    @media (max-width: 600px) {
-      .about-inner { grid-template-columns: 1fr; }
-    }
-
-    .about-title {
-      font-family: var(--font-display);
-      font-size: clamp(22px, 3.5vw, 30px);
-      font-weight: 800;
-      color: var(--fg);
-      margin-bottom: 12px;
-      line-height: 1.1;
-    }
-
-    .about-body {
-      font-size: 14px;
-      color: var(--fg2);
-      line-height: 1.75;
-    }
-
-    .about-body p + p { margin-top: 10px; }
-    .about-body strong { color: var(--fg); font-weight: 600; }
-
-    .score-dims {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .dim-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 13px;
-    }
-
-    .dim-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--accent);
-      flex-shrink: 0;
-    }
-
-    .dim-name {
-      flex: 1;
-      color: var(--fg2);
-    }
-
-    .dim-pts {
-      font-family: var(--font-display);
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--muted);
-    }
-
-    /* ── CTA ── */
-    .cta-section {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: clamp(40px, 6vw, 72px) clamp(16px, 4vw, 48px);
-      text-align: center;
-    }
-
-    .cta-title {
-      font-family: var(--font-display);
-      font-size: clamp(28px, 4vw, 42px);
-      font-weight: 800;
-      color: var(--fg);
-      margin-bottom: 12px;
-      line-height: 1.1;
-    }
-
-    .cta-sub {
-      font-size: 15px;
-      color: var(--fg2);
-      margin-bottom: 28px;
-      max-width: 480px;
-      margin-inline: auto;
-    }
-
-    .cta-btn {
-      display: inline-block;
-      font-family: var(--font-display);
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 14px 32px;
-      border-radius: 8px;
-      background: var(--accent);
-      color: var(--bg);
-      transition: opacity 0.15s, transform 0.15s;
-      text-decoration: none;
-    }
-
-    .cta-btn:hover { opacity: 0.9; transform: translateY(-1px); text-decoration: none; }
-
-    /* ── Footer ── */
-    .site-footer {
-      background: var(--bg2);
-      border-top: 1px solid var(--border);
-      padding: clamp(32px, 5vw, 56px) clamp(16px, 4vw, 48px);
-    }
-
-    .footer-inner {
-      max-width: 900px;
-      margin: 0 auto;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 24px;
-    }
-
-    .footer-brand {
-      font-family: var(--font-display);
-      font-size: 22px;
-      font-weight: 800;
-      color: var(--accent);
-      letter-spacing: 0.04em;
-      margin-bottom: 6px;
-    }
-
-    .footer-tagline {
-      font-size: 13px;
-      color: var(--muted);
-      max-width: 280px;
-      line-height: 1.5;
-    }
-
-    .footer-note {
-      font-size: 12px;
-      color: var(--muted);
-      text-align: right;
-      line-height: 1.7;
-    }
-
-    @media (max-width: 520px) { .footer-note { text-align: left; } }
-  </style>
+@media (max-width:640px){
+  .how,.inst,.cols{grid-template-columns:1fr}
+  .opts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .move{grid-template-columns:1fr}
+  .num{padding-top:0}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
 </head>
 <body>
 
-<!-- Nav -->
-<nav class="nav">
-  <a href="/" class="nav-logo" style="text-decoration:none">FiRadar.Finance</a>
-  <ul class="nav-links">
+<!-- FiRadar nav -->
+<nav class="fr-nav" aria-label="Site navigation">
+  <a href="/" class="fr-nav-logo">FiRadar.Finance</a>
+  <ul class="fr-nav-links">
     <li><a href="/">Home</a></li>
     <li><a href="/research" class="active">Research</a></li>
     <li><a href="/#audit">Score a Fintech</a></li>
@@ -510,115 +230,370 @@
   </ul>
 </nav>
 
-<!-- Hero -->
-<section class="hero">
-  <div class="hero-inner">
-    <div class="hero-eyebrow">FiRadar Intelligence</div>
-    <h1 class="hero-title">Research &<br><em>Rankings</em></h1>
-    <p class="hero-sub">
-      Independent scoring reports on fintechs and financial institutions — powered by the FiRadar Score API.
-      Each report ranks real companies on a 0–1,000 scale so financial institutions can buy with confidence.
-    </p>
-  </div>
-</section>
+<!-- Hidden Netlify form — required for Netlify to detect and collect submissions -->
+<form name="fintech-moves-2027" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="hidden" name="form-name" value="fintech-moves-2027">
+  <input type="text" name="bot-field" aria-hidden="true">
+  <input type="text" name="payload">
+</form>
 
-<!-- Reports -->
-<section class="reports-section">
-  <div class="section-eyebrow">Latest Reports</div>
-  <div class="reports-grid">
+<div class="wrap">
+  <header>
+    <div class="eyebrow">FiRadar Brief · October 2026</div>
+    <h1>Top Ten Fintech Moves by FI's for 2027</h1>
+    <p class="lede">What U.S. Financial Institutions are funding, piloting and launching heading into 2027, and a short self-assessment so your institution can see how its own plan compares.</p>
+    <p class="lede">This is a compilation of your peers' feedback and hopefully, yours as well. Since September, the Top 10 has already shifted and been upgraded thanks to that input.</p>
+    <div class="meta"><span>Published by FiRadar.Finance</span><span>Reading time: 8 minutes</span><span>Self-assessment: about 5 minutes</span></div>
+  </header>
 
-    <!-- Report 1: FinovateFall 2026 -->
-    <a href="/research/finovate-fall-2026.html" class="report-card">
-      <div class="report-card-tag">Conference Report</div>
-      <div class="report-card-title">FinovateFall 2026 Rankings</div>
-      <div class="report-card-desc">
-        All 70 demo companies scored and ranked. See who leads in readiness, execution, and institutional fit.
-      </div>
-      <div class="report-card-meta">
-        <span>📍 New York, NY</span>
-        <span>📅 September 2026</span>
-        <span>🏢 70 companies</span>
-      </div>
-      <div class="report-card-cta">View Report</div>
-    </a>
+  <section class="how" aria-label="How to use this brief">
+    <div><b>Read the moves</b><span>Each one includes where the market stands and one question for your planning team.</span></div>
+    <div><b>Mark your plan</b><span>For each move, choose the option that best matches your 2027 roadmap today.</span></div>
+    <div><b>Monitor It</b><span>See your alignment summary. Opt-in opportunity to track and monitor your ongoing peer updates.</span></div>
+  </section>
 
-    <!-- Report 2: 2027 Bank Fintech Radar -->
-    <a href="/research/2027-fintech-moves/" class="report-card">
-      <div class="report-card-tag">Self-Assessment Brief</div>
-      <div class="report-card-title">2027 Bank Fintech Radar</div>
-      <div class="report-card-desc">
-        Ten moves U.S. banks and credit unions are making for 2027, with a built-in self-assessment to benchmark your institution's plan against peers.
-      </div>
-      <div class="report-card-meta">
-        <span>🏦 Banks &amp; Credit Unions</span>
-        <span>📅 October 2026</span>
-        <span>📋 10 moves</span>
-      </div>
-      <div class="report-card-cta">Take the Assessment</div>
-    </a>
+  <p class="thesis">The common thread is defending the deposit franchise. Tokenized money, instant payments, AI agents and newly chartered fintechs are all competing for the same customer balances and relationships. Most of the moves below are ways to keep that money, and the data around it, inside the institution.</p>
 
-    <!-- Coming soon card -->
-    <div class="report-card report-card-soon">
-      <div class="soon-icon">🔭</div>
-      <div class="soon-label">FI Benchmark Report</div>
-      <div class="soon-sub">Coming soon</div>
+  <section style="display:flex;flex-direction:column;gap:20px">
+    <div class="section-head">
+      <div class="eyebrow">Step 1</div>
+      <h2>About your institution</h2>
+      <p>Used only to group responses into peer benchmarks. Individual answers are not published.</p>
     </div>
-
-  </div>
-</section>
-
-<!-- About the score -->
-<div class="about-strip">
-  <div class="about-inner">
-    <div>
-      <h2 class="about-title">How the FiRadar Score Works</h2>
-      <div class="about-body">
-        <p>
-          The <strong>FiRadar Score</strong> measures fintech readiness and proof of execution on a scale of 0–1,000.
-          The higher the score, the more likely a larger financial institution would purchase the solution.
-        </p>
-        <p>
-          Our AI scoring engine analyzes each company's public presence across six weighted dimensions,
-          benchmarking against world-class leaders like Chime, SoFi, Revolut, Stripe, and Plaid.
-        </p>
-        <p>
-          Scores are generated programmatically via the FiRadar API — consistent, repeatable, and independent.
-        </p>
-      </div>
+    <div class="inst">
+      <label class="f">Work email<input type="email" id="inst-email" autocomplete="email" placeholder="you@FI.com"></label>
+      <label class="f">Institution type
+        <select id="inst-type"><option value="">Select…</option><option>Community bank</option><option>Regional bank</option><option>Credit union</option><option>Other</option></select>
+      </label>
+      <label class="f">Total assets
+        <select id="inst-assets"><option value="">Select…</option><option>Under $500M</option><option>$500M–$1B</option><option>$1B–$5B</option><option>$5B–$50B</option><option>Over $50B</option></select>
+      </label>
+      <label class="f">Your role<input type="text" id="inst-role" placeholder="e.g. CIO, Head of Digital"></label>
     </div>
-    <div>
-      <div class="score-dims">
-        <div class="dim-row"><div class="dim-dot"></div><div class="dim-name">Digital Product &amp; UX Innovation</div><div class="dim-pts">200 pts</div></div>
-        <div class="dim-row"><div class="dim-dot"></div><div class="dim-name">Business Model &amp; Market Fit</div><div class="dim-pts">200 pts</div></div>
-        <div class="dim-row"><div class="dim-dot"></div><div class="dim-name">Technology &amp; API Infrastructure</div><div class="dim-pts">150 pts</div></div>
-        <div class="dim-row"><div class="dim-dot"></div><div class="dim-name">Financial Inclusion &amp; Accessibility</div><div class="dim-pts">150 pts</div></div>
-        <div class="dim-row"><div class="dim-dot"></div><div class="dim-name">Regulatory Compliance &amp; Trust</div><div class="dim-pts">150 pts</div></div>
-        <div class="dim-row"><div class="dim-dot"></div><div class="dim-name">Growth Traction &amp; Ecosystem</div><div class="dim-pts">150 pts</div></div>
-      </div>
+    <p class="privacy-note"><strong>Privacy:</strong> Your responses are used only to generate anonymized peer benchmarks — how institutions of similar size and type are planning for 2027. Individual answers and institution names are kept confidential and are never published. FiRadar will not share your data with third parties or use it for marketing.</p>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:20px">
+    <div class="section-head">
+      <div class="eyebrow">Step 2</div>
+      <h2>The ten moves, and where you stand</h2>
+      <p>Horizon shows when each move is expected to matter most. Momentum reflects how far the industry has already gone.</p>
     </div>
-  </div>
+    <div class="moves" id="moves"></div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:20px">
+    <div class="section-head">
+      <div class="eyebrow">Step 3</div>
+      <h2>Your 2027 alignment</h2>
+      <p>Updates as you answer. Alignment weights each move equally: live or piloting counts fully, budgeted counts two-thirds, evaluating counts one-third.</p>
+    </div>
+    <div class="summary">
+      <div class="score-row">
+        <div class="score" id="score">0<small>%</small></div>
+        <p class="score-note" id="score-note">Mark your plan for each move to see your alignment.</p>
+      </div>
+      <div>
+        <div class="bar" id="bar" aria-hidden="true"></div>
+        <div class="legend" style="margin-top:10px">
+          <span><b style="background:var(--good)"></b>Live or piloting</span>
+          <span><b style="background:var(--accent)"></b>In 2027 budget</span>
+          <span><b style="background:var(--warn)"></b>Evaluating</span>
+          <span><b style="background:var(--gap)"></b>Not planned</span>
+          <span><b style="background:var(--line)"></b>Unanswered</span>
+        </div>
+      </div>
+      <div class="cols">
+        <div><h4>Where you are ahead</h4><div id="ahead"></div></div>
+        <div><h4>Possible gaps for 2027</h4><div id="gaps"></div></div>
+      </div>
+      <label class="f">Anything else your peers should know about your 2027 plan? (optional)<textarea id="overall" rows="3"></textarea></label>
+
+      <div class="extra-moves-section">
+        <h3 class="section-sub">What else are you moving on in 2027?</h3>
+        <p class="section-sub-desc">Check any areas your institution is actively funding, piloting, or planning — beyond the Top 10 above.</p>
+        <div class="extra-moves-grid" id="extra-moves-grid">
+          <label class="check-item"><input type="checkbox" name="extra" value="core-modernization"> Core system modernization / migration</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="digital-account-opening"> Digital account opening optimization</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="mobile-banking-redesign"> Mobile banking redesign / upgrade</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="loan-origination"> Loan origination system upgrade</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="debit-credit-rewards"> Debit / credit rewards programs</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="bnpl"> Buy Now Pay Later (BNPL)</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="crypto-digital-assets"> Crypto / digital asset services</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="business-banking-digital"> Business banking digital tools</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="treasury-management"> Treasury management / cash management</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="wealth-management"> Wealth management / robo-advisory</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="insurance-embedded"> Embedded insurance</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="bill-pay-p2p"> Bill pay / P2P payment upgrades</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="data-analytics-platform"> Data analytics platform</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="cybersecurity-fraud"> Cybersecurity / fraud prevention</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="cloud-migration"> Cloud migration / infrastructure</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="branch-transformation"> Branch transformation / ITM deployment</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="employee-digital-tools"> Employee / staff digital tools</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="regulatory-compliance-tech"> Regulatory / compliance tech (RegTech)</label>
+        </div>
+        <label class="f extra-other-label">Not listed above? Tell us what you're working on:<textarea id="extra-other" rows="2" placeholder="e.g. CBDC pilot, embedded lending partnership…"></textarea></label>
+      </div>
+
+      <div class="research-optin-section">
+        <h3 class="section-sub">Stay in the loop</h3>
+        <p class="section-sub-desc">Opt in to receive FiRadar's deeper research on specific areas. We'll reach out when relevant benchmarks or reports are ready — no spam, unsubscribe any time.</p>
+        <div class="extra-moves-grid" id="optin-grid">
+          <label class="check-item"><input type="checkbox" name="optin" value="ai-automation"> AI &amp; automation in banking</label>
+          <label class="check-item"><input type="checkbox" name="optin" value="payments-rails"> Payments &amp; real-time rails</label>
+          <label class="check-item"><input type="checkbox" name="optin" value="embedded-finance"> Embedded finance &amp; BaaS</label>
+          <label class="check-item"><input type="checkbox" name="optin" value="digital-lending"> Digital lending &amp; credit</label>
+          <label class="check-item"><input type="checkbox" name="optin" value="core-technology"> Core technology &amp; infrastructure</label>
+          <label class="check-item"><input type="checkbox" name="optin" value="cx-personalization"> CX &amp; personalization</label>
+          <label class="check-item"><input type="checkbox" name="optin" value="fraud-cybersecurity"> Fraud &amp; cybersecurity</label>
+          <label class="check-item"><input type="checkbox" name="optin" value="data-analytics"> Data &amp; analytics</label>
+          <label class="check-item"><input type="checkbox" name="optin" value="wealth-wm"> Wealth &amp; WM tech</label>
+          <label class="check-item"><input type="checkbox" name="optin" value="small-business"> Small business banking tech</label>
+          <label class="check-item"><input type="checkbox" name="optin" value="peer-benchmarks"> Peer benchmark reports (all topics)</label>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="primary" id="submit" type="button">Submit to FiRadar</button>
+        <button class="ghost" id="copy" type="button">Copy my responses</button>
+        <span class="status" id="status" role="status"></span>
+      </div>
+      <pre class="payload" id="payload" hidden></pre>
+    </div>
+  </section>
+
+  <section class="sources">
+    <h2>Sources</h2>
+    <ol>
+      <li><a href="https://glenbrook.com/payments_news/banks-rush-to-tokenize-deposits-as-stablecoin-networks-beat-them-to-shared-payment-rails/" target="_blank" rel="noopener">Glenbrook / American Banker: banks rush to tokenize deposits</a></li>
+      <li><a href="https://www.marketsmedia.com/u-s-banks-fight-growing-stablecoin-use-with-tokenized-deposits" target="_blank" rel="noopener">Markets Media: U.S. banks fight stablecoin growth with tokenized deposits</a></li>
+      <li><a href="https://flagshipadvisorypartners.com/wp-content/uploads/2026/08/Tokenized-Deposits-Everyone-Is-Building-Almost-No-One-Is-Connecting_17Aug2026.pdf" target="_blank" rel="noopener">Flagship Advisory Partners: tokenized deposits report (Aug 2026)</a></li>
+      <li><a href="https://www.cuinsight.com/press-release/jack-henrys-annual-survey-of-financial-institutions-highlights-priorities-amid-economic-uncertainty-and-a-new-hybrid-monetary-era/" target="_blank" rel="noopener">Jack Henry 2026 Strategy Benchmark</a></li>
+      <li><a href="https://www.bankingdive.com/news/ai-supervisor-role-growing-banks-bny-citi/805469/" target="_blank" rel="noopener">Banking Dive: Capgemini World Cloud Report, AI agent supervision</a></li>
+      <li><a href="https://www.360factors.com/blog/agentic-ai-updates/" target="_blank" rel="noopener">360factors: agentic AI regulatory updates, 2026</a></li>
+      <li><a href="https://fisglobal.gcs-web.com/news-releases/news-release-details/fis-launches-industry-first-offering-enabling-banks-lead-and" target="_blank" rel="noopener">FIS: agentic commerce offering with Visa and Mastercard</a></li>
+      <li><a href="https://usa.visa.com/about-visa/newsroom/press-releases.releaseId.22341.html" target="_blank" rel="noopener">Visa: Agentic Ready program</a></li>
+      <li><a href="https://www.webull.com/news/15576566440936448" target="_blank" rel="noopener">Tandem: deepfake incidents survey</a></li>
+      <li><a href="https://www.digitaltransactions.net/fednow-marks-a-third-anniversary-tally-at-more-than-1800-banks-and-credit-unions/" target="_blank" rel="noopener">Digital Transactions: FedNow third anniversary</a></li>
+      <li><a href="https://banq.ai/guides/section-1033-status" target="_blank" rel="noopener">Section 1033 status tracker</a></li>
+      <li><a href="https://www.spglobal.com/market-intelligence/en/news-insights/articles/2026/9/us-bank-charter-approvals-more-than-double-2025-levels-as-fintechs-lead-surge-106023885" target="_blank" rel="noopener">S&amp;P Global: bank charter approvals more than double 2025</a></li>
+      <li><a href="https://q2.com/blog/planning-for-2027-the-priorities-shaping-budget-decisions" target="_blank" rel="noopener">Q2: planning for 2027</a></li>
+      <li><a href="https://backbase.com/blog/ai-banking-trends-2026" target="_blank" rel="noopener">Backbase: AI banking trends 2026</a></li>
+    </ol>
+  </section>
+
+  <footer class="page-footer">This brief summarizes public reporting as of early October 2026 and is not investment, legal or regulatory advice. Figures come from the sources listed above.</footer>
 </div>
 
-<!-- CTA -->
-<section class="cta-section">
-  <h2 class="cta-title">Score Your Fintech or FI</h2>
-  <p class="cta-sub">Get your own FiRadar Score in minutes — free, instant, and powered by the same AI that ranked every company in these reports.</p>
-  <a href="/" class="cta-btn">Run a Free Score →</a>
-</section>
-
-<!-- Footer -->
-<footer class="site-footer">
-  <div class="footer-inner">
+<!-- FiRadar site footer -->
+<footer class="fr-footer">
+  <div class="fr-footer-inner">
     <div>
-      <div class="footer-brand">FiRadar.Finance</div>
-      <div class="footer-tagline">Measuring fintech readiness and proof of execution so financial institutions can buy with confidence.</div>
+      <div class="fr-footer-brand">FiRadar.Finance</div>
+      <div class="fr-footer-tag">Measuring fintech readiness and proof of execution so financial institutions can buy with confidence.</div>
     </div>
-    <div class="footer-note">
-      Scores powered by FiRadar API<br>
+    <div class="fr-footer-right">
+      <a href="/research">← Back to Research</a><br>
+      <a href="/">Run a Free Score</a><br>
       © 2026 FiRadar.Finance. All rights reserved.
     </div>
   </div>
 </footer>
 
+<script>
+const BRIEF_ID = "firadar-2027-fintech-moves-v1";
+
+const MOVES = [
+  {id:"tokenized",title:"Tokenized deposits reach production",horizon:"H1 2027",momentum:"Scaling",
+   body:"The largest U.S. banks are building a shared network through The Clearing House that lets tokenized deposits settle instantly around the clock, with launch targeted for the first half of 2027. Banks favor tokenized deposits over stablecoins because the money stays on the balance sheet and can still earn interest, while gaining programmability and 24/7 settlement.",
+   signal:"24 of the 50 largest U.S. banks were evaluating tokenized deposits in Q2 2026; 4 had live products and 7 were piloting.",
+   ask:"Will you join a shared network, rely on your core provider, or wait for interoperability to settle?"},
+  {id:"stablecoin",title:"Selective stablecoin support",horizon:"Through 2027",momentum:"Emerging",
+   body:"A smaller group is going further. SoFi launched its own stablecoin in May 2026, and bank consortia in the U.S. and Europe have announced dollar and euro coins. For most community institutions the near-term move is supporting customers who hold or receive stablecoins rather than issuing one.",
+   signal:"18% of community bank and credit union CEOs plan to support stablecoins, tokenized money or crypto by the end of 2027.",
+   ask:"How would you respond if a large commercial client asked to settle in stablecoins next year?"},
+  {id:"agentic-ops",title:"AI agents in core operations",horizon:"Now",momentum:"Scaling",
+   body:"2026 was the shift from AI pilots to supervised deployment. Banks are putting agents to work in customer service, onboarding, KYC, credit decisioning and compliance, and nearly half of banks and insurers are creating roles to supervise those agents. Regulators have said agentic AI sits outside current model risk guidance while existing risk principles still apply.",
+   signal:"Most financial firms are still in ideation or pilot; only about 10% run AI agents at scale.",
+   ask:"Which two workflows would you hand to supervised AI agents first, and who owns their oversight?"},
+  {id:"agentic-commerce",title:"Readiness for agent-initiated payments",horizon:"H2 2027",momentum:"Emerging",
+   body:"Card networks now process live transactions started by AI shopping agents, and processors such as FIS have released tools that help issuing banks recognize and authorize those payments. The risk for banks is being bypassed when customers let agents choose how to pay.",
+   signal:"Visa and Mastercard both run agent payment programs; Visa's readiness program lets issuers test with live cards and real merchants.",
+   ask:"Could your cards be used by a customer's AI agent today, and would your fraud rules block it?"},
+  {id:"fraud",title:"AI-driven fraud and scam defense",horizon:"Now",momentum:"Scaling",
+   body:"Deepfake voice and video, synthetic identities and coordinated scam campaigns are rising quickly, and instant payments leave less time to stop them. Institutions are answering with behavioral analytics and autonomous detection systems, plus staff training and tabletop exercises for impersonation attacks.",
+   signal:"1 in 4 financial institutions reported a known deepfake, voice cloning or AI impersonation incident; most have not run a deepfake tabletop exercise.",
+   ask:"Have you tested how your call center and wire desk would handle a convincing deepfake of a customer or executive?"},
+  {id:"instant",title:"Instant payments on both rails",horizon:"Now",momentum:"Live in market",
+   body:"Real-time payments are becoming a standard product. FedNow has passed 1,800 participating institutions and RTP more than 1,200. Many banks now sell one instant payments product and route each payment over whichever network the receiving institution uses. The next step for many is turning on sending, not just receiving.",
+   signal:"RTP processed 128 million transactions worth $480 billion in Q1 2026; FedNow raised its transaction limit to $10 million.",
+   ask:"Are you receive-only today, and what would it take to offer sending to business customers?"},
+  {id:"openbanking",title:"Open banking on an API standard",horizon:"Through 2027",momentum:"In transition",
+   body:"The CFPB's Section 1033 open banking rule is blocked by a court and being rewritten, including whether institutions may charge for data access. The market is moving ahead regardless, replacing screen scraping with secure APIs built on the FDX standard.",
+   signal:"Whether U.S. open banking ends up free by rule or fee-based is still undecided.",
+   ask:"Do aggregators reach your customers' data through an API or by screen scraping today?"},
+  {id:"charters",title:"Competing with newly chartered fintechs",horizon:"Now",momentum:"Scaling",
+   body:"Fintechs and crypto firms are becoming banks. Charter approvals in 2026 have more than doubled last year's pace, including conditional approvals for Revolut and Mercury. That changes sponsor-bank partnerships and puts national digital competitors in every market.",
+   signal:"Regulators approved 29 bank charter applications through mid-September 2026, compared with 14 in all of 2025.",
+   ask:"Which newly chartered competitor is most likely to target your small business or younger customers?"},
+  {id:"core",title:"Core and data modernization",horizon:"Through 2027",momentum:"Scaling",
+   body:"Most of these moves depend on modern plumbing. Cloud-native core capabilities and connected data are showing up in 2027 budgets alongside customer-facing projects, because fragmented data is the most common reason AI and real-time products stall.",
+   signal:"Fragile data infrastructure is cited as a primary blocker to AI at scale for institutions of every size.",
+   ask:"Can your core and data platform support real-time, 24/7 products without manual workarounds?"},
+  {id:"deposits",title:"Embedded digital products for deposit growth",horizon:"Now",momentum:"Live in market",
+   body:"The business goal behind the technology is deposits. Banks rank deposit growth as their top priority for 2026–2027, and credit unions focus on winning Gen Z and Gen Alpha members. Institutions are embedding fintech features into digital banking, especially for small businesses, and increasing technology spend led by AI and digital banking.",
+   signal:"64% of banks rank growing deposits as their top strategic priority for 2026–2027.",
+   ask:"Which digital feature would most help you win operating accounts from small businesses next year?"}
+];
+
+const STATUS = [
+  {v:"none",label:"Not planned",w:0,color:"var(--gap)"},
+  {v:"evaluating",label:"Evaluating",w:1,color:"var(--warn)"},
+  {v:"budgeted",label:"In 2027 budget",w:2,color:"var(--accent)"},
+  {v:"live",label:"Live or piloting",w:3,color:"var(--good)"}
+];
+
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function renderMoves(){
+  $("moves").innerHTML = MOVES.map((m,i) => `
+    <article class="move" id="move-${m.id}">
+      <div class="num">${String(i+1).padStart(2,"0")}</div>
+      <div class="move-body">
+        <div class="tags"><span class="tag h">Horizon: ${m.horizon}</span><span class="tag m">Momentum: ${m.momentum}</span></div>
+        <h3>${m.title}</h3>
+        <p>${m.body}</p>
+        <p class="signal">${m.signal}</p>
+        <p class="ask">${m.ask}</p>
+        <div class="answer">
+          <fieldset>
+            <legend>Your 2027 plan for this move</legend>
+            <div class="opts">
+              ${STATUS.map(s => `<label><input type="radio" name="st-${m.id}" id="st-${m.id}-${s.v}" value="${s.v}"><span>${s.label}</span></label>`).join("")}
+            </div>
+          </fieldset>
+          <label class="f">Notes (optional)<textarea id="note-${m.id}" rows="1" placeholder="Vendor, timeline, or what is holding you back"></textarea></label>
+        </div>
+      </div>
+    </article>`).join("");
+}
+
+function collect(){
+  return {
+    brief: BRIEF_ID,
+    submittedAt: new Date().toISOString(),
+    institution: {
+      email: $("inst-email").value.trim(),
+      type: $("inst-type").value,
+      assets: $("inst-assets").value,
+      role: $("inst-role").value.trim()
+    },
+    moves: MOVES.map(m => {
+      const sel = document.querySelector(`input[name="st-${m.id}"]:checked`);
+      return {id:m.id, title:m.title, status: sel ? sel.value : null, note: $("note-"+m.id).value.trim()};
+    }),
+    overallComment: $("overall").value.trim(),
+    extraMoves: [...document.querySelectorAll('input[name="extra"]:checked')].map(el => el.value),
+    extraMovesOther: $("extra-other").value.trim(),
+    optIn: [...document.querySelectorAll('input[name="optin"]:checked')].map(el => el.value)
+  };
+}
+
+function update(){
+  const data = collect();
+  const answered = data.moves.filter(m => m.status);
+  const weight = v => (STATUS.find(s => s.v === v) || {w:0}).w;
+  const pct = Math.round(data.moves.reduce((a,m) => a + (m.status ? weight(m.status) : 0), 0) / (MOVES.length*3) * 100);
+  $("score").innerHTML = `${pct}<small>%</small>`;
+
+  let note;
+  if (!answered.length) note = "Mark your plan for each move to see your alignment.";
+  else if (answered.length < MOVES.length) note = `${answered.length} of ${MOVES.length} moves answered. Unanswered moves count as not planned.`;
+  else if (pct >= 67) note = "Your 2027 plan covers most of the moves in this brief.";
+  else if (pct >= 40) note = "Your plan covers the core moves, with room to act on several emerging ones.";
+  else note = "Several of the moves in this brief are not yet on your 2027 roadmap.";
+  $("score-note").textContent = note;
+
+  $("bar").innerHTML = STATUS.slice().reverse().map(s => {
+    const n = data.moves.filter(m => m.status === s.v).length;
+    return n ? `<i style="width:${n/MOVES.length*100}%;background:${s.color}"></i>` : "";
+  }).join("") + (MOVES.length - answered.length ? `<i style="width:${(MOVES.length-answered.length)/MOVES.length*100}%;background:var(--line)"></i>` : "");
+
+  const list = (arr, empty) => arr.length ? `<ul>${arr.map(m => `<li>${esc(m.title)}</li>`).join("")}</ul>` : `<p class="empty">${empty}</p>`;
+  $("ahead").innerHTML = list(data.moves.filter(m => m.status === "live"), "Moves you mark as live or piloting appear here.");
+  $("gaps").innerHTML = list(data.moves.filter(m => m.status === "none"), "Moves you mark as not planned appear here.");
+
+  try { localStorage.setItem(BRIEF_ID, JSON.stringify(data)); } catch(e){}
+}
+
+function restore(){
+  let d; try { d = JSON.parse(localStorage.getItem(BRIEF_ID) || "null"); } catch(e){ d = null; }
+  if (!d) return;
+  const i = d.institution || {};
+  $("inst-email").value = i.email || ""; $("inst-type").value = i.type || "";
+  $("inst-assets").value = i.assets || ""; $("inst-role").value = i.role || "";
+  $("overall").value = d.overallComment || "";
+  $("extra-other").value = d.extraMovesOther || "";
+  (d.extraMoves || []).forEach(v => { const el = document.querySelector(`input[name="extra"][value="${v}"]`); if (el) el.checked = true; });
+  (d.optIn || []).forEach(v => { const el = document.querySelector(`input[name="optin"][value="${v}"]`); if (el) el.checked = true; });
+  (d.moves || []).forEach(m => {
+    if (m.status){ const el = $(`st-${m.id}-${m.status}`); if (el) el.checked = true; }
+    const n = $("note-"+m.id); if (n) n.value = m.note || "";
+  });
+}
+
+function setStatus(msg, kind){ const s = $("status"); s.textContent = msg; s.className = "status" + (kind ? " "+kind : ""); }
+
+function showPayload(){
+  const p = $("payload"); p.textContent = JSON.stringify(collect(), null, 2); p.hidden = false; return p;
+}
+
+$("copy").addEventListener("click", () => {
+  const p = showPayload();
+  const text = p.textContent;
+  const fallback = () => { const r = document.createRange(); r.selectNodeContents(p); const s = getSelection(); s.removeAllRanges(); s.addRange(r); setStatus("Responses selected. Press Ctrl+C or Cmd+C to copy."); };
+  try {
+    navigator.clipboard.writeText(text).then(() => setStatus("Responses copied.", "ok"), fallback);
+  } catch(e){ fallback(); }
+});
+
+$("submit").addEventListener("click", async () => {
+  const data = collect();
+  const missing = [];
+  if (!data.institution.type) missing.push("institution type");
+  if (!data.institution.assets) missing.push("total assets");
+  const unanswered = data.moves.filter(m => !m.status).length;
+  if (unanswered) missing.push(`${unanswered} move${unanswered>1?"s":""}`);
+  if (missing.length){ setStatus("Please complete: " + missing.join(", ") + ".", "err"); return; }
+
+  const btn = $("submit"); btn.disabled = true; setStatus("Submitting…");
+  try {
+    // Submit via Netlify Forms
+    const body = new URLSearchParams({
+      "form-name": "fintech-moves-2027",
+      "payload": JSON.stringify(data)
+    });
+    const res = await fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: body.toString()
+    });
+    if (!res.ok) throw new Error(res.status);
+    setStatus("Submitted. Thank you — FiRadar will share peer benchmarks once responses are in.", "ok");
+    $("payload").hidden = true;
+  } catch(e){
+    btn.disabled = false;
+    showPayload();
+    setStatus("Submission did not go through. Check your connection and try again, or copy your responses below.", "err");
+  }
+});
+
+renderMoves();
+restore();
+document.addEventListener("input", update);
+document.addEventListener("change", update);
+update();
+</script>
 </body>
 </html>
