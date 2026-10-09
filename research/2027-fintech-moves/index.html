@@ -3,13 +3,101 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="Ten fintech moves U.S. banks and credit unions are making for 2027, with a self-assessment to compare your plan.">
-<title>2027 Bank Fintech Radar</title>
+<meta name="description" content="Ten fintech moves U.S. banks and credit unions are making for 2027, with a self-assessment to compare your plan. Published by FiRadar.Finance.">
+<meta property="og:title" content="2027 Bank Fintech Radar | FiRadar Research">
+<meta property="og:description" content="Ten fintech moves banks are making for 2027 — and a short self-assessment so your institution can see how its plan compares.">
+<meta property="og:type" content="website">
+<title>2027 Bank Fintech Radar | FiRadar Research</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Public+Sans:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Public+Sans:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@500&display=swap">
 <style>
-/* Layout: single reading column; each move is a row with a horizon tag, the brief, and the institution's own answer beside it. Summary panel at the end. */
+/* ── FiRadar nav / footer layer (dark navy, matches site) ── */
+.fr-nav {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  height: 64px;
+  background: rgba(10,15,30,0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid #1e2d45;
+  display: flex;
+  align-items: center;
+  padding-inline: clamp(16px,4vw,48px);
+  gap: 32px;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+}
+.fr-nav-logo {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #00c2ff;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.fr-nav-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-left: auto;
+}
+.fr-nav-links a {
+  font-size: 13px;
+  font-weight: 500;
+  color: #6b7fa3;
+  text-decoration: none;
+  transition: color 0.15s;
+  font-family: 'Barlow Condensed', sans-serif;
+  letter-spacing: 0.04em;
+}
+.fr-nav-links a:hover { color: #e8edf5; }
+.fr-nav-links a.active { color: #00c2ff; }
+@media (max-width: 560px) { .fr-nav-links { display: none; } }
+
+.fr-footer {
+  background: #080c18;
+  border-top: 1px solid #1e2d45;
+  padding: clamp(28px,4vw,48px) clamp(16px,4vw,48px);
+  margin-top: 0;
+}
+.fr-footer-inner {
+  max-width: 880px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+.fr-footer-brand {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: #00c2ff;
+  letter-spacing: 0.04em;
+  margin-bottom: 5px;
+}
+.fr-footer-tag {
+  font-size: 12px;
+  color: #6b7fa3;
+  line-height: 1.6;
+  max-width: 260px;
+}
+.fr-footer-right {
+  font-size: 12px;
+  color: #6b7fa3;
+  text-align: right;
+  line-height: 1.8;
+}
+.fr-footer-right a { color: #00c2ff; text-decoration: none; }
+.fr-footer-right a:hover { text-decoration: underline; }
+@media (max-width: 520px) { .fr-footer-right { text-align: left; } }
+
+/* ── Page content (original design system, unchanged) ── */
 :root{
   --bg:#f5f7f8; --surface:#ffffff; --ink:#132431; --muted:#566a77; --line:#d9e1e5;
   --accent:#0d6e6a; --accent-soft:#e1f0ee; --signal:#a8620b; --signal-soft:#fbefdc;
@@ -55,6 +143,9 @@ header h1{font-size:clamp(34px,6vw,52px);font-weight:700;letter-spacing:-.01em}
 label.f{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600;min-width:0}
 input[type=text],select,textarea{font:inherit;font-size:15px;font-weight:400;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:9px 11px;width:100%}
 textarea{resize:vertical;min-height:44px}
+
+.privacy-note{font-size:13px;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;line-height:1.55}
+.privacy-note strong{color:var(--ink);font-weight:600}
 
 .moves{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line)}
 .move{display:grid;grid-template-columns:56px minmax(0,1fr);gap:4px 20px;padding-block:30px;border-bottom:1px solid var(--line)}
@@ -104,7 +195,7 @@ pre.payload{margin:0;max-height:240px;overflow:auto;background:var(--bg);border:
 .sources{font-size:13.5px;color:var(--muted);display:flex;flex-direction:column;gap:10px}
 .sources h2{font-size:20px;color:var(--ink)}
 .sources ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:3px}
-footer{font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:18px}
+.page-footer{font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:18px}
 
 @media (max-width:640px){
   .how,.inst,.cols{grid-template-columns:1fr}
@@ -117,18 +208,36 @@ footer{font-size:13px;color:var(--muted);border-top:1px solid var(--line);paddin
 </head>
 <body>
 
+<!-- FiRadar nav -->
+<nav class="fr-nav" aria-label="Site navigation">
+  <a href="/" class="fr-nav-logo">FiRadar.Finance</a>
+  <ul class="fr-nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/research" class="active">Research</a></li>
+    <li><a href="/#audit">Score a Fintech</a></li>
+    <li><a href="/#fi-audit">Score an FI</a></li>
+  </ul>
+</nav>
+
+<!-- Hidden Netlify form — required for Netlify to detect and collect submissions -->
+<form name="fintech-moves-2027" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="hidden" name="form-name" value="fintech-moves-2027">
+  <input type="text" name="bot-field" aria-hidden="true">
+  <input type="text" name="payload">
+</form>
+
 <div class="wrap">
   <header>
     <div class="eyebrow">FiRadar Brief · October 2026</div>
-    <h1>Ten fintech moves banks are making for 2027</h1>
-    <p class="lede">What U.S. banks and credit unions are funding, piloting and launching heading into 2027, and a short self-assessment so your institution can see how its own plan compares.</p>
+    <h1>Top Ten Fintech Moves by FI's for 2027</h1>
+    <p class="lede">What U.S. Financial Institutions are funding, piloting and launching heading into 2027, and a short self-assessment so your institution can see how its own plan compares.</p>
     <div class="meta"><span>Published by FiRadar.Finance</span><span>Reading time: 8 minutes</span><span>Self-assessment: about 5 minutes</span></div>
   </header>
 
   <section class="how" aria-label="How to use this brief">
     <div><b>Read the moves</b><span>Each one includes where the market stands and one question for your planning team.</span></div>
     <div><b>Mark your plan</b><span>For each move, choose the option that best matches your 2027 roadmap today.</span></div>
-    <div><b>Send it to FiRadar</b><span>See your alignment summary, then submit so we can publish peer benchmarks.</span></div>
+    <div><b>Monitor It</b><span>See your alignment summary. Opt-in opportunity to track and monitor your ongoing peer updates.</span></div>
   </section>
 
   <p class="thesis">The common thread is defending the deposit franchise. Tokenized money, instant payments, AI agents and newly chartered fintechs are all competing for the same customer balances and relationships. Most of the moves below are ways to keep that money, and the data around it, inside the institution.</p>
@@ -140,7 +249,7 @@ footer{font-size:13px;color:var(--muted);border-top:1px solid var(--line);paddin
       <p>Used only to group responses into peer benchmarks. Individual answers are not published.</p>
     </div>
     <div class="inst">
-      <label class="f">Institution name<input type="text" id="inst-name" autocomplete="organization" placeholder="e.g. First Valley Bank"></label>
+      <label class="f">Work email<input type="email" id="inst-email" autocomplete="email" placeholder="you@FI.com"></label>
       <label class="f">Institution type
         <select id="inst-type"><option value="">Select…</option><option>Community bank</option><option>Regional bank</option><option>Credit union</option><option>Other</option></select>
       </label>
@@ -149,6 +258,7 @@ footer{font-size:13px;color:var(--muted);border-top:1px solid var(--line);paddin
       </label>
       <label class="f">Your role<input type="text" id="inst-role" placeholder="e.g. CIO, Head of Digital"></label>
     </div>
+    <p class="privacy-note"><strong>Privacy:</strong> Your responses are used only to generate anonymized peer benchmarks — how institutions of similar size and type are planning for 2027. Individual answers and institution names are kept confidential and are never published. FiRadar will not share your data with third parties or use it for marketing.</p>
   </section>
 
   <section style="display:flex;flex-direction:column;gap:20px">
@@ -215,13 +325,25 @@ footer{font-size:13px;color:var(--muted);border-top:1px solid var(--line);paddin
     </ol>
   </section>
 
-  <footer>This brief summarizes public reporting as of early October 2026 and is not investment, legal or regulatory advice. Figures come from the sources listed above.</footer>
+  <footer class="page-footer">This brief summarizes public reporting as of early October 2026 and is not investment, legal or regulatory advice. Figures come from the sources listed above.</footer>
 </div>
 
+<!-- FiRadar site footer -->
+<footer class="fr-footer">
+  <div class="fr-footer-inner">
+    <div>
+      <div class="fr-footer-brand">FiRadar.Finance</div>
+      <div class="fr-footer-tag">Measuring fintech readiness and proof of execution so financial institutions can buy with confidence.</div>
+    </div>
+    <div class="fr-footer-right">
+      <a href="/research">← Back to Research</a><br>
+      <a href="/">Run a Free Score</a><br>
+      © 2026 FiRadar.Finance. All rights reserved.
+    </div>
+  </div>
+</footer>
+
 <script>
-/* FiRadar web team: set this to your collection endpoint (accepts a JSON POST).
-   Leave empty to show responses for copying instead of sending. */
-const FIRADAR_ENDPOINT = "";
 const BRIEF_ID = "firadar-2027-fintech-moves-v1";
 
 const MOVES = [
@@ -305,7 +427,7 @@ function collect(){
     brief: BRIEF_ID,
     submittedAt: new Date().toISOString(),
     institution: {
-      name: $("inst-name").value.trim(),
+      email: $("inst-email").value.trim(),
       type: $("inst-type").value,
       assets: $("inst-assets").value,
       role: $("inst-role").value.trim()
@@ -349,7 +471,7 @@ function restore(){
   let d; try { d = JSON.parse(localStorage.getItem(BRIEF_ID) || "null"); } catch(e){ d = null; }
   if (!d) return;
   const i = d.institution || {};
-  $("inst-name").value = i.name || ""; $("inst-type").value = i.type || "";
+  $("inst-email").value = i.email || ""; $("inst-type").value = i.type || "";
   $("inst-assets").value = i.assets || ""; $("inst-role").value = i.role || "";
   $("overall").value = d.overallComment || "";
   (d.moves || []).forEach(m => {
@@ -382,16 +504,21 @@ $("submit").addEventListener("click", async () => {
   if (unanswered) missing.push(`${unanswered} move${unanswered>1?"s":""}`);
   if (missing.length){ setStatus("Please complete: " + missing.join(", ") + ".", "err"); return; }
 
-  if (!FIRADAR_ENDPOINT){
-    showPayload();
-    setStatus("This preview does not send responses. Copy them below, or submit from the FiRadar.Finance version of this brief.");
-    return;
-  }
   const btn = $("submit"); btn.disabled = true; setStatus("Submitting…");
   try {
-    const res = await fetch(FIRADAR_ENDPOINT, {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify(data)});
+    // Submit via Netlify Forms
+    const body = new URLSearchParams({
+      "form-name": "fintech-moves-2027",
+      "payload": JSON.stringify(data)
+    });
+    const res = await fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: body.toString()
+    });
     if (!res.ok) throw new Error(res.status);
-    setStatus("Submitted. Thank you. FiRadar will share peer benchmarks once responses are in.", "ok");
+    setStatus("Submitted. Thank you — FiRadar will share peer benchmarks once responses are in.", "ok");
+    $("payload").hidden = true;
   } catch(e){
     btn.disabled = false;
     showPayload();
