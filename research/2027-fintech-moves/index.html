@@ -147,6 +147,17 @@ textarea{resize:vertical;min-height:44px}
 .privacy-note{font-size:13px;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;line-height:1.55}
 .privacy-note strong{color:var(--ink);font-weight:600}
 
+.extra-moves-section,.research-optin-section{display:flex;flex-direction:column;gap:14px;padding:24px;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.section-sub{font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:700;color:var(--ink);margin:0}
+.section-sub-desc{font-size:14px;color:var(--muted);margin:0;line-height:1.5}
+.extra-moves-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px}
+.check-item{display:flex;align-items:flex-start;gap:9px;font-size:14px;color:var(--ink);cursor:pointer;line-height:1.4;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);transition:border-color .15s,background .15s}
+.check-item:hover{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 5%,var(--bg))}
+.check-item input[type=checkbox]{width:16px;height:16px;flex-shrink:0;margin-top:1px;accent-color:var(--accent);cursor:pointer}
+.check-item input[type=checkbox]:checked+*{font-weight:600}
+.check-item:has(input:checked){border-color:var(--accent);background:color-mix(in srgb,var(--accent) 8%,var(--bg))}
+.extra-other-label{margin-top:4px}
+
 .moves{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line)}
 .move{display:grid;grid-template-columns:56px minmax(0,1fr);gap:4px 20px;padding-block:30px;border-bottom:1px solid var(--line)}
 .num{font-family:var(--f-mono);font-size:14px;color:var(--muted);padding-top:6px}
@@ -231,6 +242,7 @@ pre.payload{margin:0;max-height:240px;overflow:auto;background:var(--bg);border:
     <div class="eyebrow">FiRadar Brief · October 2026</div>
     <h1>Top Ten Fintech Moves by FI's for 2027</h1>
     <p class="lede">What U.S. Financial Institutions are funding, piloting and launching heading into 2027, and a short self-assessment so your institution can see how its own plan compares.</p>
+    <p class="lede">This is a compilation of your peers' feedback and hopefully, yours as well. Since September, the Top 10 has already shifted and been upgraded thanks to that input.</p>
     <div class="meta"><span>Published by FiRadar.Finance</span><span>Reading time: 8 minutes</span><span>Self-assessment: about 5 minutes</span></div>
   </header>
 
@@ -296,6 +308,51 @@ pre.payload{margin:0;max-height:240px;overflow:auto;background:var(--bg);border:
         <div><h4>Possible gaps for 2027</h4><div id="gaps"></div></div>
       </div>
       <label class="f">Anything else your peers should know about your 2027 plan? (optional)<textarea id="overall" rows="3"></textarea></label>
+
+      <div class="extra-moves-section">
+        <h3 class="section-sub">What else are you moving on in 2027?</h3>
+        <p class="section-sub-desc">Check any areas your institution is actively funding, piloting, or planning — beyond the Top 10 above.</p>
+        <div class="extra-moves-grid" id="extra-moves-grid">
+          <label class="check-item"><input type="checkbox" name="extra" value="core-modernization"> Core system modernization / migration</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="digital-account-opening"> Digital account opening optimization</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="mobile-banking-redesign"> Mobile banking redesign / upgrade</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="loan-origination"> Loan origination system upgrade</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="debit-credit-rewards"> Debit / credit rewards programs</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="bnpl"> Buy Now Pay Later (BNPL)</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="crypto-digital-assets"> Crypto / digital asset services</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="business-banking-digital"> Business banking digital tools</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="treasury-management"> Treasury management / cash management</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="wealth-management"> Wealth management / robo-advisory</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="insurance-embedded"> Embedded insurance</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="bill-pay-p2p"> Bill pay / P2P payment upgrades</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="data-analytics-platform"> Data analytics platform</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="cybersecurity-fraud"> Cybersecurity / fraud prevention</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="cloud-migration"> Cloud migration / infrastructure</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="branch-transformation"> Branch transformation / ITM deployment</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="employee-digital-tools"> Employee / staff digital tools</label>
+          <label class="check-item"><input type="checkbox" name="extra" value="regulatory-compliance-tech"> Regulatory / compliance tech (RegTech)</label>
+        </div>
+        <label class="f extra-other-label">Not listed above? Tell us what you're working on:<textarea id="extra-other" rows="2" placeholder="e.g. CBDC pilot, embedded lending partnership…"></textarea></label>
+      </div>
+
+      <div class="research-optin-section">
+        <h3 class="section-sub">Stay in the loop</h3>
+        <p class="section-sub-desc">Opt in to receive FiRadar's deeper research on specific areas. We'll reach out when relevant benchmarks or reports are ready — no spam, unsubscribe any time.</p>
+        <div class="extra-moves-grid" id="optin-grid">
+          <label class="check-item"><input type="checkbox" name="optin" value="ai-automation"> AI &amp; automation in banking</label>
+          <label class="check-item"><input type="checkbox" name="optin" value="payments-rails"> Payments &amp; real-time rails</label>
+          <label class="check-item"><input type="checkbox" name="optin" value="embedded-finance"> Embedded finance &amp; BaaS</label>
+          <label class="check-item"><input type="checkbox" name="optin" value="digital-lending"> Digital lending &amp; credit</label>
+          <label class="check-item"><input type="checkbox" name="optin" value="core-technology"> Core technology &amp; infrastructure</label>
+          <label class="check-item"><input type="checkbox" name="optin" value="cx-personalization"> CX &amp; personalization</label>
+          <label class="check-item"><input type="checkbox" name="optin" value="fraud-cybersecurity"> Fraud &amp; cybersecurity</label>
+          <label class="check-item"><input type="checkbox" name="optin" value="data-analytics"> Data &amp; analytics</label>
+          <label class="check-item"><input type="checkbox" name="optin" value="wealth-wm"> Wealth &amp; WM tech</label>
+          <label class="check-item"><input type="checkbox" name="optin" value="small-business"> Small business banking tech</label>
+          <label class="check-item"><input type="checkbox" name="optin" value="peer-benchmarks"> Peer benchmark reports (all topics)</label>
+        </div>
+      </div>
+
       <div class="actions">
         <button class="primary" id="submit" type="button">Submit to FiRadar</button>
         <button class="ghost" id="copy" type="button">Copy my responses</button>
@@ -436,7 +493,10 @@ function collect(){
       const sel = document.querySelector(`input[name="st-${m.id}"]:checked`);
       return {id:m.id, title:m.title, status: sel ? sel.value : null, note: $("note-"+m.id).value.trim()};
     }),
-    overallComment: $("overall").value.trim()
+    overallComment: $("overall").value.trim(),
+    extraMoves: [...document.querySelectorAll('input[name="extra"]:checked')].map(el => el.value),
+    extraMovesOther: $("extra-other").value.trim(),
+    optIn: [...document.querySelectorAll('input[name="optin"]:checked')].map(el => el.value)
   };
 }
 
@@ -474,6 +534,9 @@ function restore(){
   $("inst-email").value = i.email || ""; $("inst-type").value = i.type || "";
   $("inst-assets").value = i.assets || ""; $("inst-role").value = i.role || "";
   $("overall").value = d.overallComment || "";
+  $("extra-other").value = d.extraMovesOther || "";
+  (d.extraMoves || []).forEach(v => { const el = document.querySelector(`input[name="extra"][value="${v}"]`); if (el) el.checked = true; });
+  (d.optIn || []).forEach(v => { const el = document.querySelector(`input[name="optin"][value="${v}"]`); if (el) el.checked = true; });
   (d.moves || []).forEach(m => {
     if (m.status){ const el = $(`st-${m.id}-${m.status}`); if (el) el.checked = true; }
     const n = $("note-"+m.id); if (n) n.value = m.note || "";
