@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tokenized Deposits for Credit Unions | FiRadar Segment Radar</title>
+<meta name="description" content="FiRadar Segment Radar: who can help credit unions adopt tokenized deposits in 2027. 10 providers scored on the FiRadar 0–1000 scale.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A1724; --panel: #10243A; --panel-border: #24405A; --line: #2A4458;
+    --fg: #E7EEF3; --fg2: #C9D6E0; --muted: #A9BCCB; --dim: #8AA0B2;
+    --gold: #F2B33D; --teal: #7FD6C6; --coop: #3CC7B0; --infra: #6FA8FF; --bank: #FF8A6B;
+    --native: #4ADE80; --sel-bg: #18324D; --sel-border: #3C5F7E;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+    --sans: 'IBM Plex Sans', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+  a { color: var(--teal); } a:hover { color: #B5EDE2; }
+  button { font-family: inherit; }
+  .wrap { max-width: 1440px; margin: 0 auto; padding: 36px 48px; display: flex; flex-direction: column; gap: 24px; }
+  @media (max-width: 700px) { .wrap { padding: 24px 16px; } }
+
+  .head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
+  .eyebrow { font-family: var(--mono); font-size: 13px; letter-spacing: .18em; color: var(--gold); font-weight: 600; }
+  h1 { margin: 6px 0; font-size: clamp(28px, 4vw, 38px); font-weight: 700; letter-spacing: -.01em; line-height: 1.1; }
+  .sub { font-size: 16px; color: var(--muted); max-width: 900px; line-height: 1.5; }
+  .meta { font-family: var(--mono); font-size: 13px; color: var(--muted); display: flex; flex-direction: column; gap: 4px; align-items: flex-end; }
+  .meta span { color: var(--fg); }
+  @media (max-width: 700px) { .meta { align-items: flex-start; } }
+
+  .card { background: var(--panel); border: 1px solid var(--panel-border); border-radius: 12px; }
+  .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  @media (max-width: 900px) { .stats { grid-template-columns: 1fr; } }
+  .stat { padding: 16px 20px; display: flex; gap: 16px; align-items: center; }
+  .stat-num { font-family: var(--mono); font-size: 40px; font-weight: 600; color: var(--gold); line-height: 1; }
+  .stat-label { font-size: 12px; letter-spacing: .1em; color: var(--muted); font-weight: 600; }
+  .stat-note { font-size: 13px; line-height: 1.4; }
+
+  .main { display: flex; gap: 40px; flex-wrap: wrap; align-items: flex-start; }
+  .radar { flex: 0 1 760px; min-width: 0; width: 100%; }
+  .radar svg { width: 100%; height: auto; display: block; }
+  .radar svg .dot { cursor: pointer; }
+  .radar svg .dot:focus { outline: none; }
+  .radar svg .dot:focus-visible .hit { stroke: #fff; stroke-width: 2; }
+  .side { flex: 999 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+
+  .detail { padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; }
+  .detail-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+  .chips { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .chip-tier { font-family: var(--mono); font-size: 12px; font-weight: 600; padding: 3px 8px; border-radius: 4px; color: var(--bg); }
+  .chip-access { font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 4px; border: 1px solid; }
+  .d-wedge { font-size: 13px; font-weight: 600; }
+  .d-name { font-size: 26px; font-weight: 700; line-height: 1.15; margin-top: 6px; }
+  .d-reach { font-size: 13px; color: var(--muted); margin-top: 6px; }
+  .d-reach span { color: var(--fg); }
+  .d-score { font-family: var(--mono); font-size: 44px; font-weight: 600; line-height: 1; color: var(--gold); text-align: right; }
+  .d-score-label { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--muted); }
+  .bar { height: 8px; border-radius: 4px; background: var(--line); overflow: hidden; }
+  .bar > div { height: 8px; border-radius: 4px; }
+  .bar-ticks { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 11px; color: var(--dim); margin-top: 6px; }
+  .d-text { display: flex; flex-direction: column; gap: 10px; font-size: 14px; line-height: 1.45; }
+  .d-text b { font-weight: 600; }
+
+  .list { display: flex; flex-direction: column; gap: 4px; }
+  .row { display: flex; align-items: center; gap: 12px; min-height: 36px; padding: 3px 10px; border-radius: 6px; border: 1px solid transparent; background: transparent; color: var(--fg); cursor: pointer; text-align: left; width: 100%; }
+  .row:hover { background: #132B44; }
+  .row[aria-pressed="true"] { background: var(--sel-bg); border-color: var(--sel-border); }
+  .row .sw { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  .row .rk { font-family: var(--mono); font-size: 12px; color: var(--muted); width: 22px; }
+  .row .nm { font-size: 14px; font-weight: 500; flex-grow: 1; min-width: 0; }
+  .row .ac { font-size: 12px; width: 84px; }
+  .row .tr { font-size: 12px; color: var(--muted); width: 90px; }
+  .row .sc { font-family: var(--mono); font-size: 14px; font-weight: 600; width: 40px; text-align: right; }
+  @media (max-width: 560px) { .row .ac, .row .tr { display: none; } }
+  .legend { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  h2 { margin: 0; font-size: 22px; font-weight: 700; }
+  .dist-head { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+  .dist-head div { font-size: 14px; color: var(--muted); }
+  .dist { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 12px; }
+  @media (max-width: 1100px) { .dist { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 600px) { .dist { grid-template-columns: 1fr; } }
+  .dist .card { padding: 18px 20px; }
+  .dist h3 { margin: 0 0 8px; font-size: 15px; font-weight: 600; }
+  .dist p { margin: 0; font-size: 13px; line-height: 1.5; color: var(--fg2); }
+
+  footer { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; border-top: 1px solid var(--panel-border); padding-top: 16px; font-size: 12px; color: var(--dim); line-height: 1.6; }
+  footer .brand { font-family: var(--mono); font-size: 14px; font-weight: 600; color: var(--gold); }
+  footer .right { text-align: right; }
+  @media (max-width: 700px) { footer .right { text-align: left; } }
+
+  /* ── Subscribe popup ── */
+  #fr-overlay {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(5,10,22,0.78);
+    backdrop-filter: blur(7px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px 16px;
+    opacity: 0; pointer-events: none;
+    transition: opacity .3s ease;
+  }
+  #fr-overlay.show { opacity: 1; pointer-events: all; }
+
+  .fr-popup {
+    background: var(--panel);
+    border: 1px solid var(--sel-border);
+    border-radius: 14px;
+    padding: 32px 28px 24px;
+    max-width: 420px; width: 100%;
+    position: relative;
+    box-shadow: 0 24px 72px rgba(0,0,0,.6), 0 0 0 1px rgba(111,168,255,.08);
+    transform: translateY(18px) scale(.97);
+    transition: transform .35s cubic-bezier(.22,1,.36,1);
+  }
+  #fr-overlay.show .fr-popup { transform: translateY(0) scale(1); }
+  .fr-popup::before {
+    content:''; position:absolute; top:0; left:28px; right:28px; height:2px;
+    background: linear-gradient(90deg,var(--infra),var(--teal));
+    border-radius: 0 0 2px 2px;
+  }
+
+  .fr-close {
+    position:absolute; top:14px; right:14px;
+    background:none; border:none; cursor:pointer;
+    color:var(--muted); font-size:16px; line-height:1;
+    padding:6px 8px; border-radius:6px;
+    transition: color .15s, background .15s;
+  }
+  .fr-close:hover { color:var(--fg); background:var(--sel-bg); }
+
+  .fr-eyebrow { font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:.18em; color:var(--gold); margin-bottom:8px; }
+  .fr-headline { font-family:var(--sans); font-size:clamp(22px,4vw,28px); font-weight:700; line-height:1.1; color:var(--fg); margin-bottom:10px; }
+  .fr-headline em { font-style:normal; color:var(--teal); }
+  .fr-sub { font-size:13px; color:var(--muted); line-height:1.55; margin-bottom:18px; }
+  .fr-perks { list-style:none; padding:0; margin:0 0 20px; display:flex; flex-direction:column; gap:7px; }
+  .fr-perks li { font-size:13px; color:var(--fg2); display:flex; align-items:center; gap:9px; }
+  .fr-perks li::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--teal); flex-shrink:0; }
+
+  .fr-form { display:flex; flex-direction:column; gap:9px; }
+  .fr-input {
+    width:100%; padding:11px 14px;
+    background:var(--bg); border:1px solid var(--line);
+    border-radius:8px; color:var(--fg);
+    font-family:var(--sans); font-size:14px;
+    outline:none; transition: border-color .15s, box-shadow .15s;
+  }
+  .fr-input::placeholder { color:var(--dim); }
+  .fr-input:focus { border-color:var(--teal); box-shadow:0 0 0 3px rgba(127,214,198,.12); }
+
+  .fr-btn {
+    width:100%; padding:12px;
+    background: linear-gradient(90deg,#1a7aff,var(--teal));
+    border:none; border-radius:8px;
+    font-family:var(--mono); font-size:13px; font-weight:600; letter-spacing:.06em;
+    color:#0A1724; cursor:pointer;
+    transition: opacity .15s, transform .1s;
+  }
+  .fr-btn:hover { opacity:.9; transform:translateY(-1px); }
+  .fr-fine { font-family:var(--mono); font-size:11px; color:var(--dim); text-align:center; margin-top:8px; }
+  .fr-skip { display:block; width:100%; background:none; border:none; cursor:pointer; font-size:12px; color:var(--dim); text-align:center; margin-top:10px; padding:4px; transition:color .15s; }
+  .fr-skip:hover { color:var(--muted); }
+
+  .fr-success { display:none; text-align:center; padding:12px 0; }
+  .fr-success-icon { font-size:40px; margin-bottom:14px; }
+  .fr-success-title { font-family:var(--mono); font-size:22px; font-weight:600; color:var(--gold); margin-bottom:8px; }
+  .fr-success-sub { font-size:13px; color:var(--fg2); line-height:1.6; }
+
+  /* Progress bar */
+  #fr-prog { position:fixed; top:0; left:0; right:0; height:2px; z-index:100; background:var(--panel-border); pointer-events:none; }
+  #fr-prog-fill { height:100%; width:0%; background:var(--teal); transition:width .12s linear; }
+</style>
+</head>
+<body>
+
+<!-- Read-progress bar -->
+<div id="fr-prog"><div id="fr-prog-fill"></div></div>
+
+<!-- Subscribe overlay -->
+<div id="fr-overlay" role="dialog" aria-modal="true" aria-labelledby="fr-title">
+  <div class="fr-popup">
+    <button class="fr-close" id="fr-close" aria-label="Close">✕</button>
+
+    <div id="fr-default">
+      <div class="fr-eyebrow">FIRADAR INTEL</div>
+      <h2 class="fr-headline" id="fr-title">Get the next radar<br>before your <em>peers do.</em></h2>
+      <p class="fr-sub">New segment radars drop monthly — scored rankings, not PR roundups. Free, no credit card.</p>
+      <ul class="fr-perks">
+        <li>FiRadar scores for every provider in the segment</li>
+        <li>CU-specific annotations and Watch items</li>
+        <li>In your inbox before it hits LinkedIn</li>
+      </ul>
+      <form class="fr-form" id="fr-form">
+        <input class="fr-input" type="email" id="fr-email" placeholder="your@creditunion.org" required autocomplete="email">
+        <button class="fr-btn" type="submit">SEND ME THE NEXT RADAR →</button>
+      </form>
+      <p class="fr-fine">No spam. No selling your email.</p>
+      <button class="fr-skip" id="fr-skip">I'll catch it later</button>
+    </div>
+
+    <div class="fr-success" id="fr-success">
+      <div class="fr-success-icon">✅</div>
+      <div class="fr-success-title">YOU'RE ON THE RADAR.</div>
+      <p class="fr-success-sub">Next report lands in your inbox before it goes public. Welcome to the list.</p>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <header class="head">
+    <div>
+      <div class="eyebrow">FIRADAR.FINANCE · SEGMENT RADAR · CREDIT UNIONS</div>
+      <h1>Tokenized Deposits: Who Can Help Credit Unions in 2027</h1>
+      <div class="sub">Tokenized deposits are the #1 fintech move credit unions are watching for 2027. We scored 10 providers on the FiRadar 0–1000 scale so you know who is ready, and who is still proving it.</div>
+    </div>
+    <div class="meta">
+      <div>Segment: <span>Credit Unions</span></div>
+      <div>As of: <span>Oct 2026</span></div>
+      <div>Providers: <span>10 scored</span></div>
+    </div>
+  </header>
+
+  <section class="stats" aria-label="Market context">
+    <div class="card stat"><div class="stat-num">5%</div><div><div class="stat-label">CUS INVESTING NOW</div><div class="stat-note">Plan to invest in tokenized deposits in 2026 (Cornerstone Advisors).</div></div></div>
+    <div class="card stat"><div class="stat-num">47%</div><div><div class="stat-label">NOT FAMILIAR ENOUGH</div><div class="stat-note">Nearly half of CUs can't yet form a view on tokenized deposits.</div></div></div>
+    <div class="card stat"><div class="stat-num">29%</div><div><div class="stat-label">AWAITING CLARITY</div><div class="stat-note">Waiting on regulators. GENIUS Act names insured CUs as permitted issuers.</div></div></div>
+  </section>
+
+  <section class="main">
+    <div class="radar">
+      <svg id="radar" viewBox="0 0 760 760" role="group" aria-label="FiRadar provider radar. Closer to the center means a higher FiRadar Score.">
+        <circle cx="380" cy="380" r="360" fill="rgba(111,168,255,0.03)" stroke="#2A4458"/>
+        <circle cx="380" cy="380" r="324" fill="rgba(111,168,255,0.04)" stroke="#2E4C62"/>
+        <circle cx="380" cy="380" r="216" fill="rgba(60,199,176,0.07)" stroke="#35596E"/>
+        <circle cx="380" cy="380" r="108" fill="rgba(242,179,61,0.16)" stroke="#F2B33D" stroke-width="2"/>
+        <circle cx="380" cy="380" r="8" fill="#F2B33D"/>
+        <line x1="380" y1="20" x2="380" y2="740" stroke="#2A4458"/>
+        <line x1="20" y1="380" x2="740" y2="380" stroke="#2A4458"/>
+        <g font-family="'IBM Plex Mono', monospace" font-size="11" letter-spacing="1.5" aria-hidden="true">
+          <text x="386" y="290" fill="#F2B33D" font-weight="600">COMPETITIVE 750+</text>
+          <text x="386" y="182" fill="#7FD6C6">DEVELOPING 600–749</text>
+          <text x="386" y="74" fill="#A9BCCB">EARLY 450–599</text>
+          <text x="386" y="38" fill="#8AA0B2">SEED &lt;450</text>
+        </g>
+        <g font-family="'IBM Plex Sans', sans-serif" font-size="14" font-weight="600" aria-hidden="true">
+          <text x="0" y="14" fill="#F2B33D">Core &amp; Processing</text>
+          <text x="760" y="14" fill="#3CC7B0" text-anchor="end">CU Cooperatives &amp; CUSOs</text>
+          <text x="760" y="754" fill="#6FA8FF" text-anchor="end">Digital Asset Infrastructure</text>
+          <text x="0" y="754" fill="#FF8A6B">Bank-Led Networks</text>
+        </g>
+        <g id="dots"></g>
+      </svg>
+    </div>
+
+    <div class="side">
+      <div class="card detail" aria-live="polite">
+        <div class="detail-top">
+          <div style="min-width:0">
+            <div class="chips">
+              <span class="chip-tier" id="d-tier"></span>
+              <span class="chip-access" id="d-access"></span>
+              <span class="d-wedge" id="d-wedge"></span>
+            </div>
+            <div class="d-name" id="d-name"></div>
+            <div class="d-reach">CU reach: <span id="d-reach"></span> · <a id="d-site" target="_blank" rel="noopener noreferrer"></a></div>
+          </div>
+          <div style="flex-shrink:0">
+            <div class="d-score" id="d-score"></div>
+            <div class="d-score-label">FIRADAR SCORE</div>
+          </div>
+        </div>
+        <div>
+          <div class="bar"><div id="d-bar"></div></div>
+          <div class="bar-ticks"><span>0</span><span>450</span><span>600</span><span>750</span><span>1000</span></div>
+        </div>
+        <div class="d-text">
+          <div><b style="color:var(--gold)">Why it’s here · </b><span id="d-why"></span></div>
+          <div><b style="color:var(--teal)">2026 evidence · </b><span id="d-evidence"></span></div>
+          <div><b style="color:var(--bank)">Watch · </b><span id="d-watch"></span></div>
+        </div>
+      </div>
+
+      <div class="list" id="list"></div>
+
+      <div class="legend">Distance from center = FiRadar Score. Dot size = CU reach (Large / Medium / Small). CU access: <span style="color:var(--native)">CU-Native</span> sells to CUs directly · <span style="color:var(--gold)">CU Partner</span> works via CU programs · <span style="color:var(--muted)">Indirect</span> reaches CUs through others. Click any dot or row for detail.</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="dist-head">
+      <h2>Key distinctions for credit unions</h2>
+      <div>Not every digital dollar solution is the same. Know which one your vendor is offering.</div>
+    </div>
+    <div class="dist">
+      <div class="card"><h3 style="color:var(--gold)">Tokenized deposits</h3><p>Stay on the CU balance sheet, inside the insured perimeter. An efficiency play: faster settlement and programmable money without leaving the regulated deposit framework.</p></div>
+      <div class="card"><h3 style="color:var(--infra)">Stablecoins</h3><p>1:1 reserve-backed and move more freely across networks. The GENIUS Act names insured CUs as permitted issuers, but balance sheet and regulatory implications differ.</p></div>
+      <div class="card"><h3 style="color:var(--bank)">Banks as frenemies</h3><p>The biggest tokenized deposit players (JPMorgan Kinexys, The Clearing House) are banks. They may offer infrastructure, but they also compete for your members’ deposits.</p></div>
+      <div class="card"><h3 style="color:var(--coop)">Regulatory timing</h3><p>NCUA rules implementing the GENIUS Act were due July 2026. Confirm current status before committing. Today’s pilot may be production-ready by mid-2027.</p></div>
+    </div>
+  </section>
+
+  <footer>
+    <div>
+      <div class="brand">FiRadar.Finance</div>
+      <div>Measuring fintech readiness and proof of execution so financial institutions can buy with confidence.</div>
+    </div>
+    <div class="right">FiRadar Scores on a 0–1000 scale · Segment: Credit Unions · October 2026<br>Draft: illustrative scores from public information only. Not an endorsement of any provider.</div>
+  </footer>
+</div>
+
+<script>
+// ===== DATA: edit scores and text here =====
+const WEDGES = {
+  core:  { name: 'Core & Processing',            color: '#F2B33D' },
+  coop:  { name: 'CU Cooperatives & CUSOs',      color: '#3CC7B0' },
+  infra: { name: 'Digital Asset Infrastructure', color: '#6FA8FF' },
+  bank:  { name: 'Bank-Led Networks',            color: '#FF8A6B' }
+};
+const ACCESS = {
+  native:   { name: 'CU-Native',  color: '#4ADE80' },
+  partner:  { name: 'CU Partner', color: '#F2B33D' },
+  indirect: { name: 'Indirect',   color: '#A9BCCB' }
+};
+// ang = position angle in degrees (0 = right, clockwise). Core 180–270, CUSO 270–360, Infra 0–90, Bank 90–180.
+const PROVIDERS = [
+  { name: 'Paxos', short: 'Paxos', w: 'infra', score: 823, ang: 18, reach: 'S', access: 'indirect', url: 'https://www.paxos.com', site: 'paxos.com',
+    why: 'Highest-rated infrastructure player. The regulated tokenization engine powering Fiserv’s FIUSD, with production-grade rails and strong institutional trust signals.',
+    evidence: 'Infrastructure behind Fiserv FIUSD (with Circle). Regulated by NYDFS. Proven at scale with major bank partners.',
+    watch: 'Reaches CUs mainly through Fiserv, not as a direct CU vendor. CU adoption depends on Fiserv’s distribution decisions.' },
+  { name: 'Fiserv', short: 'Fiserv', w: 'core', score: 815, ang: 210, reach: 'L', access: 'native', url: 'https://www.fiserv.com', site: 'fiserv.com',
+    why: 'Largest CU core presence (DNA, Portico) plus a live digital asset platform. FIUSD offered at no extra cost to existing Fiserv clients.',
+    evidence: 'Launched Roughrider Coin with Bank of North Dakota for bank-to-bank transfers. 90+ North Dakota banks and CUs can access it via Fiserv Commercial Center.',
+    watch: 'FIUSD is a stablecoin, not a tokenized deposit. Confirm which path (deposit token or stablecoin) fits your regulatory posture.' },
+  { name: 'Jack Henry (Symitar)', short: 'Jack Henry', w: 'core', score: 765, ang: 250, reach: 'L', access: 'native', url: 'https://www.jackhenry.com', site: 'jackhenry.com',
+    why: 'Symitar serves hundreds of CUs, and the new cloud-native Jack Henry Platform is built to ledger tokenized money. Stablecore is in its Fintech Integration Network.',
+    evidence: 'USDC send/receive in beta. Open USD initiative referenced in FY26 results. ~1,600 bank and CU connections in its integration network.',
+    watch: 'Tokenized deposits are partner-led today, not native to the core. Execution depends on partner (Stablecore, Circle) timelines.' },
+  { name: 'Stablecore', short: 'Stablecore', w: 'infra', score: 755, ang: 40, reach: 'M', access: 'native', url: 'https://www.stablecore.com', site: 'stablecore.com',
+    why: 'Purpose-built digital asset core for CUs: tokenized deposits, stablecoin accounts, on/off ramps and digital-asset lending.',
+    evidence: 'CU program with Circuit (CUSO) and Curql. Randolph-Brooks FCU ($19B), Stanford FCU ($4.5B) and La Capitol FCU signed at launch. Integrated with Jack Henry.',
+    watch: 'Young company. Needs full vendor-risk diligence; production track record and NCUA exam experience are early.' },
+  { name: 'Metallicus', short: 'Metallicus', w: 'infra', score: 750, ang: 75, reach: 'M', access: 'partner', url: 'https://www.metallicus.com', site: 'metallicus.com',
+    why: 'CU-focused blockchain stack: Metal Blockchain, Metal Pay, custom CU stablecoins and wallets. FedNow certified, with active CU cohort programs.',
+    evidence: '15+ CUs with stablecoins in its test environment. Innovation Program 2.0 with a 50-CU CrossState cohort. St. Cloud Financial CU’s $CLDUSD deployed.',
+    watch: 'Scale beyond pilots not yet proven; most deployments are test or limited production. Confirm your core’s compatibility.' },
+  { name: 'JPMorgan Kinexys', short: 'JPM Kinexys', w: 'bank', score: 615, ang: 150, reach: 'S', access: 'indirect', url: 'https://www.jpmorgan.com/kinexys', site: 'jpmorgan.com/kinexys',
+    why: 'The most proven tokenized deposit network at scale. $5B+ processed daily; sets the benchmark for production tokenized deposits.',
+    evidence: 'JPM Coin (now Kinexys Digital Payments) running since 2019, expanded to the Base blockchain. Institutional clients in 40+ countries.',
+    watch: 'Institutional focus. A benchmark and competitor, not a CU vendor. The bank-as-competitor dynamic is real.' },
+  { name: 'The Clearing House', short: 'The Clearing House', w: 'bank', score: 510, ang: 115, reach: 'L', access: 'indirect', url: 'https://www.theclearinghouse.org', site: 'theclearinghouse.org',
+    why: 'The interbank clearing backbone (RTP, CHIPS, EPN), extending into tokenized deposit settlement. Network effects are substantial.',
+    evidence: 'Tokenized deposit network targeting H1 2027, backed by JPMorgan, BofA, Citi and Wells Fargo, built on existing RTP and CHIPS rails.',
+    watch: 'Corporate-first; CU access path not defined. The banks behind TCH compete with CUs for deposits. Partner AND competitor.' },
+  { name: 'Velera', short: 'Velera', w: 'coop', score: 505, ang: 300, reach: 'L', access: 'native', url: 'https://www.velera.com', site: 'velera.com',
+    why: 'Largest payments CUSO, with deep CU distribution. Its Digital Asset Lab is doing active R&D on tokenized deposits and stablecoins.',
+    evidence: 'First Lab cohort named in 2026: Coastal CU, Teachers FCU, Corporate One, Valley Strong and others. TruStage Digital Assets is a partner.',
+    watch: 'Still proof-of-concept; production timing unclear. Watch cohort outcomes in early 2027. High potential given CU alignment.' },
+  { name: 'DaLand CUSO / Corelation', short: 'DaLand / Corelation', w: 'core', score: 480, ang: 235, reach: 'S', access: 'native', url: 'https://www.corelationinc.com', site: 'corelationinc.com',
+    why: 'Coin2Core bridges digital assets natively into KeyStone, DNA and Symitar cores, a cleaner architecture than middleware.',
+    evidence: 'KeyStone integration announced Apr 2026. Deployed at Canvas CU on Symitar. The cross-core approach is differentiated.',
+    watch: 'Bitcoin-centric today; tokenized deposits are not yet the main use case. Small reach limits network effect.' },
+  { name: 'Alloya Corporate FCU', short: 'Alloya', w: 'coop', score: 470, ang: 315, reach: 'L', access: 'native', url: 'https://www.alloyacorp.org', site: 'alloyacorp.org',
+    why: 'A natural settlement hub for CU-to-CU token transfers. Corporate CU infrastructure is the logical backbone for CU interoperability.',
+    evidence: 'Announced the CUUSD stablecoin for credit unions at GAC 2026. Member-owned structure aligns incentives with CUs.',
+    watch: 'Stablecoin-first; tokenized deposit roadmap not yet defined. The lower score reflects early market signals, not institutional quality.' }
+];
+// Tier cutoffs (FiRadar bands)
+function tierOf(s) {
+  if (s >= 750) return { name: 'Competitive', color: '#F2B33D' };
+  if (s >= 600) return { name: 'Developing',  color: '#7FD6C6' };
+  if (s >= 450) return { name: 'Early',       color: '#A9BCCB' };
+  return { name: 'Seed', color: '#6B8296' };
+}
+// ===== END DATA =====
+
+const REACH = { L: { name: 'Large', r: 15 }, M: { name: 'Medium', r: 12 }, S: { name: 'Small', r: 10 } };
+const C = 380, R = 360, NS = 'http://www.w3.org/2000/svg';
+// Radius: score 900 = center, 400 = outer edge
+const distOf = s => (900 - Math.min(Math.max(s, 400), 900)) / 500 * R;
+
+PROVIDERS.sort((a, b) => b.score - a.score);
+const dotsG = document.getElementById('dots');
+const listEl = document.getElementById('list');
+const dotEls = [], rowEls = [], labelEls = [];
+
+function el(tag, attrs, parent) {
+  const n = document.createElementNS(NS, tag);
+  for (const k in attrs) n.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(n);
+  return n;
+}
+
+PROVIDERS.forEach((p, i) => {
+  const d = distOf(p.score), rad = p.ang * Math.PI / 180;
+  const x = C + d * Math.cos(rad), y = C + d * Math.sin(rad);
+  const r = REACH[p.reach].r, color = WEDGES[p.w].color, right = x >= C;
+  const tier = tierOf(p.score);
+
+  const g = el('g', { class: 'dot', tabindex: '0', role: 'button', 'aria-label': `${i + 1}. ${p.name}, FiRadar score ${p.score}, ${tier.name}` }, dotsG);
+  el('circle', { class: 'hit', cx: x, cy: y, r: 22, fill: 'transparent' }, g);
+  const ring = el('circle', { cx: x, cy: y, r: r + 4, fill: 'none', stroke: 'transparent', 'stroke-width': 2 }, g);
+  el('circle', { cx: x, cy: y, r: r, fill: color, stroke: '#0A1724', 'stroke-width': 2 }, g);
+  const num = el('text', { x: x, y: y + 4, 'text-anchor': 'middle', 'font-family': "'IBM Plex Mono', monospace", 'font-size': 12, 'font-weight': 600, fill: '#0A1724' }, g);
+  num.textContent = i + 1;
+  const label = el('text', { x: right ? x + r + 8 : x - r - 8, y: y + 4, 'text-anchor': right ? 'start' : 'end', 'font-family': "'IBM Plex Sans', sans-serif", 'font-size': 12, 'font-weight': 500, fill: '#C9D6E0' }, g);
+  label.textContent = p.short;
+  g.addEventListener('click', () => select(i));
+  g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(i); } });
+  dotEls.push(ring); labelEls.push(label);
+
+  const acc = ACCESS[p.access];
+  const row = document.createElement('button');
+  row.className = 'row';
+  row.setAttribute('aria-pressed', 'false');
+  row.innerHTML = `<span class="sw" style="background:${color}"></span><span class="rk">${i + 1}</span><span class="nm"></span><span class="ac" style="color:${acc.color}">${acc.name}</span><span class="tr">${tier.name}</span><span class="sc">${p.score}</span>`;
+  row.querySelector('.nm').textContent = p.name;
+  row.addEventListener('click', () => select(i));
+  listEl.appendChild(row); rowEls.push(row);
+});
+
+function select(i) {
+  const p = PROVIDERS[i], tier = tierOf(p.score), acc = ACCESS[p.access], wd = WEDGES[p.w];
+  dotEls.forEach((n, k) => n.setAttribute('stroke', k === i ? '#FFFFFF' : 'transparent'));
+  labelEls.forEach((n, k) => n.setAttribute('fill', k === i ? '#FFFFFF' : '#C9D6E0'));
+  rowEls.forEach((n, k) => n.setAttribute('aria-pressed', k === i ? 'true' : 'false'));
+  const t = document.getElementById('d-tier');
+  t.textContent = tier.name.toUpperCase(); t.style.background = tier.color;
+  const a = document.getElementById('d-access');
+  a.textContent = acc.name; a.style.color = acc.color; a.style.borderColor = acc.color;
+  const w = document.getElementById('d-wedge');
+  w.textContent = wd.name; w.style.color = wd.color;
+  document.getElementById('d-name').textContent = p.name;
+  document.getElementById('d-reach').textContent = REACH[p.reach].name;
+  const s = document.getElementById('d-site'); s.textContent = p.site; s.href = p.url;
+  document.getElementById('d-score').textContent = p.score;
+  const b = document.getElementById('d-bar'); b.style.width = (p.score / 10) + '%'; b.style.background = tier.color;
+  document.getElementById('d-why').textContent = p.why;
+  document.getElementById('d-evidence').textContent = p.evidence;
+  document.getElementById('d-watch').textContent = p.watch;
+}
+select(0);
+
+// ── Subscribe popup (scroll-depth trigger at 80%) ──
+(function() {
+  const overlay  = document.getElementById('fr-overlay');
+  const closeBtn = document.getElementById('fr-close');
+  const skipBtn  = document.getElementById('fr-skip');
+  const form     = document.getElementById('fr-form');
+  const progFill = document.getElementById('fr-prog-fill');
+  let shown = false;
+
+  function showPopup() {
+    if (shown) return;
+    shown = true;
+    overlay.classList.add('show');
+    setTimeout(() => document.getElementById('fr-email').focus(), 350);
+  }
+  function hidePopup() { overlay.classList.remove('show'); }
+
+  // Scroll depth
+  window.addEventListener('scroll', function() {
+    const el = document.documentElement;
+    const scrolled = el.scrollTop || document.body.scrollTop;
+    const total = el.scrollHeight - el.clientHeight;
+    const pct = total > 0 ? scrolled / total : 0;
+    progFill.style.width = Math.round(pct * 100) + '%';
+    if (pct >= 0.80 && !shown) showPopup();
+  }, { passive: true });
+
+  closeBtn.addEventListener('click', hidePopup);
+  skipBtn.addEventListener('click', hidePopup);
+  overlay.addEventListener('click', function(e) { if (e.target === overlay) hidePopup(); });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') hidePopup(); });
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    // TODO: wire to your email platform (Mailchimp / ConvertKit / Beehiiv) here
+    // e.g. fetch('/api/subscribe', { method:'POST', body: JSON.stringify({ email: document.getElementById('fr-email').value }) })
+    document.getElementById('fr-default').style.display = 'none';
+    document.getElementById('fr-success').style.display = 'block';
+    setTimeout(hidePopup, 2800);
+  });
+})();
+</script>
+</body>
+</html>
