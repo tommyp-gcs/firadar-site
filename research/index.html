@@ -10,29 +10,32 @@
   <title>FiRadar Research | FiRadar.Finance</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:           #0a0f1e;
-      --bg2:          #080c18;
-      --surface:      #111827;
-      --surface2:     #1a2236;
-      --border:       #1e2d45;
-      --border2:      #243050;
-      --fg:           #e8edf5;
-      --fg2:          #c8d4e8;
-      --muted:        #6b7fa3;
-      --accent:       #00c2ff;
-      --accent2:      #0077ff;
-      --elite:        #f5c842;
-      --nav-h:        64px;
-      --font-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-      --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+      --bg:           #0A1724;
+      --bg2:          #061018;
+      --surface:      #10243A;
+      --surface2:     #18324D;
+      --border:       #24405A;
+      --border2:      #3C5F7E;
+      --fg:           #E7EEF3;
+      --fg2:          #C9D6E0;
+      --muted:        #A9BCCB;
+      --dim:          #8AA0B2;
+      --gold:         #ffffff;
+      --teal:         #ff4d55;
+      --infra:        #ff7a80;
+      --accent:       #ff4d55;
+      --accent2:      #ff7a80;
+      --nav-h:        60px;
+      --font-display: 'IBM Plex Mono', ui-monospace, monospace;
+      --font-body:    'IBM Plex Sans', system-ui, sans-serif;
       --radius-sm: 6px;
       --radius-md: 10px;
-      --radius-lg: 16px;
+      --radius-lg: 12px;
     }
 
     html { scroll-behavior: smooth; }
@@ -55,7 +58,7 @@
       top: 0;
       z-index: 100;
       height: var(--nav-h);
-      background: rgba(10,15,30,0.92);
+      background: rgba(10,23,36,0.94);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
@@ -67,10 +70,10 @@
 
     .nav-logo {
       font-family: var(--font-display);
-      font-size: 22px;
-      font-weight: 800;
+      font-size: 15px;
+      font-weight: 600;
       letter-spacing: 0.04em;
-      color: var(--accent);
+      color: var(--gold);
       white-space: nowrap;
       flex-shrink: 0;
     }
@@ -96,7 +99,7 @@
 
     /* ── Hero ── */
     .hero {
-      background: linear-gradient(160deg, #0d1526 0%, #0a0f1e 50%, #080c18 100%);
+      background: linear-gradient(160deg, #0E2035 0%, #0A1724 50%, #061018 100%);
       border-bottom: 1px solid var(--border);
       padding: clamp(48px, 8vw, 96px) clamp(16px, 4vw, 48px) clamp(40px, 6vw, 72px);
       position: relative;
@@ -111,7 +114,7 @@
         linear-gradient(var(--border) 1px, transparent 1px),
         linear-gradient(90deg, var(--border) 1px, transparent 1px);
       background-size: 40px 40px;
-      opacity: 0.18;
+      opacity: 0.14;
       pointer-events: none;
     }
 
@@ -122,7 +125,7 @@
       right: -80px;
       width: 480px;
       height: 480px;
-      background: radial-gradient(circle, rgba(0,194,255,0.08) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(127,214,198,0.07) 0%, transparent 70%);
       pointer-events: none;
     }
 
@@ -136,10 +139,10 @@
     .hero-eyebrow {
       font-family: var(--font-display);
       font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
+      font-weight: 600;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--gold);
       margin-bottom: 16px;
       display: flex;
       align-items: center;
@@ -151,15 +154,15 @@
       display: block;
       width: 24px;
       height: 2px;
-      background: var(--accent);
+      background: var(--gold);
       flex-shrink: 0;
     }
 
     .hero-title {
-      font-family: var(--font-display);
-      font-size: clamp(44px, 7vw, 80px);
-      font-weight: 800;
-      line-height: 0.96;
+      font-family: var(--font-body);
+      font-size: clamp(36px, 6vw, 64px);
+      font-weight: 700;
+      line-height: 1.05;
       letter-spacing: -0.01em;
       color: var(--fg);
       margin-bottom: 20px;
@@ -167,12 +170,12 @@
 
     .hero-title em {
       font-style: normal;
-      color: var(--accent);
+      color: var(--teal);
     }
 
     .hero-sub {
-      font-size: clamp(15px, 2vw, 17px);
-      color: var(--fg2);
+      font-size: clamp(14px, 2vw, 16px);
+      color: var(--muted);
       max-width: 560px;
       line-height: 1.65;
     }
@@ -187,8 +190,8 @@
     .section-eyebrow {
       font-family: var(--font-display);
       font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
+      font-weight: 600;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--muted);
       margin-bottom: 20px;
@@ -215,7 +218,7 @@
     }
 
     .report-card:hover {
-      border-color: var(--accent);
+      border-color: var(--teal);
       background: var(--surface2);
       transform: translateY(-2px);
       text-decoration: none;
@@ -225,8 +228,8 @@
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      height: 2px;
+      background: linear-gradient(90deg, var(--infra), var(--teal));
       border-radius: var(--radius-lg) var(--radius-lg) 0 0;
     }
 
@@ -234,22 +237,22 @@
       display: inline-block;
       font-family: var(--font-display);
       font-size: 10px;
-      font-weight: 700;
+      font-weight: 600;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--accent);
-      background: rgba(0,194,255,0.1);
-      border: 1px solid rgba(0,194,255,0.25);
+      color: var(--gold);
+      background: rgba(242,179,61,0.1);
+      border: 1px solid rgba(242,179,61,0.25);
       padding: 3px 8px;
-      border-radius: 4px;
+      border-radius: 3px;
       margin-bottom: 14px;
     }
 
     .report-card-title {
-      font-family: var(--font-display);
-      font-size: 22px;
-      font-weight: 800;
-      line-height: 1.1;
+      font-family: var(--font-body);
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.15;
       color: var(--fg);
       margin-bottom: 10px;
     }
@@ -278,11 +281,11 @@
 
     .report-card-cta {
       font-family: var(--font-display);
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--teal);
       display: flex;
       align-items: center;
       gap: 6px;
@@ -362,12 +365,12 @@
     }
 
     .about-title {
-      font-family: var(--font-display);
-      font-size: clamp(22px, 3.5vw, 30px);
-      font-weight: 800;
+      font-family: var(--font-body);
+      font-size: clamp(20px, 3vw, 26px);
+      font-weight: 700;
       color: var(--fg);
       margin-bottom: 12px;
-      line-height: 1.1;
+      line-height: 1.15;
     }
 
     .about-body {
@@ -396,7 +399,7 @@
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: var(--accent);
+      background: var(--teal);
       flex-shrink: 0;
     }
 
@@ -421,9 +424,9 @@
     }
 
     .cta-title {
-      font-family: var(--font-display);
-      font-size: clamp(28px, 4vw, 42px);
-      font-weight: 800;
+      font-family: var(--font-body);
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 700;
       color: var(--fg);
       margin-bottom: 12px;
       line-height: 1.1;
@@ -440,14 +443,14 @@
     .cta-btn {
       display: inline-block;
       font-family: var(--font-display);
-      font-size: 15px;
-      font-weight: 700;
+      font-size: 13px;
+      font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      padding: 14px 32px;
+      padding: 13px 32px;
       border-radius: 8px;
-      background: var(--accent);
-      color: var(--bg);
+      background: linear-gradient(90deg, var(--infra), var(--teal));
+      color: #0A1724;
       transition: opacity 0.15s, transform 0.15s;
       text-decoration: none;
     }
@@ -473,9 +476,9 @@
 
     .footer-brand {
       font-family: var(--font-display);
-      font-size: 22px;
-      font-weight: 800;
-      color: var(--accent);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gold);
       letter-spacing: 0.04em;
       margin-bottom: 6px;
     }
@@ -528,7 +531,7 @@
   <div class="reports-grid">
 
     <!-- Report 1: FinovateFall 2026 -->
-    <a href="/research/finovate-fall-2026.html" class="report-card">
+    <a class='report-card' href='/research/finovate-fall-2026'>
       <div class="report-card-tag">Conference Report</div>
       <div class="report-card-title">FinovateFall 2026 Rankings</div>
       <div class="report-card-desc">
@@ -555,6 +558,21 @@
         <span>📋 10 moves</span>
       </div>
       <div class="report-card-cta">Take the Assessment</div>
+    </a>
+
+    <!-- Report 3: CU Tokenized Deposit Providers -->
+    <a href="/research/CU-tokenized-deposit-scores" class="report-card">
+      <div class="report-card-tag">Segment Radar</div>
+      <div class="report-card-title">CU Tokenized Deposit Providers</div>
+      <div class="report-card-desc">
+        Ten tokenized deposit providers scored on the FiRadar scale — ranked by institutional readiness and credit union fit.
+      </div>
+      <div class="report-card-meta">
+        <span>🏦 Credit Unions</span>
+        <span>📅 November 2026</span>
+        <span>🏢 10 providers</span>
+      </div>
+      <div class="report-card-cta">View Report</div>
     </a>
 
     <!-- Coming soon card -->
