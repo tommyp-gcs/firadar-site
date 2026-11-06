@@ -1,900 +1,568 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="FiRadar Analysis Report: All 70 FinovateFall 2026 demo companies ranked by FiRadar Score — measuring fintech readiness and proof of execution.">
-  <meta property="og:title" content="FinovateFall 2026 FiRadar Rankings — FiRadar.Finance">
-  <meta property="og:description" content="70 fintechs. One score. See how every FinovateFall 2026 presenter ranks on readiness and proof of execution.">
-  <meta property="og:type" content="article">
-  <title>FinovateFall 2026 FiRadar Rankings | FiRadar.Finance</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    /* ── Reset & tokens ─────────────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg:           #0a0f1e;
-      --bg2:          #080c18;
-      --surface:      #111827;
-      --surface2:     #1a2236;
-      --border:       #1e2d45;
-      --border2:      #243050;
-      --fg:           #e8edf5;
-      --fg2:          #c8d4e8;
-      --muted:        #6b7fa3;
-      --accent:       #00c2ff;
-      --accent2:      #0077ff;
-      --elite:        #f5c842;
-      --competitive:  #00c2ff;
-      --developing:   #4dd9ac;
-      --early:        #a78bfa;
-      --seed:         #64748b;
-      --nav-h:        64px;
-
-      --font-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-      --font-body:    'Inter', system-ui, -apple-system, sans-serif;
-
-      --radius-sm: 6px;
-      --radius-md: 10px;
-      --radius-lg: 16px;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--fg);
-      font-family: var(--font-body);
-      font-size: 15px;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    img { max-width: 100%; display: block; }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    /* ── Nav ─────────────────────────────────────────────────────── */
-    .nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      height: var(--nav-h);
-      background: rgba(10,15,30,0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      padding-inline: clamp(16px, 4vw, 48px);
-      gap: 32px;
-    }
-
-    .nav-logo {
-      font-family: var(--font-display);
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      color: var(--accent);
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 24px;
-      list-style: none;
-      margin-left: auto;
-    }
-
-    .nav-links a {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--muted);
-      transition: color 0.15s;
-    }
-
-    .nav-links a:hover { color: var(--fg); text-decoration: none; }
-    .nav-links a.active { color: var(--accent); }
-
-    /* ── Hero ────────────────────────────────────────────────────── */
-    .hero {
-      background: linear-gradient(160deg, #0d1526 0%, #0a0f1e 50%, #080c18 100%);
-      border-bottom: 1px solid var(--border);
-      padding: clamp(48px, 8vw, 96px) clamp(16px, 4vw, 48px) clamp(40px, 6vw, 72px);
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Subtle grid texture */
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(var(--border) 1px, transparent 1px),
-        linear-gradient(90deg, var(--border) 1px, transparent 1px);
-      background-size: 40px 40px;
-      opacity: 0.18;
-      pointer-events: none;
-    }
-
-    /* Glow accent */
-    .hero::after {
-      content: '';
-      position: absolute;
-      top: -120px;
-      right: -80px;
-      width: 480px;
-      height: 480px;
-      background: radial-gradient(circle, rgba(0,194,255,0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero-inner {
-      max-width: 900px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-eyebrow {
-      font-family: var(--font-display);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .hero-eyebrow::before {
-      content: '';
-      display: block;
-      width: 24px;
-      height: 2px;
-      background: var(--accent);
-      flex-shrink: 0;
-    }
-
-    .hero-title {
-      font-family: var(--font-display);
-      font-size: clamp(44px, 7vw, 80px);
-      font-weight: 800;
-      line-height: 0.96;
-      letter-spacing: -0.01em;
-      color: var(--fg);
-      margin-bottom: 20px;
-    }
-
-    .hero-title em {
-      font-style: normal;
-      color: var(--accent);
-    }
-
-    .hero-sub {
-      font-size: clamp(15px, 2vw, 17px);
-      color: var(--fg2);
-      max-width: 600px;
-      line-height: 1.65;
-      margin-bottom: 32px;
-    }
-
-    .hero-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px 24px;
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    .hero-meta span {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    /* ── Intro / methodology ─────────────────────────────────────── */
-    .intro {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: clamp(40px, 6vw, 72px) clamp(16px, 4vw, 48px);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 32px 48px;
-      align-items: start;
-    }
-
-    @media (max-width: 640px) {
-      .intro { grid-template-columns: 1fr; }
-    }
-
-    .intro-copy h2 {
-      font-family: var(--font-display);
-      font-size: clamp(26px, 4vw, 36px);
-      font-weight: 800;
-      line-height: 1.1;
-      color: var(--fg);
-      margin-bottom: 14px;
-    }
-
-    .intro-copy p {
-      color: var(--fg2);
-      font-size: 14px;
-      line-height: 1.7;
-      margin-bottom: 12px;
-    }
-
-    .intro-copy p:last-child { margin-bottom: 0; }
-
-    .intro-copy strong { color: var(--fg); font-weight: 600; }
-
-    .tier-key {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 24px;
-    }
-
-    .tier-key h3 {
-      font-family: var(--font-display);
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 16px;
-    }
-
-    .tier-row {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .tier-row:last-child { border-bottom: none; padding-bottom: 0; }
-    .tier-row:first-of-type { padding-top: 0; }
-
-    .tier-swatch {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-
-    .tier-label {
-      font-family: var(--font-display);
-      font-size: 16px;
-      font-weight: 700;
-      flex: 1;
-    }
-
-    .tier-range {
-      font-size: 12px;
-      color: var(--muted);
-      white-space: nowrap;
-    }
-
-    /* ── Stats bar ───────────────────────────────────────────────── */
-    .stats-bar {
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .stats-inner {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 clamp(16px, 4vw, 48px);
-      display: flex;
-      flex-wrap: wrap;
-    }
-
-    .stat {
-      flex: 1;
-      min-width: 140px;
-      padding: 28px 0;
-      border-right: 1px solid var(--border);
-      padding-right: 32px;
-      margin-right: 32px;
-    }
-
-    .stat:last-child { border-right: none; padding-right: 0; margin-right: 0; }
-
-    .stat-num {
-      font-family: var(--font-display);
-      font-size: 40px;
-      font-weight: 800;
-      line-height: 1;
-      color: var(--accent);
-      margin-bottom: 4px;
-    }
-
-    .stat-label {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    /* ── Leaderboard ─────────────────────────────────────────────── */
-    .leaderboard-section {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: clamp(40px, 6vw, 72px) clamp(16px, 4vw, 48px);
-    }
-
-    .section-header {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 24px;
-    }
-
-    .section-title {
-      font-family: var(--font-display);
-      font-size: clamp(26px, 4vw, 36px);
-      font-weight: 800;
-      color: var(--fg);
-    }
-
-    .section-count {
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    /* Filter tabs */
-    .filter-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 20px;
-    }
-
-    .filter-btn {
-      font-family: var(--font-display);
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 6px 14px;
-      border-radius: 20px;
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--muted);
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-
-    .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
-    .filter-btn.active { background: var(--accent); border-color: var(--accent); color: var(--bg); }
-
-    /* Table */
-    .board {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-
-    .board-row {
-      display: grid;
-      grid-template-columns: 36px 1fr 140px 72px;
-      align-items: center;
-      gap: 12px;
-      padding: 10px 14px;
-      border-radius: var(--radius-sm);
-      background: var(--surface);
-      border: 1px solid var(--border);
-      transition: border-color 0.15s, background 0.15s;
-      position: relative;
-      overflow: hidden;
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .board-row:hover {
-      border-color: var(--border2);
-      background: var(--surface2);
-      text-decoration: none;
-    }
-
-    .board-row::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 3px;
-    }
-
-    .board-row.tier-elite::before   { background: var(--elite); }
-    .board-row.tier-competitive::before { background: var(--competitive); }
-    .board-row.tier-developing::before  { background: var(--developing); }
-    .board-row.tier-early::before   { background: var(--early); }
-    .board-row.tier-seed::before    { background: var(--seed); }
-
-    .board-row.top3 {
-      background: var(--surface2);
-      border-color: var(--border2);
-    }
-
-    .board-rank {
-      font-family: var(--font-display);
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--muted);
-      text-align: right;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .board-row.top3 .board-rank { color: var(--accent); }
-
-    .board-name {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--fg);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .board-row.top3 .board-name { font-weight: 600; }
-
-    .bos-badge {
-      display: inline-block;
-      font-size: 9px;
-      font-family: var(--font-display);
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #0a0f1e;
-      background: var(--elite);
-      padding: 2px 6px;
-      border-radius: 3px;
-      margin-left: 8px;
-      vertical-align: middle;
-      white-space: nowrap;
-    }
-
-    .board-bar {
-      position: relative;
-      height: 5px;
-      background: var(--border);
-      border-radius: 3px;
-      overflow: hidden;
-    }
-
-    .board-bar-fill {
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      border-radius: 3px;
-    }
-
-    .tier-elite .board-bar-fill    { background: var(--elite); }
-    .tier-competitive .board-bar-fill { background: var(--competitive); }
-    .tier-developing .board-bar-fill  { background: var(--developing); }
-    .tier-early .board-bar-fill    { background: var(--early); }
-    .tier-seed .board-bar-fill    { background: var(--seed); }
-
-    .board-score {
-      font-family: var(--font-display);
-      font-size: 18px;
-      font-weight: 700;
-      text-align: right;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .tier-elite .board-score    { color: var(--elite); }
-    .tier-competitive .board-score { color: var(--competitive); }
-    .tier-developing .board-score  { color: var(--developing); }
-    .tier-early .board-score    { color: var(--early); }
-    .tier-seed .board-score    { color: var(--seed); }
-
-    /* Tier section dividers */
-    .tier-divider {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 16px 0 8px;
-      font-family: var(--font-display);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .tier-divider-line {
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    .tier-divider-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-
-    /* ── Footer ──────────────────────────────────────────────────── */
-    .site-footer {
-      background: var(--bg2);
-      border-top: 1px solid var(--border);
-      padding: clamp(32px, 5vw, 56px) clamp(16px, 4vw, 48px);
-    }
-
-    .footer-inner {
-      max-width: 900px;
-      margin: 0 auto;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 24px;
-    }
-
-    .footer-brand {
-      font-family: var(--font-display);
-      font-size: 22px;
-      font-weight: 800;
-      color: var(--accent);
-      letter-spacing: 0.04em;
-      margin-bottom: 6px;
-    }
-
-    .footer-tagline {
-      font-size: 13px;
-      color: var(--muted);
-      max-width: 280px;
-      line-height: 1.5;
-    }
-
-    .footer-note {
-      font-size: 12px;
-      color: var(--muted);
-      text-align: right;
-      line-height: 1.7;
-    }
-
-    @media (max-width: 520px) {
-      .footer-note { text-align: left; }
-    }
-
-    /* ── Responsive ──────────────────────────────────────────────── */
-    @media (max-width: 560px) {
-      .board-row {
-        grid-template-columns: 28px 1fr 52px;
-      }
-      .board-bar { display: none; }
-
-      .nav-links { display: none; }
-
-      .stats-inner { gap: 0; }
-      .stat {
-        min-width: 50%;
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-        padding: 20px 0;
-        margin-right: 0;
-      }
-      .stat:nth-child(odd) { padding-right: 16px; }
-      .stat:last-child { border-bottom: none; }
-    }
-
-    /* ── Hidden rows for filter ──────────────────────────────────── */
-    .board-row[data-hidden] { display: none; }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FinovateFall 2026 FiRadar Rankings | FiRadar.Finance</title>
+<meta name="description" content="All 70 FinovateFall 2026 demo companies scored on the FiRadar 0–1000 scale. See who's Elite, Competitive, Developing, Early Stage — and who is still proving it.">
+<meta property="og:title" content="FinovateFall 2026 — FiRadar Score Rankings">
+<meta property="og:description" content="70 fintechs. One score. FiRadar ranked every FinovateFall 2026 presenter on the 0–1000 readiness scale.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A1724; --panel: #10243A; --panel-border: #24405A; --line: #2A4458;
+    --fg: #E7EEF3; --fg2: #C9D6E0; --muted: #A9BCCB; --dim: #8AA0B2;
+    --gold: #F2B33D; --teal: #7FD6C6; --infra: #6FA8FF;
+    --foundational: #F2B33D;
+    --elite:        #7FD6C6;
+    --competitive:  #6FA8FF;
+    --developing:   #A9BCCB;
+    --early:        #C084FC;
+    --seed:         #6B8296;
+    --sel-bg: #18324D; --sel-border: #3C5F7E;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+    --sans: 'IBM Plex Sans', system-ui, sans-serif;
+    --nav-h: 60px;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+  a { color: var(--teal); } a:hover { color: #B5EDE2; }
+  button { font-family: inherit; cursor: pointer; }
+
+  /* ── Nav ── */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    height: var(--nav-h);
+    background: rgba(10,23,36,0.94);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--panel-border);
+    display: flex; align-items: center;
+    padding: 0 clamp(16px,4vw,48px); gap: 32px;
+  }
+  .nav-brand { font-family: var(--mono); font-size: 15px; font-weight: 600; color: var(--gold); letter-spacing: .04em; text-decoration: none; }
+  .nav-links { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; margin-left: auto; }
+  .nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color .15s; }
+  .nav-links a:hover { color: var(--fg); }
+
+  /* ── Wrap ── */
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 36px clamp(16px,4vw,48px); display: flex; flex-direction: column; gap: 28px; }
+
+  /* ── Header ── */
+  .head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
+  .eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .18em; color: var(--gold); font-weight: 600; margin-bottom: 6px; }
+  h1 { margin: 0 0 8px; font-size: clamp(26px,4vw,38px); font-weight: 700; letter-spacing: -.01em; line-height: 1.1; }
+  .sub { font-size: 15px; color: var(--muted); max-width: 780px; line-height: 1.55; margin: 0; }
+  .meta { font-family: var(--mono); font-size: 12px; color: var(--muted); display: flex; flex-direction: column; gap: 4px; align-items: flex-end; flex-shrink: 0; }
+  .meta span { color: var(--fg); }
+  @media (max-width: 700px) { .meta { align-items: flex-start; } }
+
+  /* ── Stats ── */
+  .stats { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; }
+  @media (max-width: 900px) { .stats { grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 480px) { .stats { grid-template-columns: 1fr; } }
+  .card { background: var(--panel); border: 1px solid var(--panel-border); border-radius: 10px; }
+  .stat { padding: 14px 18px; display: flex; gap: 14px; align-items: center; }
+  .stat-num { font-family: var(--mono); font-size: 36px; font-weight: 600; color: var(--gold); line-height: 1; flex-shrink: 0; }
+  .stat-label { font-size: 11px; letter-spacing: .1em; color: var(--muted); font-weight: 600; text-transform: uppercase; }
+  .stat-note { font-size: 12px; line-height: 1.4; color: var(--fg2); margin-top: 2px; }
+
+  /* ── Tier key ── */
+  .tier-key { display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center; }
+  .tier-key-label { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; color: var(--muted); text-transform: uppercase; margin-right: 4px; }
+  .tk { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+  .tk-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  /* ── Filters ── */
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .filter-label { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; color: var(--muted); text-transform: uppercase; margin-right: 4px; }
+  .filter-btn {
+    padding: 5px 14px; border-radius: 20px;
+    border: 1px solid var(--line); background: transparent;
+    font-size: 12px; color: var(--muted);
+    transition: all .15s;
+  }
+  .filter-btn:hover { border-color: var(--sel-border); color: var(--fg); background: var(--sel-bg); }
+  .filter-btn.active { border-color: var(--teal); color: var(--teal); background: rgba(127,214,198,.08); }
+
+  /* ── Leaderboard table ── */
+  .board-wrap { overflow-x: auto; }
+  .board {
+    width: 100%; border-collapse: collapse;
+    font-size: 13px;
+  }
+  .board thead th {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--muted); font-weight: 600;
+    padding: 8px 12px; text-align: left;
+    border-bottom: 1px solid var(--panel-border);
+    white-space: nowrap;
+    position: sticky; top: var(--nav-h); background: var(--bg); z-index: 10;
+  }
+  .board thead th.r { text-align: right; }
+  .board tbody tr {
+    border-bottom: 1px solid var(--line);
+    transition: background .1s;
+  }
+  .board tbody tr:hover { background: var(--sel-bg); }
+  .board td { padding: 8px 12px; vertical-align: middle; }
+  .board td.r { text-align: right; }
+
+  .t-rank { font-family: var(--mono); font-size: 12px; color: var(--dim); width: 36px; }
+  .t-name { font-weight: 500; min-width: 160px; }
+  .t-name a { color: var(--fg); text-decoration: none; }
+  .t-name a:hover { color: var(--teal); }
+  .t-cat { font-size: 11px; color: var(--muted); min-width: 120px; }
+  .t-bos { width: 36px; text-align: center; }
+  .t-tier-cell { width: 110px; }
+  .tier-chip {
+    font-family: var(--mono); font-size: 10px; font-weight: 600;
+    padding: 2px 7px; border-radius: 3px; color: var(--bg);
+    white-space: nowrap;
+  }
+  .t-bar-cell { width: 120px; min-width: 80px; }
+  .t-bar-track { height: 4px; background: var(--line); border-radius: 2px; overflow: hidden; }
+  .t-bar-fill { height: 100%; border-radius: 2px; }
+  .t-score { font-family: var(--mono); font-size: 14px; font-weight: 600; width: 52px; }
+
+  .tier-divider td {
+    padding: 16px 12px 4px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--muted);
+    border-bottom: 1px solid var(--panel-border);
+    background: var(--bg);
+  }
+
+  /* ── Subscribe popup ── */
+  #fr-overlay {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(5,10,22,0.78);
+    backdrop-filter: blur(7px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px 16px;
+    opacity: 0; pointer-events: none;
+    transition: opacity .3s ease;
+  }
+  #fr-overlay.show { opacity: 1; pointer-events: all; }
+  .fr-popup {
+    background: var(--panel); border: 1px solid var(--sel-border);
+    border-radius: 14px; padding: 32px 28px 24px;
+    max-width: 420px; width: 100%; position: relative;
+    box-shadow: 0 24px 72px rgba(0,0,0,.6), 0 0 0 1px rgba(111,168,255,.08);
+    transform: translateY(18px) scale(.97);
+    transition: transform .35s cubic-bezier(.22,1,.36,1);
+  }
+  #fr-overlay.show .fr-popup { transform: translateY(0) scale(1); }
+  .fr-popup::before {
+    content:''; position:absolute; top:0; left:28px; right:28px; height:2px;
+    background: linear-gradient(90deg,var(--infra),var(--teal));
+    border-radius: 0 0 2px 2px;
+  }
+  .fr-close {
+    position:absolute; top:14px; right:14px;
+    background:none; border:none;
+    color:var(--muted); font-size:16px; line-height:1;
+    padding:6px 8px; border-radius:6px;
+    transition: color .15s, background .15s;
+  }
+  .fr-close:hover { color:var(--fg); background:var(--sel-bg); }
+  .fr-eyebrow { font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:.18em; color:var(--gold); margin-bottom:8px; }
+  .fr-headline { font-family:var(--sans); font-size:clamp(22px,4vw,28px); font-weight:700; line-height:1.1; color:var(--fg); margin:0 0 10px; }
+  .fr-headline em { font-style:normal; color:var(--teal); }
+  .fr-sub { font-size:13px; color:var(--muted); line-height:1.55; margin:0 0 18px; }
+  .fr-perks { list-style:none; padding:0; margin:0 0 20px; display:flex; flex-direction:column; gap:7px; }
+  .fr-perks li { font-size:13px; color:var(--fg2); display:flex; align-items:center; gap:9px; }
+  .fr-perks li::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--teal); flex-shrink:0; }
+  .fr-form { display:flex; flex-direction:column; gap:9px; }
+  .fr-input {
+    width:100%; padding:11px 14px;
+    background:var(--bg); border:1px solid var(--line);
+    border-radius:8px; color:var(--fg);
+    font-family:var(--sans); font-size:14px;
+    outline:none; transition: border-color .15s, box-shadow .15s;
+  }
+  .fr-input::placeholder { color:var(--dim); }
+  .fr-input:focus { border-color:var(--teal); box-shadow:0 0 0 3px rgba(127,214,198,.12); }
+  .fr-btn {
+    width:100%; padding:12px;
+    background: linear-gradient(90deg,#1a7aff,var(--teal));
+    border:none; border-radius:8px;
+    font-family:var(--mono); font-size:13px; font-weight:600; letter-spacing:.06em;
+    color:#0A1724;
+    transition: opacity .15s, transform .1s;
+  }
+  .fr-btn:hover { opacity:.9; transform:translateY(-1px); }
+  .fr-fine { font-family:var(--mono); font-size:11px; color:var(--dim); text-align:center; margin-top:8px; }
+  .fr-skip { display:block; width:100%; background:none; border:none; font-size:12px; color:var(--dim); text-align:center; margin-top:10px; padding:4px; transition:color .15s; }
+  .fr-skip:hover { color:var(--muted); }
+  .fr-success { display:none; text-align:center; padding:12px 0; }
+  .fr-success-icon { font-size:40px; margin-bottom:14px; }
+  .fr-success-title { font-family:var(--mono); font-size:22px; font-weight:600; color:var(--gold); margin-bottom:8px; }
+  .fr-success-sub { font-size:13px; color:var(--fg2); line-height:1.6; }
+
+  /* Progress bar */
+  #fr-prog { position:fixed; top:0; left:0; right:0; height:2px; z-index:100; background:var(--panel-border); pointer-events:none; }
+  #fr-prog-fill { height:100%; width:0%; background:var(--teal); transition:width .12s linear; }
+
+  /* ── Footer ── */
+  footer {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    gap: 24px; flex-wrap: wrap;
+    border-top: 1px solid var(--panel-border); padding-top: 16px;
+    font-size: 12px; color: var(--dim); line-height: 1.6;
+  }
+  .footer-brand { font-family: var(--mono); font-size: 14px; font-weight: 600; color: var(--gold); }
+  footer .right { text-align: right; }
+  @media (max-width: 700px) { footer .right { text-align: left; } }
+
+  @media (max-width: 600px) {
+    .t-cat, .t-bar-cell { display: none; }
+    .t-tier-cell { width: 80px; }
+  }
+</style>
 </head>
 <body>
 
-<!-- ── Nav ─────────────────────────────────────────────────────────── -->
-<nav class="nav">
-  <div class="nav-logo">FiRadar.Finance</div>
-  <ul class="nav-links">
-    <li><a href="/">Home</a></li>
-    <li><a href="/research" class="active">Research</a></li>
-    <li><a href="/score">Score a Fintech</a></li>
-  </ul>
-</nav>
+<!-- Read-progress bar -->
+<div id="fr-prog"><div id="fr-prog-fill"></div></div>
 
-<!-- ── Hero ────────────────────────────────────────────────────────── -->
-<section class="hero">
-  <div class="hero-inner">
-    <div class="hero-eyebrow">FiRadar Research Report</div>
-    <h1 class="hero-title">FinovateFall 2026<br><em>Rankings</em></h1>
-    <p class="hero-sub">
-      Congrats Finovate on another epic event. Kudos to top performers.
-      Here is our analysis report on the latest round.<br><br>
-      Great ideas are many. Success is determined by execution.
-    </p>
-    <div class="hero-meta">
-      <span>📍 New York, NY</span>
-      <span>📅 September 9–11, 2026</span>
-      <span>🏢 70 companies scored</span>
+<!-- Subscribe overlay -->
+<div id="fr-overlay" role="dialog" aria-modal="true" aria-labelledby="fr-title">
+  <div class="fr-popup">
+    <button class="fr-close" id="fr-close" aria-label="Close">✕</button>
+    <div id="fr-default">
+      <div class="fr-eyebrow">FIRADAR INTEL</div>
+      <h2 class="fr-headline" id="fr-title">Get the next radar<br>before your <em>peers do.</em></h2>
+      <p class="fr-sub">New segment radars drop monthly — scored rankings, not PR roundups. Free, no credit card.</p>
+      <ul class="fr-perks">
+        <li>FiRadar scores for every provider in the segment</li>
+        <li>CU-specific annotations and Watch items</li>
+        <li>In your inbox before it hits LinkedIn</li>
+      </ul>
+      <form class="fr-form" id="fr-form" name="research-subscribe" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="research-subscribe">
+          <input type="hidden" name="page" value="FinovateFall 2026">
+          <p style="display:none"><input name="bot-field"></p>
+        <input class="fr-input" type="email" id="fr-email" placeholder="your@institution.org" required autocomplete="email">
+        <button class="fr-btn" type="submit">SEND ME THE NEXT RADAR →</button>
+      </form>
+      <p class="fr-fine">No spam. No selling your email.</p>
+      <button class="fr-skip" id="fr-skip">I'll catch it later</button>
     </div>
-  </div>
-</section>
-
-<!-- ── Intro ────────────────────────────────────────────────────────── -->
-<section class="intro">
-  <div class="intro-copy">
-    <h2>What is the FiRadar Score?</h2>
-    <p>
-      The <strong>FiRadar Score</strong> measures fintech readiness and proof of execution on a scale of 0–1000.
-      The higher the score, the more likely a larger financial institution would purchase.
-    </p>
-    <p>
-      We scored all 70 demo companies at FinovateFall 2026 using the FiRadar API — analyzing signals
-      across market presence, institutional readiness, product maturity, and execution evidence.
-    </p>
-    <p>
-      Companies are grouped into five tiers based on their score, giving you an at-a-glance
-      view of where each presenter stands in the market.
-    </p>
-  </div>
-
-  <div class="tier-key">
-    <h3>Score Tiers</h3>
-    <div class="tier-row">
-      <div class="tier-swatch" style="background:var(--elite)"></div>
-      <div class="tier-label" style="color:var(--elite)">Elite</div>
-      <div class="tier-range">850 – 1000</div>
-    </div>
-    <div class="tier-row">
-      <div class="tier-swatch" style="background:var(--competitive)"></div>
-      <div class="tier-label" style="color:var(--competitive)">Competitive</div>
-      <div class="tier-range">700 – 849</div>
-    </div>
-    <div class="tier-row">
-      <div class="tier-swatch" style="background:var(--developing)"></div>
-      <div class="tier-label" style="color:var(--developing)">Developing</div>
-      <div class="tier-range">550 – 699</div>
-    </div>
-    <div class="tier-row">
-      <div class="tier-swatch" style="background:var(--early)"></div>
-      <div class="tier-label" style="color:var(--early)">Early Stage</div>
-      <div class="tier-range">400 – 549</div>
-    </div>
-    <div class="tier-row">
-      <div class="tier-swatch" style="background:var(--seed)"></div>
-      <div class="tier-label" style="color:var(--seed)">Seed</div>
-      <div class="tier-range">Under 400</div>
-    </div>
-  </div>
-</section>
-
-<!-- ── Stats bar ─────────────────────────────────────────────────────── -->
-<div class="stats-bar">
-  <div class="stats-inner">
-    <div class="stat">
-      <div class="stat-num">70</div>
-      <div class="stat-label">Companies Scored</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num" id="stat-elite">5</div>
-      <div class="stat-label">Elite Tier</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num" id="stat-avg">—</div>
-      <div class="stat-label">Average Score</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">890</div>
-      <div class="stat-label">Top Score</div>
+    <div class="fr-success" id="fr-success">
+      <div class="fr-success-icon">✅</div>
+      <div class="fr-success-title">YOU'RE ON THE RADAR.</div>
+      <p class="fr-success-sub">Next report lands in your inbox before it goes public. Welcome to the list.</p>
     </div>
   </div>
 </div>
 
-<!-- ── Leaderboard ───────────────────────────────────────────────────── -->
-<section class="leaderboard-section">
-  <div class="section-header">
-    <h2 class="section-title">Full Rankings</h2>
-    <span class="section-count" id="count-label">Showing all 70 companies</span>
+<!-- Nav -->
+<nav class="nav">
+  <a class="nav-brand" href="/">FiRadar.Finance</a>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/research">Research</a></li>
+    <li><a href="/score">Score a Fintech</a></li>
+  </ul>
+</nav>
+
+<div class="wrap">
+
+  <!-- Header -->
+  <header class="head">
+    <div>
+      <div class="eyebrow">FIRADAR.FINANCE · EVENT ANALYSIS · FINOVATEFALL 2026</div>
+      <h1>70 Fintechs. One Score.</h1>
+      <p class="sub">Every FinovateFall 2026 presenter scored on the FiRadar 0–1000 scale. Great ideas are many. Success is determined by execution.</p>
+    </div>
+    <div class="meta">
+      <div>Event: <span>FinovateFall 2026</span></div>
+      <div>Location: <span>New York</span></div>
+      <div>Dates: <span>Sept 9–11, 2026</span></div>
+      <div>Companies: <span>70 scored</span></div>
+    </div>
+  </header>
+
+  <!-- Stats -->
+  <section class="stats" aria-label="Event summary stats">
+    <div class="card stat">
+      <div class="stat-num">70</div>
+      <div><div class="stat-label">Companies</div><div class="stat-note">All demo presenters scored on FiRadar</div></div>
+    </div>
+    <div class="card stat" id="stat-elite">
+      <div class="stat-num" id="elite-count">—</div>
+      <div><div class="stat-label">Elite + Foundational</div><div class="stat-note">Score 850+ (top tier)</div></div>
+    </div>
+    <div class="card stat">
+      <div class="stat-num" id="avg-score">—</div>
+      <div><div class="stat-label">Avg Score</div><div class="stat-note">Across all 70 presenters</div></div>
+    </div>
+    <div class="card stat">
+      <div class="stat-num" id="bos-count">—</div>
+      <div><div class="stat-label">Best of Show</div><div class="stat-note">Recognized by attendee vote</div></div>
+    </div>
+  </section>
+
+  <!-- Tier key + filters -->
+  <div style="display:flex;flex-direction:column;gap:10px;">
+    <div class="tier-key">
+      <span class="tier-key-label">Tiers:</span>
+      <span class="tk"><span class="tk-dot" style="background:#F2B33D"></span>Foundational (850+)</span>
+      <span class="tk"><span class="tk-dot" style="background:#7FD6C6"></span>Elite (800–849)</span>
+      <span class="tk"><span class="tk-dot" style="background:#6FA8FF"></span>Competitive (700–799)</span>
+      <span class="tk"><span class="tk-dot" style="background:#A9BCCB"></span>Developing (550–699)</span>
+      <span class="tk"><span class="tk-dot" style="background:#C084FC"></span>Early Stage (400–549)</span>
+      <span class="tk"><span class="tk-dot" style="background:#6B8296"></span>Seed (&lt;400)</span>
+      <span class="tk" style="margin-left:8px;">⭐ Best of Show</span>
+    </div>
+    <div class="filters" id="filters">
+      <span class="filter-label">Filter:</span>
+    </div>
   </div>
 
-  <div class="filter-bar" id="filter-bar">
-    <button class="filter-btn active" data-tier="all">All</button>
-    <button class="filter-btn" data-tier="elite" style="--btn-color:var(--elite)">Elite</button>
-    <button class="filter-btn" data-tier="competitive" style="--btn-color:var(--competitive)">Competitive</button>
-    <button class="filter-btn" data-tier="developing" style="--btn-color:var(--developing)">Developing</button>
-    <button class="filter-btn" data-tier="early" style="--btn-color:var(--early)">Early Stage</button>
-    <button class="filter-btn" data-tier="seed" style="--btn-color:var(--seed)">Seed</button>
-  </div>
+  <!-- Leaderboard -->
+  <section>
+    <div class="board-wrap">
+      <table class="board" id="board" aria-label="FinovateFall 2026 FiRadar Rankings">
+        <thead>
+          <tr>
+            <th class="t-rank r">#</th>
+            <th>Company</th>
+            <th>Category</th>
+            <th class="t-bos">BOS</th>
+            <th>Tier</th>
+            <th>Score</th>
+            <th class="r">Score</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </section>
 
-  <div class="board" id="board"></div>
-</section>
-
-<!-- ── Footer ───────────────────────────────────────────────────────── -->
-<footer class="site-footer">
-  <div class="footer-inner">
+  <!-- Footer -->
+  <footer>
     <div>
       <div class="footer-brand">FiRadar.Finance</div>
-      <div class="footer-tagline">Measuring fintech readiness and proof of execution so financial institutions can buy with confidence.</div>
+      <div>Measuring fintech readiness and proof of execution so financial institutions can buy with confidence.</div>
     </div>
-    <div class="footer-note">
-      Scores range 0–1000 · Powered by FiRadar API<br>
-      Report date: October 2026<br>
+    <div class="right">
+      FiRadar Scores on a 0–1000 scale · FinovateFall 2026, New York (Sept 9–11)<br>
+      Source: Finovate.com · Best of Show: 8 winners by attendee vote<br>
       © 2026 FiRadar.Finance. All rights reserved.
     </div>
-  </div>
-</footer>
+  </footer>
+
+</div>
 
 <script>
-  const BAR_MAX = 890;
+// ── Tier definitions (matching FiRadar bands) ──
+const TIERS = [
+  { key: 'foundational', label: 'Foundational', min: 850,  color: '#F2B33D' },
+  { key: 'elite',        label: 'Elite',        min: 800,  color: '#7FD6C6' },
+  { key: 'competitive',  label: 'Competitive',  min: 700,  color: '#6FA8FF' },
+  { key: 'developing',   label: 'Developing',   min: 550,  color: '#A9BCCB' },
+  { key: 'early',        label: 'Early Stage',  min: 400,  color: '#C084FC' },
+  { key: 'seed',         label: 'Seed',         min: 0,    color: '#6B8296' },
+];
 
-  const TIERS = {
-    elite:       { label: 'Elite',        color: '#f5c842' },
-    competitive: { label: 'Competitive',  color: '#00c2ff' },
-    developing:  { label: 'Developing',   color: '#4dd9ac' },
-    early:       { label: 'Early Stage',  color: '#a78bfa' },
-    seed:        { label: 'Seed',         color: '#64748b' },
-  };
+function tierOf(score) {
+  return TIERS.find(t => score >= t.min) || TIERS[TIERS.length - 1];
+}
 
-  const companies = [
-    ["Mastercard/Minna Technologies", 890, "elite",       false, "https://www.minna.tech"],
-    ["Socure",                         880, "elite",       false, "https://www.socure.com"],
-    ["MX Technologies",                880, "elite",       false, "https://www.mx.com"],
-    ["Paymentus",                      860, "elite",       false, "https://www.paymentus.com"],
-    ["Accrue Savings",                 850, "elite",       false, "https://www.accruesavings.com"],
-    ["Visa DPS",                       845, "competitive", false, "https://www.visa.com"],
-    ["Sardine",                        845, "competitive", false, "https://www.sardine.ai"],
-    ["Alpaca",                         845, "competitive", false, "https://alpaca.markets"],
-    ["Conduit",                        840, "competitive", false, "https://www.conduit.financial"],
-    ["Posh AI",                        825, "competitive", false, "https://www.posh.ai"],
-    ["Personetics",                    820, "competitive", false, "https://www.personetics.com"],
-    ["Alkami Technology",              815, "competitive", false, "https://www.alkami.com"],
-    ["MoneyLion",                      810, "competitive", false, "https://www.moneylion.com"],
-    ["Dwolla",                         805, "competitive", false, "https://www.dwolla.com"],
-    ["Alloy",                          795, "competitive", false, "https://www.alloy.com"],
-    ["Nuvei",                          790, "competitive", false, "https://www.nuvei.com"],
-    ["Footprint",                      790, "competitive", false, "https://www.onefootprint.com"],
-    ["Aeropay",                        790, "competitive", false, "https://www.aeropay.com"],
-    ["Glia",                           785, "competitive", false, "https://www.glia.com"],
-    ["Apiture",                        785, "competitive", false, "https://www.apiture.com"],
-    ["FIS",                            780, "competitive", false, "https://www.fisglobal.com"],
-    ["WEX",                            775, "competitive", false, "https://www.wexinc.com"],
-    ["ComplyAdvantage",                770, "competitive", false, "https://www.complyadvantage.com"],
-    ["i2c",                            760, "competitive", false, "https://www.i2cinc.com"],
-    ["Featurespace",                   760, "competitive", false, "https://www.featurespace.com"],
-    ["Zest AI",                        750, "competitive", false, "https://www.zest.ai"],
-    ["Lendio",                         750, "competitive", false, "https://www.lendio.com"],
-    ["SaverLife",                      745, "competitive", false, "https://www.saverlife.org"],
-    ["Credit Sesame",                  745, "competitive", false, "https://www.creditsesame.com"],
-    ["Mahalo Banking",                 735, "competitive", false, "https://www.mahalobanking.com"],
-    ["Savvy Wealth",                   730, "competitive", false, "https://www.savvywealth.com"],
-    ["equipifi",                       730, "competitive", true,  "https://www.equipifi.com"],
-    ["Prelim",                         715, "competitive", false, "https://www.prelim.com"],
-    ["Cascade Debt",                   700, "competitive", false, "https://www.cascadedebt.com"],
-    ["Chimney",                        680, "developing",  false, "https://www.chimney.io"],
-    ["Banked",                         660, "developing",  false, "https://www.banked.com"],
-    ["QCash Financial",                645, "developing",  false, "https://www.qcashfinancial.com"],
-    ["Encapture",                      640, "developing",  false, "https://www.encapture.com"],
-    ["Resistant AI",                   630, "developing",  false, "https://www.resistant.ai"],
-    ["PaySign",                        610, "developing",  false, "https://www.paysign.com"],
-    ["Neural Payments",                610, "developing",  true,  "https://www.neuralpayments.com"],
-    ["Alacriti",                       600, "developing",  false, "https://www.alacriti.com"],
-    ["Prizeout",                       595, "developing",  false, "https://www.prizeout.com"],
-    ["Numerated",                      595, "developing",  false, "https://www.numerated.com"],
-    ["Spring EQ",                      575, "developing",  false, "https://www.springeq.com"],
-    ["Amount",                         560, "developing",  false, "https://www.amount.com"],
-    ["Eltropy",                        560, "developing",  false, "https://www.eltropy.com"],
-    ["Themis",                         515, "early",       false, "https://www.themis.com"],
-    ["PerformLine",                    490, "early",       false, "https://www.performline.com"],
-    ["Larky",                          490, "early",       false, "https://www.larky.com"],
-    ["Exagens",                        490, "early",       false, "https://www.exagens.com"],
-    ["Payitoff",                       485, "early",       false, "https://www.payitoff.io"],
-    ["Goodbuy",                        420, "early",       true,  "https://www.goodbuy.earth"],
-    ["Vertice AI",                     410, "early",       true,  "https://www.vertice.one"],
-    ["Pidgin",                         390, "seed",        false, "https://www.pidgin.finance"],
-    ["Lendovative Technologies",       370, "seed",        false, "https://www.lendovative.com"],
-    ["Effectiv",                       360, "seed",        false, "https://www.effectiv.ai"],
-    ["Screendragon",                   350, "seed",        false, "https://www.screendragon.com"],
-    ["Clockout",                       350, "seed",        true,  "https://www.clockout.com"],
-    ["Streem",                         195, "seed",        false, "https://www.streem.com"],
-    ["Prompt.io",                      190, "seed",        false, "https://www.prompt.io"],
-    ["ScreenSteps",                    175, "seed",        true,  "https://www.screensteps.com"],
-    ["Finalytics.ai",                  170, "seed",        false, "https://www.finalytics.ai"],
-    ["Honey Homes",                    120, "seed",        false, "https://www.honeyhomes.com"],
-    ["Loffa Interactive Group",         90, "seed",        false, "https://www.loffa.com"],
-    ["Young Early Starters",            90, "seed",        true,  "https://www.youngearlystartersusa.com"],
-    ["Authenticate",                    40, "seed",        false, "https://www.authenticate.com"],
-    ["Tweezr",                          10, "seed",        true,  "https://www.tweezr.com"],
-    ["Causeway Financial",              10, "seed",        false, "https://www.causewayfinancial.com"],
-    ["Finzly",                          10, "seed",        false, "https://www.finzly.com"],
-  ];
+// ── Data (70 companies from spreadsheet) ──
+const COMPANIES = [
+  { name: "Minna Technologies",      cat: "Customer Engagement & Financial Wellness", bos: false, score: 890, url: "https://www.minna.tech" },
+  { name: "Socure",                  cat: "Fraud, Risk & Compliance",                 bos: false, score: 880, url: "https://www.socure.com" },
+  { name: "MX Technologies",         cat: "AI & Operations",                          bos: false, score: 880, url: "https://www.mx.com" },
+  { name: "Paymentus",               cat: "Payments & Infrastructure",                bos: false, score: 860, url: "https://www.paymentus.com" },
+  { name: "Accrue Savings",          cat: "AI & Operations",                          bos: false, score: 850, url: "https://www.accruesavings.com" },
+  { name: "Visa DPS",                cat: "Payments & Infrastructure",                bos: false, score: 845, url: "https://www.visa.com" },
+  { name: "Sardine",                 cat: "Fraud, Risk & Compliance",                 bos: false, score: 845, url: "https://www.sardine.ai" },
+  { name: "Alpaca",                  cat: "Payments & Infrastructure",                bos: false, score: 845, url: "https://alpaca.markets" },
+  { name: "Conduit",                 cat: "Payments & Infrastructure",                bos: false, score: 840, url: "https://www.conduit.financial" },
+  { name: "Posh AI",                 cat: "AI & Operations",                          bos: false, score: 825, url: "https://www.posh.ai" },
+  { name: "Personetics",             cat: "Customer Engagement & Financial Wellness", bos: false, score: 820, url: "https://www.personetics.com" },
+  { name: "Alkami Technology",       cat: "AI & Operations",                          bos: false, score: 815, url: "https://www.alkami.com" },
+  { name: "MoneyLion",               cat: "Customer Engagement & Financial Wellness", bos: false, score: 810, url: "https://www.moneylion.com" },
+  { name: "Dwolla",                  cat: "Payments & Infrastructure",                bos: false, score: 805, url: "https://www.dwolla.com" },
+  { name: "Alloy",                   cat: "Fraud, Risk & Compliance",                 bos: false, score: 795, url: "https://www.alloy.com" },
+  { name: "Nuvei",                   cat: "Payments & Infrastructure",                bos: false, score: 790, url: "https://www.nuvei.com" },
+  { name: "Footprint",               cat: "Payments & Infrastructure",                bos: false, score: 790, url: "https://www.onefootprint.com" },
+  { name: "Aeropay",                 cat: "Payments & Infrastructure",                bos: false, score: 790, url: "https://www.aeropay.com" },
+  { name: "Glia",                    cat: "AI & Operations",                          bos: false, score: 785, url: "https://www.glia.com" },
+  { name: "Apiture",                 cat: "AI & Operations",                          bos: false, score: 785, url: "https://www.apiture.com" },
+  { name: "FIS",                     cat: "Payments & Infrastructure",                bos: false, score: 780, url: "https://www.fisglobal.com" },
+  { name: "WEX",                     cat: "Payments & Infrastructure",                bos: false, score: 775, url: "https://www.wexinc.com" },
+  { name: "ComplyAdvantage",         cat: "Fraud, Risk & Compliance",                 bos: false, score: 770, url: "https://www.complyadvantage.com" },
+  { name: "i2c",                     cat: "Payments & Infrastructure",                bos: false, score: 760, url: "https://www.i2cinc.com" },
+  { name: "Featurespace",            cat: "Fraud, Risk & Compliance",                 bos: false, score: 760, url: "https://www.featurespace.com" },
+  { name: "Zest AI",                 cat: "Lending & Credit",                         bos: false, score: 750, url: "https://www.zest.ai" },
+  { name: "Lendio",                  cat: "Lending & Credit",                         bos: false, score: 750, url: "https://www.lendio.com" },
+  { name: "SaverLife",               cat: "Customer Engagement & Financial Wellness", bos: false, score: 745, url: "https://www.saverlife.org" },
+  { name: "Credit Sesame",           cat: "Lending & Credit",                         bos: false, score: 745, url: "https://www.creditsesame.com" },
+  { name: "Mahalo Banking",          cat: "Customer Engagement & Financial Wellness", bos: false, score: 735, url: "https://www.mahalobanking.com" },
+  { name: "Savvy Wealth",            cat: "Customer Engagement & Financial Wellness", bos: false, score: 730, url: "https://www.savvywealth.com" },
+  { name: "equipifi",                cat: "Lending & Credit",                         bos: true,  score: 730, url: "https://www.equipifi.com" },
+  { name: "Prelim",                  cat: "Lending & Credit",                         bos: false, score: 715, url: "https://www.prelim.com" },
+  { name: "Cascade Debt",            cat: "Lending & Credit",                         bos: false, score: 700, url: "https://www.cascadedebt.com" },
+  { name: "Chimney",                 cat: "AI & Operations",                          bos: false, score: 680, url: "https://www.chimney.io" },
+  { name: "Banked",                  cat: "Payments & Infrastructure",                bos: false, score: 660, url: "https://www.banked.com" },
+  { name: "QCash Financial",         cat: "Lending & Credit",                         bos: false, score: 645, url: "https://www.qcashfinancial.com" },
+  { name: "Encapture",               cat: "AI & Operations",                          bos: false, score: 640, url: "https://www.encapture.com" },
+  { name: "Resistant AI",            cat: "Fraud, Risk & Compliance",                 bos: false, score: 630, url: "https://www.resistant.ai" },
+  { name: "PaySign",                 cat: "Payments & Infrastructure",                bos: false, score: 610, url: "https://www.paysign.com" },
+  { name: "Neural Payments",         cat: "Payments & Infrastructure",                bos: true,  score: 610, url: "https://www.neuralpayments.com" },
+  { name: "Alacriti",                cat: "AI & Operations",                          bos: false, score: 600, url: "https://www.alacriti.com" },
+  { name: "Prizeout",                cat: "Customer Engagement & Financial Wellness", bos: false, score: 595, url: "https://www.prizeout.com" },
+  { name: "Numerated",               cat: "Lending & Credit",                         bos: false, score: 595, url: "https://www.numerated.com" },
+  { name: "Spring EQ",               cat: "Lending & Credit",                         bos: false, score: 575, url: "https://www.springeq.com" },
+  { name: "Amount",                  cat: "Customer Engagement & Financial Wellness", bos: false, score: 560, url: "https://www.amount.com" },
+  { name: "Eltropy",                 cat: "Payments & Infrastructure",                bos: false, score: 560, url: "https://www.eltropy.com" },
+  { name: "Themis",                  cat: "Fraud, Risk & Compliance",                 bos: false, score: 515, url: "https://www.themis.com" },
+  { name: "PerformLine",             cat: "Lending & Credit",                         bos: false, score: 490, url: "https://www.performline.com" },
+  { name: "Larky",                   cat: "Customer Engagement & Financial Wellness", bos: false, score: 490, url: "https://www.larky.com" },
+  { name: "Exagens",                 cat: "Customer Engagement & Financial Wellness", bos: false, score: 490, url: "https://www.exagens.com" },
+  { name: "Payitoff",                cat: "Lending & Credit",                         bos: false, score: 485, url: "https://www.payitoff.io" },
+  { name: "Goodbuy",                 cat: "Customer Engagement & Financial Wellness", bos: true,  score: 420, url: null },
+  { name: "Vertice AI",              cat: "AI & Operations",                          bos: true,  score: 410, url: "https://www.vertice.one" },
+  { name: "Pidgin",                  cat: "Payments & Infrastructure",                bos: false, score: 390, url: "https://www.pidgin.finance" },
+  { name: "Lendovative Technologies",cat: "Lending & Credit",                         bos: false, score: 370, url: "https://www.lendovative.com" },
+  { name: "Effectiv",                cat: "Fraud, Risk & Compliance",                 bos: false, score: 360, url: "https://www.effectiv.ai" },
+  { name: "Screendragon",            cat: "AI & Operations",                          bos: false, score: 350, url: "https://www.screendragon.com" },
+  { name: "Clockout",                cat: "AI & Operations",                          bos: true,  score: 350, url: "https://www.clockout.com" },
+  { name: "Streem",                  cat: "AI & Operations",                          bos: false, score: 195, url: "https://www.streem.com" },
+  { name: "Prompt.io",               cat: "Payments & Infrastructure",                bos: false, score: 190, url: "https://www.prompt.io" },
+  { name: "ScreenSteps",             cat: "AI & Operations",                          bos: true,  score: 175, url: "https://www.screensteps.com" },
+  { name: "Finalytics.ai",           cat: "AI & Operations",                          bos: false, score: 170, url: "https://www.finalytics.ai" },
+  { name: "Honey Homes",             cat: "Customer Engagement & Financial Wellness", bos: false, score: 120, url: "https://www.honeyhomes.com" },
+  { name: "Loffa Interactive Group", cat: "AI & Operations",                          bos: false, score: 90,  url: "https://www.loffa.com" },
+  { name: "Young Early Starters",    cat: "Customer Engagement & Financial Wellness", bos: true,  score: 90,  url: "https://www.youngearlystartersusa.com" },
+  { name: "Authenticate",            cat: "Fraud, Risk & Compliance",                 bos: false, score: 40,  url: "https://www.authenticate.com" },
+  { name: "Tweezr",                  cat: "AI & Operations",                          bos: true,  score: 10,  url: "https://www.tweezr.com" },
+  { name: "Causeway Financial",      cat: "Fraud, Risk & Compliance",                 bos: false, score: 10,  url: "https://www.causewayfinancial.com" },
+  { name: "Finzly",                  cat: "Payments & Infrastructure",                bos: false, score: 10,  url: "https://www.finzly.com" },
+];
 
-  /* ── Compute stats ── */
-  const avg = Math.round(companies.reduce((s, c) => s + c[1], 0) / companies.length);
-  document.getElementById('stat-avg').textContent = avg;
-  document.getElementById('stat-elite').textContent = companies.filter(c => c[2] === 'elite').length;
+// Sort by score desc
+COMPANIES.sort((a, b) => b.score - a.score);
 
-  /* ── Build board ── */
-  const board = document.getElementById('board');
-  let lastTier = null;
+// Compute stats
+const eliteCount = COMPANIES.filter(c => c.score >= 850).length;
+const avgScore = Math.round(COMPANIES.reduce((s, c) => s + c.score, 0) / COMPANIES.length);
+const bosCount = COMPANIES.filter(c => c.bos).length;
+document.getElementById('elite-count').textContent = eliteCount;
+document.getElementById('avg-score').textContent = avgScore;
+document.getElementById('bos-count').textContent = bosCount;
 
-  companies.forEach(([name, score, tier, bos, url], i) => {
-    const rank = i + 1;
+// Build filter buttons
+const allTiers = [...new Set(COMPANIES.map(c => tierOf(c.score).key))];
+const filtersEl = document.getElementById('filters');
+['all', ...TIERS.map(t => t.key)].forEach(key => {
+  if (key !== 'all' && !allTiers.includes(key)) return;
+  const btn = document.createElement('button');
+  btn.className = 'filter-btn' + (key === 'all' ? ' active' : '');
+  btn.textContent = key === 'all' ? 'All' : TIERS.find(t => t.key === key)?.label || key;
+  btn.dataset.tier = key;
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderBoard(key === 'all' ? null : key);
+  });
+  filtersEl.appendChild(btn);
+});
+
+// Build table
+const tbody = document.getElementById('tbody');
+
+function renderBoard(filterTier) {
+  tbody.innerHTML = '';
+  let lastTierKey = null;
+  let rank = 0;
+
+  COMPANIES.forEach(co => {
+    const tier = tierOf(co.score);
+    if (filterTier && tier.key !== filterTier) return;
+    rank++;
 
     // Tier divider
-    if (tier !== lastTier) {
-      const div = document.createElement('div');
-      div.className = 'tier-divider';
-      div.dataset.tier = tier;
-      div.innerHTML = `
-        <div class="tier-divider-dot" style="background:${TIERS[tier].color}"></div>
-        <span style="color:${TIERS[tier].color}">${TIERS[tier].label}</span>
-        <div class="tier-divider-line"></div>
-      `;
-      board.appendChild(div);
-      lastTier = tier;
+    if (!filterTier && tier.key !== lastTierKey) {
+      lastTierKey = tier.key;
+      const divTr = document.createElement('tr');
+      divTr.className = 'tier-divider';
+      divTr.innerHTML = `<td colspan="7" style="color:${tier.color}">${tier.label} · ${tier.min === 850 ? '850+' : tier.min + (tier.min === 0 ? '–399' : '–' + (TIERS[TIERS.indexOf(tier) - 1].min - 1))}</td>`;
+      tbody.appendChild(divTr);
     }
 
-    const pct = (score / BAR_MAX * 100).toFixed(1);
-    const isTop3 = rank <= 3;
-
-    const row = document.createElement('a');
-    row.href = url || '#';
-    row.target = url ? '_blank' : '_self';
-    row.rel = 'noopener noreferrer';
-    row.className = `board-row tier-${tier}${isTop3 ? ' top3' : ''}`;
-    row.dataset.tier = tier;
-    row.setAttribute('aria-label', `${name} — FiRadar Score ${score}`);
-
-    row.innerHTML = `
-      <div class="board-rank">${rank}</div>
-      <div class="board-name">${name}${bos ? '<span class="bos-badge">⭐ BOS</span>' : ''}</div>
-      <div class="board-bar"><div class="board-bar-fill" style="width:${pct}%"></div></div>
-      <div class="board-score">${score}</div>
+    const pct = (co.score / 900 * 100).toFixed(1);
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="t-rank r">${rank}</td>
+      <td class="t-name">${co.url ? `<a href="${co.url}" target="_blank" rel="noopener noreferrer">${co.name}</a>` : co.name}</td>
+      <td class="t-cat">${co.cat}</td>
+      <td class="t-bos">${co.bos ? '⭐' : ''}</td>
+      <td class="t-tier-cell"><span class="tier-chip" style="background:${tier.color}">${tier.label.toUpperCase()}</span></td>
+      <td class="t-bar-cell"><div class="t-bar-track"><div class="t-bar-fill" style="width:${pct}%;background:${tier.color}"></div></div></td>
+      <td class="t-score r" style="color:${tier.color}">${co.score}</td>
     `;
-    board.appendChild(row);
+    tbody.appendChild(tr);
   });
+}
 
-  /* ── Filter buttons ── */
-  const filterBar = document.getElementById('filter-bar');
-  const countLabel = document.getElementById('count-label');
+renderBoard(null);
 
-  filterBar.addEventListener('click', e => {
-    const btn = e.target.closest('.filter-btn');
-    if (!btn) return;
+// ── Subscribe popup (scroll-depth trigger at 80%) ──
+(function() {
+  const overlay  = document.getElementById('fr-overlay');
+  const closeBtn = document.getElementById('fr-close');
+  const skipBtn  = document.getElementById('fr-skip');
+  const form     = document.getElementById('fr-form');
+  const progFill = document.getElementById('fr-prog-fill');
+  let shown = false;
 
-    const tier = btn.dataset.tier;
+  function showPopup() {
+    if (shown) return;
+    shown = true;
+    overlay.classList.add('show');
+    setTimeout(() => document.getElementById('fr-email').focus(), 350);
+  }
+  function hidePopup() { overlay.classList.remove('show'); }
 
-    filterBar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+  window.addEventListener('scroll', function() {
+    const el = document.documentElement;
+    const scrolled = el.scrollTop || document.body.scrollTop;
+    const total = el.scrollHeight - el.clientHeight;
+    const pct = total > 0 ? scrolled / total : 0;
+    progFill.style.width = Math.round(pct * 100) + '%';
+    if (pct >= 0.80 && !shown) showPopup();
+  }, { passive: true });
 
-    const rows = board.querySelectorAll('.board-row');
-    const dividers = board.querySelectorAll('.tier-divider');
-    let visible = 0;
+  closeBtn.addEventListener('click', hidePopup);
+  skipBtn.addEventListener('click', hidePopup);
+  overlay.addEventListener('click', function(e) { if (e.target === overlay) hidePopup(); });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') hidePopup(); });
 
-    if (tier === 'all') {
-      rows.forEach(r => { delete r.dataset.hidden; visible++; });
-      dividers.forEach(d => { delete d.dataset.hidden; });
-      countLabel.textContent = `Showing all 70 companies`;
-    } else {
-      rows.forEach(r => {
-        if (r.dataset.tier === tier) { delete r.dataset.hidden; visible++; }
-        else r.dataset.hidden = '';
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var data = new FormData(form);
+    fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(data).toString() })
+      .then(function() {
+        document.getElementById('fr-default').style.display = 'none';
+        document.getElementById('fr-success').style.display = 'block';
+        setTimeout(hidePopup, 2800);
+      })
+      .catch(function() {
+        // fallback: still show success so user isn't stuck
+        document.getElementById('fr-default').style.display = 'none';
+        document.getElementById('fr-success').style.display = 'block';
+        setTimeout(hidePopup, 2800);
       });
-      dividers.forEach(d => {
-        d.dataset.hidden = d.dataset.tier !== tier ? '' : undefined;
-        if (d.dataset.tier === tier) delete d.dataset.hidden;
-        else d.dataset.hidden = '';
-      });
-      const label = TIERS[tier]?.label || tier;
-      countLabel.textContent = `Showing ${visible} ${label} company${visible !== 1 ? 'ies' : 'y'}`;
-    }
   });
+})();
 </script>
-
 </body>
 </html>
