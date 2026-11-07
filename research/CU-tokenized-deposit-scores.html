@@ -193,8 +193,11 @@
         <li>CU-specific annotations and Watch items</li>
         <li>In your inbox before it hits LinkedIn</li>
       </ul>
-      <form class="fr-form" id="fr-form">
-        <input class="fr-input" type="email" id="fr-email" placeholder="your@creditunion.org" required autocomplete="email">
+      <form class="fr-form" id="fr-form" name="research-subscribe" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="research-subscribe">
+        <input type="hidden" name="page" value="CU Tokenized Deposits">
+        <p style="display:none"><input name="bot-field"></p>
+        <input class="fr-input" type="email" id="fr-email" name="email" placeholder="your@creditunion.org" required autocomplete="email">
         <button class="fr-btn" type="submit">SEND ME THE NEXT RADAR →</button>
       </form>
       <p class="fr-fine">No spam. No selling your email.</p>
@@ -478,11 +481,19 @@ select(0);
 
   form.addEventListener('submit', function(e) {
     e.preventDefault();
-    // TODO: wire to your email platform (Mailchimp / ConvertKit / Beehiiv) here
-    // e.g. fetch('/api/subscribe', { method:'POST', body: JSON.stringify({ email: document.getElementById('fr-email').value }) })
-    document.getElementById('fr-default').style.display = 'none';
-    document.getElementById('fr-success').style.display = 'block';
-    setTimeout(hidePopup, 2800);
+    var data = new FormData(form);
+    fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(data).toString() })
+      .then(function() {
+        document.getElementById('fr-default').style.display = 'none';
+        document.getElementById('fr-success').style.display = 'block';
+        setTimeout(hidePopup, 2800);
+      })
+      .catch(function() {
+        document.getElementById('fr-default').style.display = 'none';
+        document.getElementById('fr-success').style.display = 'block';
+        setTimeout(hidePopup, 2800);
+      });
   });
 })();
 </script>
