@@ -481,19 +481,27 @@ select(0);
 
   form.addEventListener('submit', function(e) {
     e.preventDefault();
+    var email = document.getElementById('fr-email').value;
     var data = new FormData(form);
+
+    // 1. Netlify form capture (keeps your email alerts)
     fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(data).toString() })
-      .then(function() {
-        document.getElementById('fr-default').style.display = 'none';
-        document.getElementById('fr-success').style.display = 'block';
-        setTimeout(hidePopup, 2800);
+      body: new URLSearchParams(data).toString() });
+
+    // 2. HubSpot CRM capture
+    fetch('https://api.hsforms.com/submissions/v3/integration/submit/246649053/7025bf50-b249-481c-917a-4a687a5b1afa', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        fields: [{ name: 'email', value: email }],
+        context: { pageUri: window.location.href, pageName: 'CU Tokenized Deposits' }
       })
-      .catch(function() {
-        document.getElementById('fr-default').style.display = 'none';
-        document.getElementById('fr-success').style.display = 'block';
-        setTimeout(hidePopup, 2800);
-      });
+    });
+
+    // Show success regardless of network timing
+    document.getElementById('fr-default').style.display = 'none';
+    document.getElementById('fr-success').style.display = 'block';
+    setTimeout(hidePopup, 2800);
   });
 })();
 </script>
