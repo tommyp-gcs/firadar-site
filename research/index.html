@@ -528,62 +528,85 @@
 <!-- Reports -->
 <section class="reports-section">
   <div class="section-eyebrow">Latest Reports</div>
-  <div class="reports-grid">
-
-    <!-- Report 1: FinovateFall 2026 -->
-    <a class='report-card' href='/research/finovate-fall-2026'>
-      <div class="report-card-tag">Conference Report</div>
-      <div class="report-card-title">FinovateFall 2026 Rankings</div>
-      <div class="report-card-desc">
-        All 70 demo companies scored and ranked. See who leads in readiness, execution, and institutional fit.
-      </div>
-      <div class="report-card-meta">
-        <span>📍 New York, NY</span>
-        <span>📅 September 2026</span>
-        <span>🏢 70 companies</span>
-      </div>
-      <div class="report-card-cta">View Report</div>
-    </a>
-
-    <!-- Report 2: 2027 Bank Fintech Radar -->
-    <a href="/research/2027-fintech-moves/" class="report-card">
-      <div class="report-card-tag">Self-Assessment Brief</div>
-      <div class="report-card-title">2027 Bank Fintech Radar</div>
-      <div class="report-card-desc">
-        Ten moves U.S. banks and credit unions are making for 2027, with a built-in self-assessment to benchmark your institution's plan against peers.
-      </div>
-      <div class="report-card-meta">
-        <span>🏦 Banks &amp; Credit Unions</span>
-        <span>📅 October 2026</span>
-        <span>📋 10 moves</span>
-      </div>
-      <div class="report-card-cta">Take the Assessment</div>
-    </a>
-
-    <!-- Report 3: CU Tokenized Deposit Providers -->
-    <a href="/research/CU-tokenized-deposit-scores" class="report-card">
-      <div class="report-card-tag">Segment Radar</div>
-      <div class="report-card-title">CU Tokenized Deposit Providers</div>
-      <div class="report-card-desc">
-        Ten tokenized deposit providers scored on the FiRadar scale — ranked by institutional readiness and credit union fit.
-      </div>
-      <div class="report-card-meta">
-        <span>🏦 Credit Unions</span>
-        <span>📅 November 2026</span>
-        <span>🏢 10 providers</span>
-      </div>
-      <div class="report-card-cta">View Report</div>
-    </a>
-
-    <!-- Coming soon card -->
-    <div class="report-card report-card-soon">
-      <div class="soon-icon">🔭</div>
-      <div class="soon-label">FI Benchmark Report</div>
-      <div class="soon-sub">Coming soon</div>
-    </div>
-
+  <div class="reports-grid" id="reportsGrid">
+    <!-- Cards injected by renderReports() below -->
   </div>
 </section>
+
+<script>
+// ─────────────────────────────────────────────────────────────
+//  RESEARCH INDEX — to add a new report, paste one object into
+//  the REPORTS array below (newest first). That's the only edit
+//  needed. The page renders all cards automatically.
+//
+//  Fields:
+//    tag   — label pill text (e.g. "Segment Radar")
+//    title — card headline
+//    href  — path to the report page
+//    desc  — one-sentence description shown on the card
+//    meta  — array of up to 3 short metadata strings (emoji + text)
+//    cta   — call-to-action link text (e.g. "View Report")
+// ─────────────────────────────────────────────────────────────
+const REPORTS = [
+  {
+    tag:   "Conference Report",
+    title: "FinovateFall 2026 Rankings",
+    href:  "/research/finovate-fall-2026",
+    desc:  "All 70 demo companies scored and ranked. See who leads in readiness, execution, and institutional fit.",
+    meta:  ["📍 New York, NY", "📅 September 2026", "🏢 70 companies"],
+    cta:   "View Report"
+  },
+  {
+    tag:   "Self-Assessment Brief",
+    title: "2027 Bank Fintech Radar",
+    href:  "/research/2027-fintech-moves/",
+    desc:  "Ten moves U.S. banks and credit unions are making for 2027, with a built-in self-assessment to benchmark your institution's plan against peers.",
+    meta:  ["🏦 Banks & Credit Unions", "📅 October 2026", "📋 10 moves"],
+    cta:   "Take the Assessment"
+  },
+  {
+    tag:   "Segment Radar",
+    title: "CU Tokenized Deposit Providers",
+    href:  "/research/CU-tokenized-deposit-scores",
+    desc:  "Ten tokenized deposit providers scored on the FiRadar scale — ranked by institutional readiness and credit union fit.",
+    meta:  ["🏦 Credit Unions", "📅 November 2026", "🏢 10 providers"],
+    cta:   "View Report"
+  },
+  {
+    tag:   "Segment Radar",
+    title: "AI Core Agents for FIs",
+    href:  "/research/ai-core-agents-fi-scores",
+    desc:  "Eleven AI conversational and agent platforms scored for community banks and credit unions — with quadrant mapping, CU-native flags, and acquisition alerts.",
+    meta:  ["🏦 Banks & Credit Unions", "📅 November 2026", "🏢 11 providers"],
+    cta:   "View Report"
+  }
+  // ← ADD NEW REPORTS HERE (copy the block above, comma-separated)
+];
+
+(function renderReports() {
+  const grid = document.getElementById('reportsGrid');
+  REPORTS.forEach(function(r) {
+    const a = document.createElement('a');
+    a.className = 'report-card';
+    a.href = r.href;
+    a.innerHTML =
+      '<div class="report-card-tag">' + r.tag + '</div>' +
+      '<div class="report-card-title">' + r.title + '</div>' +
+      '<div class="report-card-desc">' + r.desc + '</div>' +
+      '<div class="report-card-meta">' + r.meta.map(function(m){ return '<span>' + m + '</span>'; }).join('') + '</div>' +
+      '<div class="report-card-cta">' + r.cta + '</div>';
+    grid.appendChild(a);
+  });
+  // Coming Soon placeholder always trails the list
+  const soon = document.createElement('div');
+  soon.className = 'report-card report-card-soon';
+  soon.innerHTML =
+    '<div class="soon-icon">🔭</div>' +
+    '<div class="soon-label">Next Report</div>' +
+    '<div class="soon-sub">Coming soon</div>';
+  grid.appendChild(soon);
+})();
+</script>
 
 <!-- About the score -->
 <div class="about-strip">
