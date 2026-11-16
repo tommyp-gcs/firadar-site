@@ -1,0 +1,815 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Core Agents for FIs | FiRadar Segment Radar</title>
+<meta name="description" content="FiRadar Segment Radar: Top 10 AI Core Agent providers for community banks and credit unions, scored on the FiRadar 0–1000 scale.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A1724; --panel: #10243A; --panel-border: #24405A; --line: #2A4458;
+    --fg: #E7EEF3; --fg2: #C9D6E0; --muted: #A9BCCB; --dim: #8AA0B2;
+    --gold: #ffffff;
+    --teal: #ff4d55; --coop: #ff7a80; --infra: #6FA8FF; --bank: #FF8A6B;
+    --native: #4ADE80; --sel-bg: #18324D; --sel-border: #3C5F7E;
+    --accent: #ff4d55; --accent2: #ff7a80;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+    --sans: 'IBM Plex Sans', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+  a { color: var(--accent); } a:hover { color: var(--accent2); }
+  button { font-family: inherit; }
+  .wrap { max-width: 1440px; margin: 0 auto; padding: 36px 48px; display: flex; flex-direction: column; gap: 24px; }
+  @media (max-width: 700px) { .wrap { padding: 24px 16px; } }
+
+  /* NAV */
+  .topnav { background: #061018; border-bottom: 1px solid var(--panel-border); }
+  .topnav-inner { max-width: 1440px; margin: 0 auto; padding: 0 48px; height: 60px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  @media (max-width: 700px) { .topnav-inner { padding: 0 16px; } }
+  .nav-brand { font-family: var(--mono); font-size: 18px; font-weight: 600; color: var(--gold); text-decoration: none; letter-spacing: .04em; }
+  .nav-links { display: flex; gap: 24px; }
+  .nav-links a { font-size: 14px; font-weight: 500; color: var(--muted); text-decoration: none; }
+  .nav-links a:hover { color: var(--fg); }
+
+  .head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
+  .eyebrow { font-family: var(--mono); font-size: 13px; letter-spacing: .18em; color: var(--accent); font-weight: 600; }
+  h1 { margin: 6px 0; font-size: clamp(28px, 4vw, 38px); font-weight: 700; letter-spacing: -.01em; line-height: 1.1; }
+  .sub { font-size: 16px; color: var(--muted); max-width: 900px; line-height: 1.5; }
+  .meta { font-family: var(--mono); font-size: 13px; color: var(--muted); display: flex; flex-direction: column; gap: 4px; align-items: flex-end; }
+  .meta span { color: var(--fg); }
+  @media (max-width: 700px) { .meta { align-items: flex-start; } }
+
+  .card { background: var(--panel); border: 1px solid var(--panel-border); border-radius: 12px; }
+  .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  @media (max-width: 900px) { .stats { grid-template-columns: 1fr; } }
+  .stat { padding: 16px 20px; display: flex; gap: 16px; align-items: center; }
+  .stat-num { font-family: var(--mono); font-size: 40px; font-weight: 600; color: var(--accent); line-height: 1; }
+  .stat-label { font-size: 12px; letter-spacing: .1em; color: var(--muted); font-weight: 600; }
+  .stat-note { font-size: 13px; line-height: 1.4; }
+
+  .main { display: flex; gap: 40px; flex-wrap: wrap; align-items: flex-start; }
+  .radar { flex: 0 1 760px; min-width: 0; width: 100%; }
+  .radar svg { width: 100%; height: auto; display: block; }
+  .radar svg .dot { cursor: pointer; }
+  .side { flex: 999 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+
+  .detail { padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; }
+  .detail-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+  .chips { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .chip-tier { font-family: var(--mono); font-size: 12px; font-weight: 600; padding: 3px 8px; border-radius: 4px; color: #0A1724; }
+  .chip-flag { font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 4px; border: 1px solid; }
+  .chip-cu { border-color: var(--native); color: var(--native); }
+  .chip-acq { border-color: #FF8A6B; color: #FF8A6B; }
+  .d-wedge { font-size: 13px; font-weight: 600; }
+  .d-name { font-size: 26px; font-weight: 700; line-height: 1.15; margin-top: 6px; }
+  .d-reach { font-size: 13px; color: var(--muted); margin-top: 6px; }
+  .d-reach span { color: var(--fg); }
+  .d-score { font-family: var(--mono); font-size: 44px; font-weight: 600; line-height: 1; color: var(--accent); text-align: right; }
+  .d-score-label { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--muted); }
+  .bar { height: 8px; border-radius: 4px; background: var(--line); overflow: hidden; }
+  .bar > div { height: 8px; border-radius: 4px; }
+  .bar-ticks { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 11px; color: var(--dim); margin-top: 6px; }
+  .d-text { display: flex; flex-direction: column; gap: 10px; font-size: 14px; line-height: 1.45; }
+  .d-text b { font-weight: 600; }
+
+  .list { display: flex; flex-direction: column; gap: 4px; }
+  .row { display: flex; align-items: center; gap: 12px; min-height: 36px; padding: 3px 10px; border-radius: 6px; border: 1px solid transparent; background: transparent; color: var(--fg); cursor: pointer; text-align: left; width: 100%; }
+  .row:hover { background: #132B44; }
+  .row[aria-pressed="true"] { background: var(--sel-bg); border-color: var(--sel-border); }
+  .row .sw { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  .row .rk { font-family: var(--mono); font-size: 12px; color: var(--muted); width: 22px; }
+  .row .nm { font-size: 14px; font-weight: 500; flex-grow: 1; min-width: 0; }
+  .row .fl { font-size: 11px; width: 60px; }
+  .row .tr { font-size: 12px; color: var(--muted); width: 90px; }
+  .row .sc { font-family: var(--mono); font-size: 14px; font-weight: 600; width: 40px; text-align: right; }
+  @media (max-width: 560px) { .row .fl, .row .tr { display: none; } }
+  .legend { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  h2 { margin: 0; font-size: 22px; font-weight: 700; }
+  .dist-head { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+  .dist-head div { font-size: 14px; color: var(--muted); }
+  .dist { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 12px; }
+  @media (max-width: 1100px) { .dist { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 600px) { .dist { grid-template-columns: 1fr; } }
+  .dist .card { padding: 18px 20px; }
+  .dist h3 { margin: 0 0 8px; font-size: 15px; font-weight: 600; }
+  .dist p { margin: 0; font-size: 13px; line-height: 1.5; color: var(--fg2); }
+
+  footer { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; border-top: 1px solid var(--panel-border); padding-top: 16px; font-size: 12px; color: var(--dim); line-height: 1.6; }
+  footer .brand { font-family: var(--mono); font-size: 14px; font-weight: 600; color: var(--accent); }
+  footer .right { text-align: right; }
+  @media (max-width: 700px) { footer .right { text-align: left; } }
+
+  /* ── Subscribe popup ── */
+  #fr-overlay {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(5,10,22,0.78);
+    backdrop-filter: blur(7px);
+    display: none; align-items: center; justify-content: center; padding: 24px;
+  }
+  #fr-overlay.show { display: flex; }
+  #fr-box {
+    background: #10243A; border: 1px solid #3C5F7E; border-radius: 16px;
+    padding: 36px 40px; max-width: 500px; width: 100%; position: relative;
+    box-shadow: 0 20px 60px rgba(0,0,0,.55);
+    animation: popIn .22s ease;
+  }
+  @keyframes popIn { from { opacity:0; transform:scale(.93) translateY(10px); } to { opacity:1; transform:none; } }
+  #fr-close {
+    position: absolute; top: 16px; right: 16px; width: 32px; height: 32px;
+    background: none; border: none; color: var(--muted); cursor: pointer; font-size: 20px; line-height: 1;
+  }
+  #fr-close:hover { color: var(--fg); }
+  #fr-eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .2em; color: var(--accent); font-weight: 600; margin-bottom: 10px; }
+  #fr-box h3 { margin: 0 0 8px; font-size: 22px; font-weight: 700; line-height: 1.2; }
+  #fr-box p { margin: 0 0 20px; font-size: 14px; color: var(--muted); line-height: 1.5; }
+  #fr-default, #fr-success { display: flex; flex-direction: column; gap: 0; }
+  #fr-success { display: none; align-items: center; gap: 12px; }
+  #fr-success svg { flex-shrink: 0; }
+  #fr-success p { margin: 0; font-size: 15px; color: var(--fg2); }
+  .fr-form { display: flex; gap: 10px; flex-wrap: wrap; }
+  .fr-input {
+    flex: 1; min-width: 0; background: #061018; border: 1px solid #3C5F7E; border-radius: 8px;
+    padding: 11px 14px; font-family: var(--sans); font-size: 15px; color: var(--fg); outline: none;
+  }
+  .fr-input::placeholder { color: var(--dim); }
+  .fr-input:focus { border-color: var(--accent); }
+  .fr-btn {
+    background: var(--accent); color: #fff; border: none; border-radius: 8px;
+    padding: 11px 20px; font-family: var(--mono); font-size: 13px; font-weight: 600;
+    letter-spacing: .08em; cursor: pointer; white-space: nowrap;
+  }
+  .fr-btn:hover { background: var(--accent2); }
+  .fr-fine { font-size: 11px; color: var(--dim); margin-top: 10px; }
+
+  /* Tier badge colors */
+  .t-elite { background: #F2B33D; }
+  .t-competitive { background: #ff4d55; }
+  .t-developing { background: #6FA8FF; }
+  .t-early { background: #A9BCCB; }
+  .t-seed { background: #3C5F7E; }
+
+  /* Wedge colors */
+  .w-conv { color: #ff4d55; }
+  .w-voice { color: #6FA8FF; }
+  .w-platform { color: #4ADE80; }
+  .w-enterprise { color: #FF8A6B; }
+</style>
+</head>
+<body>
+
+<!-- Hidden Netlify form for bot detection -->
+<form name="research-subscribe" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="email" name="email">
+  <input type="hidden" name="page">
+</form>
+
+<!-- Subscribe Overlay -->
+<div id="fr-overlay" role="dialog" aria-modal="true" aria-label="Subscribe to FiRadar">
+  <div id="fr-box">
+    <button id="fr-close" aria-label="Close">✕</button>
+    <div id="fr-eyebrow">FIRADAR RESEARCH</div>
+    <h3>Get the next radar before it drops.</h3>
+    <p>Community bank and CU leaders get our segment radars — scoring providers before you sign an LOI.</p>
+    <div id="fr-default">
+      <form class="fr-form" id="fr-form" name="research-subscribe" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="research-subscribe">
+        <input type="hidden" name="page" value="AI Core Agents for FIs">
+        <p style="display:none"><input name="bot-field"></p>
+        <input class="fr-input" type="email" id="fr-email" name="email" placeholder="your@institution.org" required autocomplete="email">
+        <button class="fr-btn" type="submit">SEND ME THE NEXT RADAR →</button>
+      </form>
+      <div class="fr-fine">No spam. Unsubscribe any time. FiRadar covers community banks &amp; credit unions only.</div>
+    </div>
+    <div id="fr-success">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="16" fill="#ff4d55" fill-opacity=".15"/><path d="M10 16.5l4.5 4.5 7.5-9" stroke="#ff4d55" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <p>You're on the list. Watch your inbox for the next FiRadar drop.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Nav -->
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="nav-brand" href="/">FIRADAR</a>
+    <div class="nav-links">
+      <a href="/research/">Research</a>
+      <a href="/">Score a Fintech</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- Header -->
+  <div class="head">
+    <div>
+      <div class="eyebrow">FIRADAR SEGMENT RADAR · AI CORE AGENTS</div>
+      <h1>AI Core Agents<br>for FIs: Ranked</h1>
+      <div class="sub">Which AI conversational and agent platforms are built for community banks and credit unions? 11 providers scored on the FiRadar 0–1000 scale — from chatbot roots to full agentic orchestration.</div>
+    </div>
+    <div class="meta">
+      <div>PUBLISHED <span>NOV 2026</span></div>
+      <div>PROVIDERS <span>11</span></div>
+      <div>FOCUS <span>COMMUNITY BANKS &amp; CUs</span></div>
+    </div>
+  </div>
+
+  <!-- Stats row -->
+  <div class="stats">
+    <div class="card stat">
+      <div class="stat-num">1</div>
+      <div>
+        <div class="stat-label">ELITE TIER</div>
+        <div class="stat-note">Only Alkami clears the 800 threshold — deepest FI integration of this group.</div>
+      </div>
+    </div>
+    <div class="card stat">
+      <div class="stat-num">3</div>
+      <div>
+        <div class="stat-label">COMPETITIVE TIER</div>
+        <div class="stat-note">Glia, Posh AI, and nCino cluster between 695–775 — strong contenders with FI track records.</div>
+      </div>
+    </div>
+    <div class="card stat">
+      <div class="stat-num">2</div>
+      <div>
+        <div class="stat-label">ACQUISITION FLAGS</div>
+        <div class="stat-note">nCino absorbed Sandbox Banking; Microsoft acquired Nuance. Roadmap ownership matters.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main: radar + detail panel -->
+  <div class="main">
+    <div class="radar">
+      <svg id="radarSvg" viewBox="0 0 760 760" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#18324D" stop-opacity=".4"/>
+            <stop offset="100%" stop-color="#061018" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <!-- Background fill -->
+        <circle cx="380" cy="380" r="340" fill="url(#bgGrad)"/>
+
+        <!-- Rings -->
+        <circle cx="380" cy="380" r="68"  fill="none" stroke="#24405A" stroke-width="1"/>
+        <circle cx="380" cy="380" r="136" fill="none" stroke="#24405A" stroke-width="1"/>
+        <circle cx="380" cy="380" r="204" fill="none" stroke="#24405A" stroke-width="1"/>
+        <circle cx="380" cy="380" r="272" fill="none" stroke="#24405A" stroke-width="1"/>
+        <circle cx="380" cy="380" r="340" fill="none" stroke="#24405A" stroke-width="1.5"/>
+
+        <!-- Ring labels (score tiers) — higher score = closer to center -->
+        <text x="384" y="314" fill="#3C5F7E" font-family="IBM Plex Mono,monospace" font-size="11">400</text>
+        <text x="384" y="246" fill="#3C5F7E" font-family="IBM Plex Mono,monospace" font-size="11">550</text>
+        <text x="384" y="178" fill="#3C5F7E" font-family="IBM Plex Mono,monospace" font-size="11">700</text>
+        <text x="384" y="110" fill="#3C5F7E" font-family="IBM Plex Mono,monospace" font-size="11">850</text>
+
+        <!-- Quadrant dividers -->
+        <line x1="380" y1="40"  x2="380" y2="720" stroke="#2A4458" stroke-width="1.5" stroke-dasharray="6,4"/>
+        <line x1="40"  y1="380" x2="720" y2="380" stroke="#2A4458" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+        <!-- Quadrant wedge shading (subtle) -->
+        <!-- Q1: Conversational AI (top-right) -->
+        <path d="M380,380 L380,40 A340,340,0,0,1,720,380 Z" fill="#ff4d55" fill-opacity=".04"/>
+        <!-- Q2: Voice & Biometrics (bottom-right) -->
+        <path d="M380,380 L720,380 A340,340,0,0,1,380,720 Z" fill="#6FA8FF" fill-opacity=".04"/>
+        <!-- Q3: Digital Banking Platforms (bottom-left) -->
+        <path d="M380,380 L380,720 A340,340,0,0,1,40,380  Z" fill="#4ADE80" fill-opacity=".04"/>
+        <!-- Q4: Enterprise AI (top-left) -->
+        <path d="M380,380 L40,380  A340,340,0,0,1,380,40  Z" fill="#FF8A6B" fill-opacity=".04"/>
+
+        <!-- Quadrant labels -->
+        <text x="510" y="72"  fill="#ff4d55" font-family="IBM Plex Mono,monospace" font-size="12" font-weight="600" opacity=".8">CONVERSATIONAL AI</text>
+        <text x="510" y="700" fill="#6FA8FF" font-family="IBM Plex Mono,monospace" font-size="12" font-weight="600" opacity=".8">VOICE &amp; BIOMETRICS</text>
+        <text x="60"  y="700" fill="#4ADE80" font-family="IBM Plex Mono,monospace" font-size="12" font-weight="600" opacity=".8">DIGITAL BANKING PLATFORMS</text>
+        <text x="60"  y="72"  fill="#FF8A6B" font-family="IBM Plex Mono,monospace" font-size="12" font-weight="600" opacity=".8">ENTERPRISE AI</text>
+
+        <!-- DOTS — r = (1 - score/1000)*340 so higher score = closer to center
+             Conversational AI: top-right (0°–90°) · Voice & Biometrics: bottom-right (90°–180°)
+             Digital Banking Platforms: bottom-left (180°–270°) · Enterprise AI: top-left (270°–360°)
+             cx = 380 + r*sin(θ), cy = 380 - r*cos(θ)
+        -->
+
+        <!-- 1. Alkami — Digital Banking Platforms — 815 — r=63 — angle=225° -->
+        <!-- sin(225)=-.707, cos(225)=-.707 → cx=380+63*(-.707)=335, cy=380-63*(-.707)=425 -->
+        <g class="dot" data-id="0" tabindex="0" role="button" aria-label="Alkami Technology">
+          <circle class="hit" cx="335" cy="425" r="20" fill="transparent"/>
+          <circle cx="335" cy="425" r="10" fill="#4ADE80" opacity=".9"/>
+          <circle cx="335" cy="425" r="10" fill="none" stroke="#4ADE80" stroke-width="2" opacity=".5"/>
+          <text x="315" y="448" fill="#E7EEF3" font-family="IBM Plex Sans,sans-serif" font-size="12" font-weight="600" text-anchor="middle">Alkami</text>
+        </g>
+
+        <!-- 2. Glia — Conversational AI — 775 — r=77 — angle=30° -->
+        <!-- sin(30)=.5, cos(30)=.866 → cx=380+77*.5=419, cy=380-77*.866=313 -->
+        <g class="dot" data-id="1" tabindex="0" role="button" aria-label="Glia">
+          <circle class="hit" cx="419" cy="313" r="20" fill="transparent"/>
+          <circle cx="419" cy="313" r="10" fill="#ff4d55" opacity=".9"/>
+          <circle cx="419" cy="313" r="10" fill="none" stroke="#ff4d55" stroke-width="2" opacity=".5"/>
+          <text x="438" y="309" fill="#E7EEF3" font-family="IBM Plex Sans,sans-serif" font-size="12" font-weight="600" text-anchor="start">Glia</text>
+        </g>
+
+        <!-- 3. Posh AI — Voice & Biometrics — 743 — r=87 — angle=120° -->
+        <!-- sin(120)=.866, cos(120)=-.5 → cx=380+87*.866=455, cy=380-87*(-.5)=424 -->
+        <g class="dot" data-id="2" tabindex="0" role="button" aria-label="Posh AI">
+          <circle class="hit" cx="455" cy="424" r="20" fill="transparent"/>
+          <circle cx="455" cy="424" r="10" fill="#6FA8FF" opacity=".9"/>
+          <circle cx="455" cy="424" r="10" fill="none" stroke="#6FA8FF" stroke-width="2" opacity=".5"/>
+          <text x="474" y="420" fill="#E7EEF3" font-family="IBM Plex Sans,sans-serif" font-size="12" font-weight="600" text-anchor="start">Posh AI</text>
+        </g>
+
+        <!-- 4. nCino — Enterprise AI — 695 — r=104 — angle=310° -->
+        <!-- sin(310)=-.766, cos(310)=.643 → cx=380+104*(-.766)=300, cy=380-104*.643=313 -->
+        <g class="dot" data-id="3" tabindex="0" role="button" aria-label="nCino">
+          <circle class="hit" cx="300" cy="313" r="20" fill="transparent"/>
+          <circle cx="300" cy="313" r="10" fill="#FF8A6B" opacity=".9"/>
+          <circle cx="300" cy="313" r="10" fill="none" stroke="#FF8A6B" stroke-width="2" opacity=".5"/>
+          <text x="280" y="301" fill="#E7EEF3" font-family="IBM Plex Sans,sans-serif" font-size="12" font-weight="600" text-anchor="middle">nCino</text>
+        </g>
+
+        <!-- 5. Agent IQ — Conversational AI — 684 — r=107 — angle=55° -->
+        <!-- sin(55)=.819, cos(55)=.574 → cx=380+107*.819=468, cy=380-107*.574=319 -->
+        <g class="dot" data-id="4" tabindex="0" role="button" aria-label="Agent IQ">
+          <circle class="hit" cx="468" cy="319" r="20" fill="transparent"/>
+          <circle cx="468" cy="319" r="10" fill="#ff4d55" opacity=".9"/>
+          <circle cx="468" cy="319" r="10" fill="none" stroke="#ff4d55" stroke-width="2" opacity=".5"/>
+          <text x="488" y="315" fill="#E7EEF3" font-family="IBM Plex Sans,sans-serif" font-size="12" font-weight="600" text-anchor="start">Agent IQ</text>
+        </g>
+
+        <!-- 6. Clinc — Conversational AI — 590 — r=139 — angle=75° -->
+        <!-- sin(75)=.966, cos(75)=.259 → cx=380+139*.966=514, cy=380-139*.259=344 -->
+        <g class="dot" data-id="5" tabindex="0" role="button" aria-label="Clinc">
+          <circle class="hit" cx="514" cy="344" r="20" fill="transparent"/>
+          <circle cx="514" cy="344" r="10" fill="#ff4d55" opacity=".9"/>
+          <circle cx="514" cy="344" r="10" fill="none" stroke="#ff4d55" stroke-width="2" opacity=".5"/>
+          <text x="534" y="340" fill="#E7EEF3" font-family="IBM Plex Sans,sans-serif" font-size="12" font-weight="600" text-anchor="start">Clinc</text>
+        </g>
+
+        <!-- 7. Q2 Holdings — Digital Banking Platforms — 680 — r=109 — angle=240° -->
+        <!-- sin(240)=-.866, cos(240)=-.5 → cx=380+109*(-.866)=286, cy=380-109*(-.5)=435 -->
+        <g class="dot" data-id="10" tabindex="0" role="button" aria-label="Q2 Holdings">
+          <circle class="hit" cx="286" cy="435" r="20" fill="transparent"/>
+          <circle cx="286" cy="435" r="10" fill="#4ADE80" opacity=".9"/>
+          <circle cx="286" cy="435" r="10" fill="none" stroke="#4ADE80" stroke-width="2" opacity=".5"/>
+          <text x="266" y="456" fill="#E7EEF3" font-family="IBM Plex Sans,sans-serif" font-size="12" font-weight="600" text-anchor="middle">Q2</text>
+        </g>
+
+        <!-- 8. Enacomm — Digital Banking Platforms — 505 — r=168 — angle=200° -->
+        <!-- sin(200)=-.342, cos(200)=-.940 → cx=380+168*(-.342)=323, cy=380-168*(-.940)=538 -->
+        <g class="dot" data-id="6" tabindex="0" role="button" aria-label="Enacomm">
+          <circle class="hit" cx="323" cy="538" r="20" fill="transparent"/>
+          <circle cx="323" cy="538" r="10" fill="#4ADE80" opacity=".9"/>
+          <circle cx="323" cy="538" r="10" fill="none" stroke="#4ADE80" stroke-width="2" opacity=".5"/>
+          <text x="303" y="556" fill="#E7EEF3" font-family="IBM Plex Sans,sans-serif" font-size="12" font-weight="600" text-anchor="middle">Enacomm</text>
+        </g>
+
+        <!-- 8. Nuance — Enterprise AI — 470 — r=180 — angle=295° -->
+        <!-- sin(295)=-.906, cos(295)=.423 → cx=380+180*(-.906)=217, cy=380-180*.423=304 -->
+        <g class="dot" data-id="7" tabindex="0" role="button" aria-label="Nuance">
+          <circle class="hit" cx="217" cy="304" r="20" fill="transparent"/>
+          <circle cx="217" cy="304" r="10" fill="#FF8A6B" opacity=".9"/>
+          <circle cx="217" cy="304" r="10" fill="none" stroke="#FF8A6B" stroke-width="2" opacity=".5"/>
+          <text x="197" y="292" fill="#E7EEF3" font-family="IBM Plex Sans,sans-serif" font-size="12" font-weight="600" text-anchor="middle">Nuance</text>
+        </g>
+
+        <!-- 9. Illuma Labs — Voice & Biometrics — 430 — r=194 — angle=145° -->
+        <!-- sin(145)=.574, cos(145)=-.819 → cx=380+194*.574=491, cy=380-194*(-.819)=539 -->
+        <g class="dot" data-id="8" tabindex="0" role="button" aria-label="Illuma Labs">
+          <circle class="hit" cx="491" cy="539" r="20" fill="transparent"/>
+          <circle cx="491" cy="539" r="10" fill="#6FA8FF" opacity=".9"/>
+          <circle cx="491" cy="539" r="10" fill="none" stroke="#6FA8FF" stroke-width="2" opacity=".5"/>
+          <text x="511" y="535" fill="#E7EEF3" font-family="IBM Plex Sans,sans-serif" font-size="12" font-weight="600" text-anchor="start">Illuma</text>
+        </g>
+
+        <!-- 10. Kasisto — Conversational AI — 355 — r=219 — angle=20° -->
+        <!-- sin(20)=.342, cos(20)=.940 → cx=380+219*.342=455, cy=380-219*.940=174 -->
+        <g class="dot" data-id="9" tabindex="0" role="button" aria-label="Kasisto">
+          <circle class="hit" cx="455" cy="174" r="20" fill="transparent"/>
+          <circle cx="455" cy="174" r="10" fill="#ff4d55" opacity=".9"/>
+          <circle cx="455" cy="174" r="10" fill="none" stroke="#ff4d55" stroke-width="2" opacity=".5"/>
+          <text x="475" y="170" fill="#E7EEF3" font-family="IBM Plex Sans,sans-serif" font-size="12" font-weight="600" text-anchor="start">Kasisto</text>
+        </g>
+
+        <!-- Center label -->
+        <text x="380" y="376" fill="#3C5F7E" font-family="IBM Plex Mono,monospace" font-size="11" text-anchor="middle">FIRADAR</text>
+        <text x="380" y="390" fill="#3C5F7E" font-family="IBM Plex Mono,monospace" font-size="11" text-anchor="middle">SCORE</text>
+      </svg>
+    </div>
+
+    <!-- Side panel -->
+    <div class="side">
+      <!-- Detail card -->
+      <div class="card detail" id="detailPanel">
+        <div class="detail-top">
+          <div>
+            <div class="chips" id="dChips"></div>
+            <div class="d-wedge" id="dWedge"></div>
+            <div class="d-name" id="dName">Select a provider</div>
+            <div class="d-reach" id="dReach"></div>
+          </div>
+          <div>
+            <div class="d-score" id="dScore">—</div>
+            <div class="d-score-label">/ 1000</div>
+          </div>
+        </div>
+        <div>
+          <div class="bar"><div id="dBar" style="width:0%"></div></div>
+          <div class="bar-ticks"><span>0</span><span>250</span><span>500</span><span>750</span><span>1000</span></div>
+        </div>
+        <div class="d-text" id="dText">
+          <p style="color:var(--muted)">Click any dot on the radar or a row in the list to view provider details.</p>
+        </div>
+      </div>
+
+      <!-- Provider list -->
+      <div class="card" style="padding:16px 20px;display:flex;flex-direction:column;gap:12px;">
+        <div class="legend">
+          <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#ff4d55;margin-right:4px;vertical-align:middle"></span>Conversational AI &nbsp;
+          <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#6FA8FF;margin-right:4px;vertical-align:middle"></span>Voice &amp; Biometrics &nbsp;
+          <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#4ADE80;margin-right:4px;vertical-align:middle"></span>Digital Banking Platforms &nbsp;
+          <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#FF8A6B;margin-right:4px;vertical-align:middle"></span>Enterprise AI
+        </div>
+        <div class="list" id="providerList"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quadrant breakdown -->
+  <div class="card" style="padding:24px 28px;">
+    <div class="dist-head">
+      <h2>Quadrant Breakdown</h2>
+      <div>How AI agent capabilities cluster across four FI-relevant disciplines</div>
+    </div>
+    <div class="dist">
+      <div class="card">
+        <h3 style="color:#ff4d55">Conversational AI</h3>
+        <p>Natural language interfaces for member self-service, chat, and digital channels. Glia, Agent IQ, Clinc, and Kasisto all trace roots here. The crowded quadrant — differentiation now comes from agentic action, not just NLU.</p>
+      </div>
+      <div class="card">
+        <h3 style="color:#6FA8FF">Voice &amp; Biometrics</h3>
+        <p>IVR modernization, voice authentication, and conversational phone banking. Posh AI leads with strong FI-native voice infrastructure. Illuma Labs specializes in passive voice biometric authentication — a niche but high-value capability for CUs reducing fraud.</p>
+      </div>
+      <div class="card">
+        <h3 style="color:#4ADE80">Digital Banking Platforms</h3>
+        <p>End-to-end digital banking infrastructure with embedded AI. Alkami dominates with the highest score in this cohort — platform breadth plus AI layering across the full member journey. Enacomm targets community FIs specifically with IVR-to-digital bridge solutions.</p>
+      </div>
+      <div class="card">
+        <h3 style="color:#FF8A6B">Enterprise AI</h3>
+        <p>Large-scale AI platforms with FI deployments, often from outside the core fintech world. nCino brings acquired Sandbox Banking capabilities alongside its cloud banking platform. Nuance, now Microsoft-owned, offers robust NLP infrastructure but its FI-specific roadmap is increasingly absorbed into Microsoft's enterprise stack.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Methodology -->
+  <div class="card" style="padding:24px 28px;">
+    <h2>Scoring Methodology</h2>
+    <p style="font-size:14px;color:var(--fg2);line-height:1.6;margin:12px 0 0;max-width:900px;">FiRadar scores reflect live digital signals across product depth, FI adoption, regulatory alignment, integration ecosystem, and community bank/CU-specific deployment evidence. Scores range 0–1000: Foundational (850+), Elite (800–849), Competitive (700–799), Developing (550–699), Early Stage (400–549), Seed (&lt;400). Acquisition flags indicate a change in product ownership that may affect roadmap continuity. CU-native flags identify providers with demonstrated credit union-first deployment histories.</p>
+  </div>
+
+  <footer>
+    <div>
+      <div class="brand">FIRADAR</div>
+      <div>Segment intelligence for community banks and credit unions.</div>
+      <div>Score a fintech at <a href="/">firadar.finance</a> · <a href="/research/">All Research</a></div>
+    </div>
+    <div class="right">
+      <div>© 2026 FiRadar · All scores reflect signals as of publish date.</div>
+      <div>Not investment advice. Provider data sourced from public digital signals.</div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+const PROVIDERS = [
+  {
+    id: 0,
+    name: "Alkami Technology",
+    score: 815,
+    tier: "Elite",
+    tierClass: "t-elite",
+    wedge: "Digital Banking Platforms",
+    wedgeClass: "w-platform",
+    wedgeColor: "#4ADE80",
+    flags: [],
+    reach: "Community banks and credit unions — platform-first",
+    text: [
+      "<b>Why it scores Elite:</b> Alkami's platform-native AI approach embeds intelligent features across the full digital banking experience — from personalized financial insights to fraud detection — rather than bolting on a chatbot layer.",
+      "<b>FI fit:</b> Purpose-built for community banks and credit unions. Deep integrations with major core processors (Fiserv, FIS, Jack Henry). Largest independent digital banking platform in the community FI segment.",
+      "<b>Watch:</b> Platform breadth is a strength but also complexity. Smaller CUs should validate implementation timelines and resource requirements before signing."
+    ]
+  },
+  {
+    id: 1,
+    name: "Glia",
+    score: 775,
+    tier: "Competitive",
+    tierClass: "t-competitive",
+    wedge: "Conversational AI",
+    wedgeClass: "w-conv",
+    wedgeColor: "#ff4d55",
+    flags: [],
+    reach: "Banks, credit unions — omnichannel service focus",
+    text: [
+      "<b>Why it scores Competitive:</b> Glia's unified interaction platform spans live chat, video, voice, and AI-powered automation — positioning it beyond a point chatbot solution into a full digital service channel.",
+      "<b>FI fit:</b> Strong credit union customer base. Glia's approach mirrors how CU member services are structured — relationship-first, human-assisted when needed, automated where possible.",
+      "<b>Watch:</b> Pricing scales with interaction volume, which can surprise smaller institutions. Evaluate TCO carefully against projected digital engagement growth."
+    ]
+  },
+  {
+    id: 2,
+    name: "Posh AI",
+    score: 743,
+    tier: "Competitive",
+    tierClass: "t-competitive",
+    wedge: "Voice & Biometrics",
+    wedgeClass: "w-voice",
+    wedgeColor: "#6FA8FF",
+    flags: ["CU-Native"],
+    reach: "Credit unions — voice and digital channel automation",
+    text: [
+      "<b>Why it scores Competitive:</b> Posh AI was built specifically for the community FI market, with IVR modernization and conversational AI deployed across dozens of credit unions and community banks.",
+      "<b>CU-Native:</b> One of the few AI platform companies that entered the market through credit unions rather than large bank enterprise deals. That lineage shows in product design and integration depth.",
+      "<b>Watch:</b> Strong in voice channel AI; digital channel capabilities are expanding but not yet at Glia or Alkami depth. Best for FIs prioritizing IVR modernization as first step."
+    ]
+  },
+  {
+    id: 3,
+    name: "nCino",
+    score: 695,
+    tier: "Developing",
+    tierClass: "t-developing",
+    wedge: "Enterprise AI",
+    wedgeClass: "w-enterprise",
+    wedgeColor: "#FF8A6B",
+    flags: ["Acquisition"],
+    reach: "Banks and credit unions — commercial and retail lending focus",
+    text: [
+      "<b>Why it scores Developing:</b> nCino's core strength is cloud banking for lending workflows, not conversational AI. The Sandbox Banking acquisition adds AI-powered banking features, but integration of these capabilities is still maturing.",
+      "<b>Acquisition flag:</b> Sandbox Banking was acquired by nCino. Institutions that evaluated Sandbox Banking as a standalone should re-evaluate fit under nCino's platform strategy and roadmap priorities.",
+      "<b>Watch:</b> Strong choice for FIs where lending workflow AI is the primary need. Less compelling if the core use case is member service automation or IVR modernization."
+    ]
+  },
+  {
+    id: 4,
+    name: "Agent IQ",
+    score: 684,
+    tier: "Developing",
+    tierClass: "t-developing",
+    wedge: "Conversational AI",
+    wedgeClass: "w-conv",
+    wedgeColor: "#ff4d55",
+    flags: [],
+    reach: "Credit unions and community banks — digital engagement focus",
+    text: [
+      "<b>Why it scores Developing:</b> Agent IQ's Lynq platform focuses on personalized digital engagement and AI-assisted banker tools — a differentiated angle from pure chatbot plays. Relationship banking through AI is a compelling CU pitch.",
+      "<b>FI fit:</b> Built with community FIs as the target segment. The platform emphasizes AI that makes bankers more effective, not just automating member self-service — resonates well with CU culture.",
+      "<b>Watch:</b> Smaller footprint than Glia or Alkami means fewer reference institutions to validate against. Ask for CU peer references at similar asset size."
+    ]
+  },
+  {
+    id: 10,
+    name: "Q2 Holdings",
+    score: 680,
+    tier: "Developing",
+    tierClass: "t-developing",
+    wedge: "Digital Banking Platforms",
+    wedgeClass: "w-platform",
+    wedgeColor: "#4ADE80",
+    flags: [],
+    reach: "Community banks and credit unions — digital banking platform",
+    text: [
+      "<b>Why it scores Developing:</b> Q2 is one of the largest digital banking platforms serving community and regional FIs, with a broad ecosystem of embedded fintech partners through its Q2 Innovation Studio marketplace. AI is increasingly woven into the platform through personalization, fraud signals, and analytics.",
+      "<b>FI fit:</b> Deep community bank and credit union install base with extensive core processor integrations. The Innovation Studio gives FIs access to third-party AI tools without replacing the core platform — a practical adoption path.",
+      "<b>Watch:</b> Q2's AI capabilities are largely partner-sourced rather than natively built. For FIs evaluating AI-first platforms, assess whether the marketplace model provides sufficient depth versus purpose-built AI vendors in this cohort."
+    ]
+  },
+  {
+    id: 5,
+    name: "Clinc",
+    score: 590,
+    tier: "Developing",
+    tierClass: "t-developing",
+    wedge: "Conversational AI",
+    wedgeClass: "w-conv",
+    wedgeColor: "#ff4d55",
+    flags: [],
+    reach: "Banks globally — conversational banking AI",
+    text: [
+      "<b>Why it scores Developing:</b> Clinc built strong conversational AI capabilities with proven enterprise bank deployments (USAA, Isbank). The technology foundation is solid, but community FI-specific integrations and reference accounts are thinner.",
+      "<b>FI fit:</b> Better suited to larger community banks than small CUs given integration complexity and pricing structure. NLU capabilities are genuinely strong.",
+      "<b>Watch:</b> Competitive landscape has intensified significantly since Clinc's early wins. Validate current product momentum and CU-specific roadmap before engagement."
+    ]
+  },
+  {
+    id: 6,
+    name: "Enacomm",
+    score: 505,
+    tier: "Early Stage",
+    tierClass: "t-early",
+    wedge: "Digital Banking Platforms",
+    wedgeClass: "w-platform",
+    wedgeColor: "#4ADE80",
+    flags: ["CU-Native"],
+    reach: "Community banks and credit unions — IVR and digital voice",
+    text: [
+      "<b>Why it scores Early Stage:</b> Enacomm has a long history serving community FIs with IVR and voice automation solutions. The platform has expanded toward AI-driven interactions, but the transition from legacy IVR to modern conversational AI is still underway.",
+      "<b>CU-Native:</b> Deep community FI roots and core processor integrations built over years of CU-focused deployment. Relationships and institutional knowledge of FI operations are genuine strengths.",
+      "<b>Watch:</b> Legacy system dependencies can limit deployment flexibility. Evaluate whether the AI roadmap matches the pace of innovation your institution needs over the next 2–3 years."
+    ]
+  },
+  {
+    id: 7,
+    name: "Nuance (Microsoft)",
+    score: 470,
+    tier: "Early Stage",
+    tierClass: "t-early",
+    wedge: "Enterprise AI",
+    wedgeClass: "w-enterprise",
+    wedgeColor: "#FF8A6B",
+    flags: ["Acquisition"],
+    reach: "Enterprise — Microsoft ecosystem; FI-specific roadmap unclear",
+    text: [
+      "<b>Why it scores Early Stage:</b> Nuance built powerful conversational and voice AI with FI deployments, but Microsoft's acquisition has reoriented the roadmap toward enterprise Microsoft 365 and Azure integrations — not community FI priorities.",
+      "<b>Acquisition flag:</b> Microsoft acquired Nuance in 2022. The dedicated Nuance financial services product line has been absorbed into Microsoft's broader enterprise AI portfolio (Azure AI, Copilot). Community FI-specific support has diminished.",
+      "<b>Watch:</b> If your institution is already deep in the Microsoft ecosystem, Nuance-originated capabilities via Azure may still be viable. Otherwise, evaluate purpose-built FI alternatives with active community bank/CU roadmaps."
+    ]
+  },
+  {
+    id: 8,
+    name: "Illuma Labs",
+    score: 430,
+    tier: "Early Stage",
+    tierClass: "t-early",
+    wedge: "Voice & Biometrics",
+    wedgeClass: "w-voice",
+    wedgeColor: "#6FA8FF",
+    flags: ["CU-Native"],
+    reach: "Credit unions — passive voice biometric authentication",
+    text: [
+      "<b>Why it scores Early Stage:</b> Illuma Labs is a specialist play — passive voice biometric authentication for credit union call centers. It does one thing with notable precision, but as a point solution it has limited breadth beyond that core capability.",
+      "<b>CU-Native:</b> Illuma's customer base is almost entirely credit unions. The product is designed around CU call center workflows and member authentication — not adapted from a bank or enterprise product.",
+      "<b>Watch:</b> Powerful if authentication fraud and IVR security are priority pain points. Limited fit if the goal is broad AI conversational or agentic capability. Consider as a complement to a full-platform AI play, not a standalone."
+    ]
+  },
+  {
+    id: 9,
+    name: "Kasisto",
+    score: 355,
+    tier: "Seed",
+    tierClass: "t-seed",
+    wedge: "Conversational AI",
+    wedgeClass: "w-conv",
+    wedgeColor: "#ff4d55",
+    flags: [],
+    reach: "Banks globally — financial domain conversational AI",
+    text: [
+      "<b>Why it scores Seed:</b> Kasisto built KAI, one of the early financial-domain AI platforms, with notable deployments at TD Bank and others. However, digital signal strength has declined — indicating reduced deployment momentum and product investment.",
+      "<b>FI fit:</b> Financial-domain NLU remains a Kasisto strength. The question is whether the product is keeping pace with the market shift toward agentic AI — moving from intent recognition to multi-step task completion.",
+      "<b>Watch:</b> Seek current deployment references and validate product roadmap directly with the Kasisto team. A declining score in a rapidly evolving market segment warrants extra diligence before commitment."
+    ]
+  }
+];
+
+const TIER_COLORS = {
+  Elite: "#F2B33D",
+  Competitive: "#ff4d55",
+  Developing: "#6FA8FF",
+  "Early Stage": "#A9BCCB",
+  Seed: "#3C5F7E"
+};
+
+function selectProvider(id) {
+  const p = PROVIDERS[id];
+  if (!p) return;
+
+  // Chips
+  const chipsEl = document.getElementById('dChips');
+  let chips = `<span class="chip-tier ${p.tierClass}" style="color:#0A1724">${p.tier}</span>`;
+  p.flags.forEach(f => {
+    if (f === 'CU-Native') chips += `<span class="chip-flag chip-cu">CU-Native</span>`;
+    if (f === 'Acquisition') chips += `<span class="chip-flag chip-acq">⚑ Acquisition</span>`;
+  });
+  chipsEl.innerHTML = chips;
+
+  document.getElementById('dWedge').innerHTML = `<span class="${p.wedgeClass}">${p.wedge}</span>`;
+  document.getElementById('dName').textContent = p.name;
+  document.getElementById('dReach').innerHTML = `Market: <span>${p.reach}</span>`;
+  document.getElementById('dScore').textContent = p.score;
+
+  const pct = (p.score / 1000 * 100).toFixed(1);
+  const bar = document.getElementById('dBar');
+  bar.style.width = pct + '%';
+  bar.style.background = TIER_COLORS[p.tier] || '#ff4d55';
+
+  document.getElementById('dText').innerHTML = p.text.map(t => `<p>${t}</p>`).join('');
+
+  // Highlight list row
+  document.querySelectorAll('.row').forEach(r => r.setAttribute('aria-pressed', 'false'));
+  const row = document.querySelector(`.row[data-id="${id}"]`);
+  if (row) row.setAttribute('aria-pressed', 'true');
+
+  // Highlight radar dot
+  document.querySelectorAll('.dot circle:not(.hit)').forEach(c => c.setAttribute('opacity', '0.4'));
+  const dot = document.querySelector(`.dot[data-id="${id}"] circle:not(.hit)`);
+  if (dot) dot.setAttribute('opacity', '1');
+}
+
+// Build provider list
+const listEl = document.getElementById('providerList');
+PROVIDERS.forEach((p, i) => {
+  const btn = document.createElement('button');
+  btn.className = 'row';
+  btn.dataset.id = p.id;
+  btn.setAttribute('aria-pressed', 'false');
+  let flagHtml = '';
+  if (p.flags.includes('CU-Native')) flagHtml += `<span class="fl" style="color:#4ADE80;font-size:10px">CU</span>`;
+  else if (p.flags.includes('Acquisition')) flagHtml += `<span class="fl" style="color:#FF8A6B;font-size:10px">ACQ</span>`;
+  else flagHtml += `<span class="fl"></span>`;
+  btn.innerHTML = `
+    <span class="sw" style="background:${p.wedgeColor}"></span>
+    <span class="rk">#${i+1}</span>
+    <span class="nm">${p.name}</span>
+    ${flagHtml}
+    <span class="tr">${p.tier}</span>
+    <span class="sc" style="color:${TIER_COLORS[p.tier]}">${p.score}</span>
+  `;
+  btn.addEventListener('click', () => selectProvider(p.id));
+  listEl.appendChild(btn);
+});
+
+// Radar dot click
+document.querySelectorAll('.dot').forEach(dot => {
+  dot.addEventListener('click', () => selectProvider(parseInt(dot.dataset.id)));
+  dot.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') selectProvider(parseInt(dot.dataset.id)); });
+});
+
+// Auto-select first
+selectProvider(0);
+
+// ── Subscribe popup ──
+var popupTimer = null;
+var popupShown = false;
+
+function showPopup() {
+  if (popupShown) return;
+  popupShown = true;
+  document.getElementById('fr-overlay').classList.add('show');
+}
+
+function hidePopup() {
+  document.getElementById('fr-overlay').classList.remove('show');
+}
+
+document.getElementById('fr-close').addEventListener('click', hidePopup);
+document.getElementById('fr-overlay').addEventListener('click', function(e) {
+  if (e.target === this) hidePopup();
+});
+
+// Show after 55% scroll
+window.addEventListener('scroll', function() {
+  if (popupShown) return;
+  var pct = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+  if (pct > 0.55) showPopup();
+}, { passive: true });
+
+// Show after 45s fallback
+popupTimer = setTimeout(showPopup, 45000);
+
+// Form submission — Netlify + HubSpot dual submit
+var form = document.getElementById('fr-form');
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+  var email = document.getElementById('fr-email').value;
+  var formData = new FormData(form);
+
+  // Netlify Forms
+  fetch('/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams(formData).toString()
+  });
+
+  // HubSpot CRM
+  fetch('https://api.hsforms.com/submissions/v3/integration/submit/246649053/7025bf50-b249-481c-917a-4a687a5b1afa', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      fields: [{ name: 'email', value: email }],
+      context: { pageUri: window.location.href, pageName: 'AI Core Agents for FIs' }
+    })
+  });
+
+  // Show success
+  document.getElementById('fr-default').style.display = 'none';
+  document.getElementById('fr-success').style.display = 'flex';
+  setTimeout(hidePopup, 2800);
+});
+</script>
+</body>
+</html>
