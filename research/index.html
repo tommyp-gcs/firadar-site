@@ -535,11 +535,12 @@
 
 <script>
 // ─────────────────────────────────────────────────────────────
-//  RESEARCH INDEX — to add a new report, paste one object into
-//  the REPORTS array below (newest first). That's the only edit
-//  needed. The page renders all cards automatically.
+//  RESEARCH INDEX — powered by /research/manifest.json
 //
-//  Fields:
+//  To add a new report: edit manifest.json in GitHub, add one
+//  JSON object (newest first). No other file needs changing.
+//
+//  manifest.json fields:
 //    tag   — label pill text (e.g. "Segment Radar")
 //    title — card headline
 //    href  — path to the report page
@@ -547,45 +548,10 @@
 //    meta  — array of up to 3 short metadata strings (emoji + text)
 //    cta   — call-to-action link text (e.g. "View Report")
 // ─────────────────────────────────────────────────────────────
-const REPORTS = [
-  {
-    tag:   "Conference Report",
-    title: "FinovateFall 2026 Rankings",
-    href:  "/research/finovate-fall-2026",
-    desc:  "All 70 demo companies scored and ranked. See who leads in readiness, execution, and institutional fit.",
-    meta:  ["📍 New York, NY", "📅 September 2026", "🏢 70 companies"],
-    cta:   "View Report"
-  },
-  {
-    tag:   "Self-Assessment Brief",
-    title: "2027 Bank Fintech Radar",
-    href:  "/research/2027-fintech-moves/",
-    desc:  "Ten moves U.S. banks and credit unions are making for 2027, with a built-in self-assessment to benchmark your institution's plan against peers.",
-    meta:  ["🏦 Banks & Credit Unions", "📅 October 2026", "📋 10 moves"],
-    cta:   "Take the Assessment"
-  },
-  {
-    tag:   "Segment Radar",
-    title: "CU Tokenized Deposit Providers",
-    href:  "/research/CU-tokenized-deposit-scores",
-    desc:  "Ten tokenized deposit providers scored on the FiRadar scale — ranked by institutional readiness and credit union fit.",
-    meta:  ["🏦 Credit Unions", "📅 November 2026", "🏢 10 providers"],
-    cta:   "View Report"
-  },
-  {
-    tag:   "Segment Radar",
-    title: "AI Core Agents for FIs",
-    href:  "/research/ai-core-agents-fi-scores",
-    desc:  "Eleven AI conversational and agent platforms scored for community banks and credit unions — with quadrant mapping, CU-native flags, and acquisition alerts.",
-    meta:  ["🏦 Banks & Credit Unions", "📅 November 2026", "🏢 11 providers"],
-    cta:   "View Report"
-  }
-  // ← ADD NEW REPORTS HERE (copy the block above, comma-separated)
-];
 
-(function renderReports() {
+function renderReports(reports) {
   const grid = document.getElementById('reportsGrid');
-  REPORTS.forEach(function(r) {
+  reports.forEach(function(r) {
     const a = document.createElement('a');
     a.className = 'report-card';
     a.href = r.href;
@@ -605,7 +571,16 @@ const REPORTS = [
     '<div class="soon-label">Next Report</div>' +
     '<div class="soon-sub">Coming soon</div>';
   grid.appendChild(soon);
-})();
+}
+
+fetch('/research/manifest.json')
+  .then(function(r) { return r.json(); })
+  .then(renderReports)
+  .catch(function() {
+    // Fallback: show a plain message if manifest fails to load
+    var grid = document.getElementById('reportsGrid');
+    grid.innerHTML = '<p style="color:#A9BCCB;padding:24px">Reports loading… if this persists, check that manifest.json is in the research/ folder.</p>';
+  });
 </script>
 
 <!-- About the score -->
