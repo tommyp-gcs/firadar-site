@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cybersecurity for Financial Institutions | FiRadar Segment Radar</title>
+<meta name="description" content="FiRadar Segment Radar: Top 18 cybersecurity providers for banks and credit unions, scored on the FiRadar 0–1000 scale across 5 security disciplines.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A1724; --panel: #10243A; --panel-border: #24405A; --line: #2A4458;
+    --fg: #E7EEF3; --fg2: #C9D6E0; --muted: #A9BCCB; --dim: #8AA0B2;
+    --gold: #ffffff;
+    --w1: #ff4d55; /* Endpoint & Threat Intel — red */
+    --w2: #6FA8FF; /* Zero Trust & Network — blue */
+    --w3: #4ADE80; /* Fraud & AML — green */
+    --w4: #F2B33D; /* Identity & Access — amber */
+    --w5: #C084FC; /* SIEM & Compliance — purple */
+    --accent: #ff4d55; --accent2: #ff7a80;
+    --sel-bg: #18324D; --sel-border: #3C5F7E;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+    --sans: 'IBM Plex Sans', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+  a { color: var(--accent); } a:hover { color: var(--accent2); }
+  button { font-family: inherit; }
+
+  .topnav { background: #061018; border-bottom: 1px solid var(--panel-border); }
+  .topnav-inner { max-width: 1440px; margin: 0 auto; padding: 0 48px; height: 60px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  @media (max-width: 700px) { .topnav-inner { padding: 0 16px; } }
+  .nav-brand { font-family: var(--mono); font-size: 18px; font-weight: 600; color: var(--gold); text-decoration: none; letter-spacing: .04em; }
+  .nav-links { display: flex; gap: 24px; }
+  .nav-links a { font-size: 14px; font-weight: 500; color: var(--muted); text-decoration: none; }
+  .nav-links a:hover { color: var(--fg); }
+
+  .wrap { max-width: 1440px; margin: 0 auto; padding: 36px 48px; display: flex; flex-direction: column; gap: 24px; }
+  @media (max-width: 700px) { .wrap { padding: 24px 16px; } }
+
+  .head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
+  .eyebrow { font-family: var(--mono); font-size: 13px; letter-spacing: .18em; color: var(--accent); font-weight: 600; }
+  h1 { margin: 6px 0; font-size: clamp(28px, 4vw, 38px); font-weight: 700; letter-spacing: -.01em; line-height: 1.1; }
+  .sub { font-size: 16px; color: var(--muted); max-width: 900px; line-height: 1.5; }
+  .meta { font-family: var(--mono); font-size: 13px; color: var(--muted); display: flex; flex-direction: column; gap: 4px; align-items: flex-end; }
+  .meta span { color: var(--fg); }
+  @media (max-width: 700px) { .meta { align-items: flex-start; } }
+
+  .card { background: var(--panel); border: 1px solid var(--panel-border); border-radius: 12px; }
+  .stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+  @media (max-width: 900px) { .stats { grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 500px) { .stats { grid-template-columns: 1fr; } }
+  .stat { padding: 16px 20px; display: flex; gap: 16px; align-items: center; }
+  .stat-num { font-family: var(--mono); font-size: 40px; font-weight: 600; color: var(--accent); line-height: 1; }
+  .stat-label { font-size: 12px; letter-spacing: .1em; color: var(--muted); font-weight: 600; }
+  .stat-note { font-size: 13px; line-height: 1.4; }
+
+  .main { display: flex; gap: 40px; flex-wrap: wrap; align-items: flex-start; }
+  .radar { flex: 0 1 760px; min-width: 0; width: 100%; }
+  .radar svg { width: 100%; height: auto; display: block; }
+  .radar svg .dot { cursor: pointer; }
+  .side { flex: 999 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+
+  .detail { padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; }
+  .detail-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+  .chips { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .chip-tier { font-family: var(--mono); font-size: 12px; font-weight: 600; padding: 3px 8px; border-radius: 4px; color: #0A1724; }
+  .chip-flag { font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 4px; border: 1px solid; }
+  .chip-fi { border-color: #4ADE80; color: #4ADE80; }
+  .chip-acq { border-color: #FF8A6B; color: #FF8A6B; }
+  .d-wedge { font-size: 13px; font-weight: 600; margin-top: 4px; }
+  .d-name { font-size: 26px; font-weight: 700; line-height: 1.15; margin-top: 6px; }
+  .d-reach { font-size: 13px; color: var(--muted); margin-top: 6px; }
+  .d-reach span { color: var(--fg); }
+  .d-score { font-family: var(--mono); font-size: 44px; font-weight: 600; line-height: 1; color: var(--accent); text-align: right; }
+  .d-score-label { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--muted); }
+  .bar { height: 8px; border-radius: 4px; background: var(--line); overflow: hidden; }
+  .bar > div { height: 8px; border-radius: 4px; }
+  .bar-ticks { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 11px; color: var(--dim); margin-top: 6px; }
+  .d-text { display: flex; flex-direction: column; gap: 10px; font-size: 14px; line-height: 1.45; }
+  .d-text p { margin: 0; }
+  .d-text b { font-weight: 600; }
+
+  .list { display: flex; flex-direction: column; gap: 4px; }
+  .row { display: flex; align-items: center; gap: 12px; min-height: 36px; padding: 3px 10px; border-radius: 6px; border: 1px solid transparent; background: transparent; color: var(--fg); cursor: pointer; text-align: left; width: 100%; }
+  .row:hover { background: #132B44; }
+  .row[aria-pressed="true"] { background: var(--sel-bg); border-color: var(--sel-border); }
+  .row .sw { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  .row .rk { font-family: var(--mono); font-size: 12px; color: var(--muted); width: 22px; }
+  .row .nm { font-size: 14px; font-weight: 500; flex-grow: 1; min-width: 0; }
+  .row .fl { font-size: 10px; width: 32px; }
+  .row .tr { font-size: 12px; color: var(--muted); width: 90px; }
+  .row .sc { font-family: var(--mono); font-size: 14px; font-weight: 600; width: 40px; text-align: right; }
+  @media (max-width: 560px) { .row .fl, .row .tr { display: none; } }
+  .legend { font-size: 12px; color: var(--muted); line-height: 1.8; display: flex; flex-wrap: wrap; gap: 4px 16px; }
+  .legend-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 4px; vertical-align: middle; }
+
+  h2 { margin: 0; font-size: 22px; font-weight: 700; }
+  .dist { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; margin-top: 12px; }
+  @media (max-width: 1100px) { .dist { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 700px) { .dist { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 450px) { .dist { grid-template-columns: 1fr; } }
+  .dist .card { padding: 18px 20px; }
+  .dist h3 { margin: 0 0 8px; font-size: 14px; font-weight: 600; }
+  .dist p { margin: 0; font-size: 13px; line-height: 1.5; color: var(--fg2); }
+
+  footer { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; border-top: 1px solid var(--panel-border); padding-top: 16px; font-size: 12px; color: var(--dim); line-height: 1.6; }
+  footer .brand { font-family: var(--mono); font-size: 14px; font-weight: 600; color: var(--accent); }
+  footer .right { text-align: right; }
+  @media (max-width: 700px) { footer .right { text-align: left; } }
+
+  /* Tier badge colors */
+  .t-foundational { background: #C084FC; }
+  .t-elite        { background: #F2B33D; }
+  .t-competitive  { background: #ff4d55; }
+  .t-developing   { background: #6FA8FF; }
+  .t-early        { background: #A9BCCB; }
+  .t-seed         { background: #3C5F7E; color: #E7EEF3 !important; }
+  /* FI tier label sizing — longer labels need smaller font */
+  .chip-tier { font-size: 11px !important; }
+
+  /* ── Subscribe popup ── */
+  #fr-overlay { position:fixed;inset:0;z-index:200;background:rgba(5,10,22,.78);backdrop-filter:blur(7px);display:none;align-items:center;justify-content:center;padding:24px; }
+  #fr-overlay.show { display:flex; }
+  #fr-box { background:#10243A;border:1px solid #3C5F7E;border-radius:16px;padding:36px 40px;max-width:500px;width:100%;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.55);animation:popIn .22s ease; }
+  @keyframes popIn { from{opacity:0;transform:scale(.93) translateY(10px)}to{opacity:1;transform:none} }
+  #fr-close { position:absolute;top:16px;right:16px;width:32px;height:32px;background:none;border:none;color:var(--muted);cursor:pointer;font-size:20px;line-height:1; }
+  #fr-close:hover { color:var(--fg); }
+  #fr-eyebrow { font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--accent);font-weight:600;margin-bottom:10px; }
+  #fr-box h3 { margin:0 0 8px;font-size:22px;font-weight:700;line-height:1.2; }
+  #fr-box p { margin:0 0 20px;font-size:14px;color:var(--muted);line-height:1.5; }
+  #fr-default,#fr-success { display:flex;flex-direction:column;gap:0; }
+  #fr-success { display:none;align-items:center;gap:12px; }
+  #fr-success p { margin:0;font-size:15px;color:var(--fg2); }
+  .fr-form { display:flex;gap:10px;flex-wrap:wrap; }
+  .fr-input { flex:1;min-width:0;background:#061018;border:1px solid #3C5F7E;border-radius:8px;padding:11px 14px;font-family:var(--sans);font-size:15px;color:var(--fg);outline:none; }
+  .fr-input::placeholder { color:var(--dim); }
+  .fr-input:focus { border-color:var(--accent); }
+  .fr-btn { background:var(--accent);color:#fff;border:none;border-radius:8px;padding:11px 20px;font-family:var(--mono);font-size:13px;font-weight:600;letter-spacing:.08em;cursor:pointer;white-space:nowrap; }
+  .fr-btn:hover { background:var(--accent2); }
+  .fr-fine { font-size:11px;color:var(--dim);margin-top:10px; }
+</style>
+</head>
+<body>
+
+<!-- Hidden Netlify form -->
+<form name="research-subscribe" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="email" name="email">
+  <input type="hidden" name="page">
+</form>
+
+<!-- Subscribe Overlay -->
+<div id="fr-overlay" role="dialog" aria-modal="true" aria-label="Subscribe to FiRadar">
+  <div id="fr-box">
+    <button id="fr-close" aria-label="Close">✕</button>
+    <div id="fr-eyebrow">FIRADAR RESEARCH</div>
+    <h3>Get the next radar before it drops.</h3>
+    <p>Community bank and CU leaders get our segment radars — scoring providers before you sign an LOI.</p>
+    <div id="fr-default">
+      <form class="fr-form" id="fr-form" name="research-subscribe" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="research-subscribe">
+        <input type="hidden" name="page" value="FI Cybersecurity Providers">
+        <p style="display:none"><input name="bot-field"></p>
+        <input class="fr-input" type="email" id="fr-email" name="email" placeholder="your@institution.org" required autocomplete="email">
+        <button class="fr-btn" type="submit">SEND ME THE NEXT RADAR →</button>
+      </form>
+      <div class="fr-fine">No spam. Unsubscribe any time. FiRadar covers community banks &amp; credit unions only.</div>
+    </div>
+    <div id="fr-success">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="16" fill="#ff4d55" fill-opacity=".15"/><path d="M10 16.5l4.5 4.5 7.5-9" stroke="#ff4d55" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <p>You're on the list. Watch your inbox for the next FiRadar drop.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Nav -->
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="nav-brand" href="/">FIRADAR</a>
+    <div class="nav-links">
+      <a href="/research/">Research</a>
+      <a href="/">Score a Fintech</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- Header -->
+  <div class="head">
+    <div>
+      <div class="eyebrow">FIRADAR SEGMENT RADAR · CYBERSECURITY</div>
+      <h1>Cybersecurity for<br>Financial Institutions</h1>
+      <div class="sub">Which cybersecurity platforms are built — or proven — for banks and credit unions? 18 providers scored on the FiRadar 0–1000 scale across five security disciplines.</div>
+    </div>
+    <div class="meta">
+      <div>PUBLISHED <span>NOV 2026</span></div>
+      <div>PROVIDERS <span>18</span></div>
+      <div>FOCUS <span>BANKS &amp; CREDIT UNIONS</span></div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="card stat">
+      <div class="stat-num">1</div>
+      <div>
+        <div class="stat-label">FI FOUNDATIONAL</div>
+        <div class="stat-note">Qualys hits 870 — compliance-driven vulnerability management scores highest with FIs.</div>
+      </div>
+    </div>
+    <div class="card stat">
+      <div class="stat-num">3</div>
+      <div>
+        <div class="stat-label">FI ELITE</div>
+        <div class="stat-note">Palo Alto (840), BioCatch (815), and Feedzai (805) round out the top four.</div>
+      </div>
+    </div>
+    <div class="card stat">
+      <div class="stat-num">2</div>
+      <div>
+        <div class="stat-label">FI-NATIVE</div>
+        <div class="stat-note">BioCatch and Feedzai were built for financial services — fraud and AML are their core.</div>
+      </div>
+    </div>
+    <div class="card stat">
+      <div class="stat-num">1</div>
+      <div>
+        <div class="stat-label">ACQUISITION FLAG</div>
+        <div class="stat-note">Splunk acquired by Cisco in 2024 — roadmap and pricing under active transition.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main radar + detail -->
+  <div class="main">
+    <div class="radar">
+      <svg id="radarSvg" viewBox="0 0 760 760" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#18324D" stop-opacity=".5"/>
+            <stop offset="100%" stop-color="#061018" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <circle cx="380" cy="380" r="340" fill="url(#bgGrad)"/>
+
+        <!-- Rings -->
+        <circle cx="380" cy="380" r="68"  fill="none" stroke="#24405A" stroke-width="1"/>
+        <circle cx="380" cy="380" r="136" fill="none" stroke="#24405A" stroke-width="1"/>
+        <circle cx="380" cy="380" r="204" fill="none" stroke="#24405A" stroke-width="1"/>
+        <circle cx="380" cy="380" r="272" fill="none" stroke="#24405A" stroke-width="1"/>
+        <circle cx="380" cy="380" r="340" fill="none" stroke="#24405A" stroke-width="1.5"/>
+
+        <!-- Ring score labels -->
+        <text x="384" y="314" fill="#3C5F7E" font-family="IBM Plex Mono,monospace" font-size="11">400</text>
+        <text x="384" y="246" fill="#3C5F7E" font-family="IBM Plex Mono,monospace" font-size="11">550</text>
+        <text x="384" y="178" fill="#3C5F7E" font-family="IBM Plex Mono,monospace" font-size="11">700</text>
+        <text x="384" y="110" fill="#3C5F7E" font-family="IBM Plex Mono,monospace" font-size="11">850</text>
+
+        <!-- 5 wedge dividers at 0°, 72°, 144°, 216°, 288° -->
+        <!-- 0°:   top   (380,40) -->
+        <line x1="380" y1="380" x2="380" y2="40"  stroke="#2A4458" stroke-width="1.5" stroke-dasharray="6,4"/>
+        <!-- 72°:  sin72=.951 cos72=.309 → (380+340*.951, 380-340*.309) = (703,275) -->
+        <line x1="380" y1="380" x2="703" y2="275" stroke="#2A4458" stroke-width="1.5" stroke-dasharray="6,4"/>
+        <!-- 144°: sin144=.588 cos144=-.809 → (380+340*.588, 380+340*.809) = (580,655) -->
+        <line x1="380" y1="380" x2="580" y2="655" stroke="#2A4458" stroke-width="1.5" stroke-dasharray="6,4"/>
+        <!-- 216°: sin216=-.588 cos216=-.809 → (380-340*.588, 380+340*.809) = (180,655) -->
+        <line x1="380" y1="380" x2="180" y2="655" stroke="#2A4458" stroke-width="1.5" stroke-dasharray="6,4"/>
+        <!-- 288°: sin288=-.951 cos288=.309 → (380-340*.951, 380-340*.309) = (57,275) -->
+        <line x1="380" y1="380" x2="57"  y2="275" stroke="#2A4458" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+        <!-- Wedge fills (subtle) — 5 arcs -->
+        <!-- W1 Endpoint 0–72° -->
+        <path d="M380,380 L380,40 A340,340,0,0,1,703,275 Z" fill="#ff4d55" fill-opacity=".04"/>
+        <!-- W2 Zero Trust 72–144° -->
+        <path d="M380,380 L703,275 A340,340,0,0,1,580,655 Z" fill="#6FA8FF" fill-opacity=".04"/>
+        <!-- W3 Fraud & AML 144–216° -->
+        <path d="M380,380 L580,655 A340,340,0,0,1,180,655 Z" fill="#4ADE80" fill-opacity=".04"/>
+        <!-- W4 Identity 216–288° -->
+        <path d="M380,380 L180,655 A340,340,0,0,1,57,275 Z" fill="#F2B33D" fill-opacity=".04"/>
+        <!-- W5 SIEM 288–360° -->
+        <path d="M380,380 L57,275 A340,340,0,0,1,380,40 Z" fill="#C084FC" fill-opacity=".04"/>
+
+        <!-- Wedge labels -->
+        <text x="510" y="58"  fill="#ff4d55" font-family="IBM Plex Mono,monospace" font-size="11" font-weight="600" opacity=".85">ENDPOINT &amp;</text>
+        <text x="510" y="72"  fill="#ff4d55" font-family="IBM Plex Mono,monospace" font-size="11" font-weight="600" opacity=".85">THREAT INTEL</text>
+        <text x="606" y="380" fill="#6FA8FF" font-family="IBM Plex Mono,monospace" font-size="11" font-weight="600" opacity=".85" transform="rotate(72,606,380)">ZERO TRUST &amp; NETWORK</text>
+        <text x="440" y="700" fill="#4ADE80" font-family="IBM Plex Mono,monospace" font-size="11" font-weight="600" opacity=".85" text-anchor="middle">FRAUD &amp; AML</text>
+        <text x="130" y="560" fill="#F2B33D" font-family="IBM Plex Mono,monospace" font-size="11" font-weight="600" opacity=".85" text-anchor="middle">IDENTITY &amp;</text>
+        <text x="130" y="574" fill="#F2B33D" font-family="IBM Plex Mono,monospace" font-size="11" font-weight="600" opacity=".85" text-anchor="middle">ACCESS</text>
+        <text x="100" y="175" fill="#C084FC" font-family="IBM Plex Mono,monospace" font-size="11" font-weight="600" opacity=".85" text-anchor="middle">SIEM &amp;</text>
+        <text x="100" y="189" fill="#C084FC" font-family="IBM Plex Mono,monospace" font-size="11" font-weight="600" opacity=".85" text-anchor="middle">COMPLIANCE</text>
+
+        <!-- ── DOTS ── r=(1-score/1000)*340, cx=380+r*sin(θ), cy=380-r*cos(θ) -->
+
+        <!-- W1 ENDPOINT & THREAT INTEL -->
+        <!-- CrowdStrike 680 15° r=108.8 cx=408 cy=275 -->
+        <g class="dot" data-id="0" tabindex="0" role="button" aria-label="CrowdStrike">
+          <circle class="hit" cx="408" cy="275" r="20" fill="transparent"/>
+          <circle cx="408" cy="275" r="9" fill="#ff4d55" opacity=".9"/>
+          <circle cx="408" cy="275" r="9" fill="none" stroke="#ff4d55" stroke-width="2" opacity=".4"/>
+          <text x="425" y="271" fill="#E7EEF3" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="600">CrowdStrike</text>
+        </g>
+        <!-- SentinelOne 330 30° r=227.8 cx=494 cy=183 -->
+        <g class="dot" data-id="1" tabindex="0" role="button" aria-label="SentinelOne">
+          <circle class="hit" cx="494" cy="183" r="20" fill="transparent"/>
+          <circle cx="494" cy="183" r="9" fill="#ff4d55" opacity=".9"/>
+          <circle cx="494" cy="183" r="9" fill="none" stroke="#ff4d55" stroke-width="2" opacity=".4"/>
+          <text x="508" y="179" fill="#E7EEF3" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="600">SentinelOne</text>
+        </g>
+        <!-- Darktrace 345 50° r=222.7 cx=551 cy=237 -->
+        <g class="dot" data-id="2" tabindex="0" role="button" aria-label="Darktrace">
+          <circle class="hit" cx="551" cy="237" r="20" fill="transparent"/>
+          <circle cx="551" cy="237" r="9" fill="#ff4d55" opacity=".9"/>
+          <circle cx="551" cy="237" r="9" fill="none" stroke="#ff4d55" stroke-width="2" opacity=".4"/>
+          <text x="565" y="233" fill="#E7EEF3" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="600">Darktrace</text>
+        </g>
+        <!-- Recorded Future 335 65° r=226.1 cx=585 cy=284 -->
+        <g class="dot" data-id="3" tabindex="0" role="button" aria-label="Recorded Future">
+          <circle class="hit" cx="585" cy="284" r="20" fill="transparent"/>
+          <circle cx="585" cy="284" r="9" fill="#ff4d55" opacity=".9"/>
+          <circle cx="585" cy="284" r="9" fill="none" stroke="#ff4d55" stroke-width="2" opacity=".4"/>
+          <text x="599" y="280" fill="#E7EEF3" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="600">Rec. Future</text>
+        </g>
+
+        <!-- W2 ZERO TRUST & NETWORK -->
+        <!-- Palo Alto 840 80° r=54.4 cx=434 cy=371 -->
+        <g class="dot" data-id="4" tabindex="0" role="button" aria-label="Palo Alto Networks">
+          <circle class="hit" cx="434" cy="371" r="20" fill="transparent"/>
+          <circle cx="434" cy="371" r="9" fill="#6FA8FF" opacity=".9"/>
+          <circle cx="434" cy="371" r="9" fill="none" stroke="#6FA8FF" stroke-width="2" opacity=".4"/>
+          <text x="448" y="367" fill="#E7EEF3" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="600">Palo Alto</text>
+        </g>
+        <!-- Zscaler 780 100° r=74.8 cx=454 cy=393 -->
+        <g class="dot" data-id="5" tabindex="0" role="button" aria-label="Zscaler">
+          <circle class="hit" cx="454" cy="393" r="20" fill="transparent"/>
+          <circle cx="454" cy="393" r="9" fill="#6FA8FF" opacity=".9"/>
+          <circle cx="454" cy="393" r="9" fill="none" stroke="#6FA8FF" stroke-width="2" opacity=".4"/>
+          <text x="468" y="389" fill="#E7EEF3" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="600">Zscaler</text>
+        </g>
+        <!-- Cloudflare 275 120° r=246.5 cx=593 cy=503 -->
+        <g class="dot" data-id="6" tabindex="0" role="button" aria-label="Cloudflare">
+          <circle class="hit" cx="593" cy="503" r="20" fill="transparent"/>
+          <circle cx="593" cy="503" r="9" fill="#6FA8FF" opacity=".9"/>
+          <circle cx="593" cy="503" r="9" fill="none" stroke="#6FA8FF" stroke-width="2" opacity=".4"/>
+          <text x="607" y="499" fill="#E7EEF3" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="600">Cloudflare</text>
+        </g>
+        <!-- Illumio 530 140° r=159.8 cx=483 cy=502 -->
+        <g class="dot" data-id="7" tabindex="0" role="button" aria-label="Illumio">
+          <circle class="hit" cx="483" cy="502" r="20" fill="transparent"/>
+          <circle cx="483" cy="502" r="9" fill="#6FA8FF" opacity=".9"/>
+          <circle cx="483" cy="502" r="9" fill="none" stroke="#6FA8FF" stroke-width="2" opacity=".4"/>
+          <text x="497" y="498" fill="#E7EEF3" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="600">Illumio</text>
+        </g>
+
+        <!-- W3 FRAUD & AML -->
+        <!-- BioCatch 815 160° r=62.9 cx=402 cy=439 -->
+        <g class="dot" data-id="8" tabindex="0" role="button" aria-label="BioCatch">
+          <circle class="hit" cx="402" cy="439" r="20" fill="transparent"/>
+          <circle cx="402" cy="439" r="9" fill="#4ADE80" opacity=".9"/>
+          <circle cx="402" cy="439" r="9" fill="none" stroke="#4ADE80" stroke-width="2" opacity=".4"/>
+          <text x="416" y="435" fill="#E7EEF3" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="600">BioCatch</text>
+        </g>
+        <!-- Feedzai 805 180° r=66.3 cx=380 cy=446 -->
+        <g class="dot" data-id="9" tabindex="0" role="button" aria-label="Feedzai">
+          <circle class="hit" cx="380" cy="446" r="20" fill="transparent"/>
+          <circle cx="380" cy="446" r="9" fill="#4ADE80" opacity=".9"/>
+          <circle cx="380" cy="446" r="9" fill="none" stroke="#4ADE80" stroke-width="2" opacity=".4"/>
+          <text x="346" y="462" fill="#E7EEF3" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="600">Feedzai</text>
+        </g>
+
+        <!-- W4 IDENTITY & ACCESS -->
+        <!-- Okta 610 230° r=132.6 cx=278 cy=465 -->
+        <g class="dot" data-id="10" tabindex="0" role="button" aria-label="Okta">
+          <circle class="hit" cx="278" cy="465" r="20" fill="transparent"/>
+          <circle cx="278" cy="465" r="9" fill="#F2B33D" opacity=".9"/>
+          <circle cx="278" cy="465" r="9" fill="none" stroke="#F2B33D" stroke-width="2" opacity=".4"/>
+          <text x="253" y="481" fill="#E7EEF3" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="600">Okta</text>
+        </g>
+        <!-- CyberArk 320 265° r=231.2 cx=150 cy=400 -->
+        <g class="dot" data-id="11" tabindex="0" role="button" aria-label="CyberArk">
+          <circle class="hit" cx="150" cy="400" r="20" fill="transparent"/>
+          <circle cx="150" cy="400" r="9" fill="#F2B33D" opacity=".9"/>
+          <circle cx="150" cy="400" r="9" fill="none" stroke="#F2B33D" stroke-width="2" opacity=".4"/>
+          <text x="118" y="396" fill="#E7EEF3" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="600">CyberArk</text>
+        </g>
+
+        <!-- W5 SIEM & COMPLIANCE -->
+        <!-- Qualys 870 295° r=44.2 cx=340 cy=361 -->
+        <g class="dot" data-id="12" tabindex="0" role="button" aria-label="Qualys">
+          <circle class="hit" cx="340" cy="361" r="20" fill="transparent"/>
+          <circle cx="340" cy="361" r="9" fill="#C084FC" opacity=".9"/>
+          <circle cx="340" cy="361" r="9" fill="none" stroke="#C084FC" stroke-width="2" opacity=".4"/>
+          <text x="295" y="357" fill="#E7EEF3" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="600">Qualys</text>
+        </g>
+        <!-- Tenable 560 310° r=149.6 cx=265 cy=284 -->
+        <g class="dot" data-id="13" tabindex="0" role="button" aria-label="Tenable">
+          <circle class="hit" cx="265" cy="284" r="20" fill="transparent"/>
+          <circle cx="265" cy="284" r="9" fill="#C084FC" opacity=".9"/>
+          <circle cx="265" cy="284" r="9" fill="none" stroke="#C084FC" stroke-width="2" opacity=".4"/>
+          <text x="224" y="280" fill="#E7EEF3" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="600">Tenable</text>
+        </g>
+        <!-- IBM Security 380 325° r=210.8 cx=259 cy=207 -->
+        <g class="dot" data-id="14" tabindex="0" role="button" aria-label="IBM Security">
+          <circle class="hit" cx="259" cy="207" r="20" fill="transparent"/>
+          <circle cx="259" cy="207" r="9" fill="#C084FC" opacity=".9"/>
+          <circle cx="259" cy="207" r="9" fill="none" stroke="#C084FC" stroke-width="2" opacity=".4"/>
+          <text x="216" y="203" fill="#E7EEF3" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="600">IBM Security</text>
+        </g>
+        <!-- Microsoft Sentinel 350 338° r=221 cx=297 cy=175 -->
+        <g class="dot" data-id="15" tabindex="0" role="button" aria-label="Microsoft Sentinel">
+          <circle class="hit" cx="297" cy="175" r="20" fill="transparent"/>
+          <circle cx="297" cy="175" r="9" fill="#C084FC" opacity=".9"/>
+          <circle cx="297" cy="175" r="9" fill="none" stroke="#C084FC" stroke-width="2" opacity=".4"/>
+          <text x="248" y="163" fill="#E7EEF3" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="600">MS Sentinel</text>
+        </g>
+        <!-- Telos 360 350° r=217.6 cx=342 cy=166 -->
+        <g class="dot" data-id="16" tabindex="0" role="button" aria-label="Telos">
+          <circle class="hit" cx="342" cy="166" r="20" fill="transparent"/>
+          <circle cx="342" cy="166" r="9" fill="#C084FC" opacity=".9"/>
+          <circle cx="342" cy="166" r="9" fill="none" stroke="#C084FC" stroke-width="2" opacity=".4"/>
+          <text x="320" y="152" fill="#E7EEF3" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="600">Telos</text>
+        </g>
+        <!-- Splunk 295 358° r=239.7 cx=372 cy=140 -->
+        <g class="dot" data-id="17" tabindex="0" role="button" aria-label="Splunk">
+          <circle class="hit" cx="372" cy="140" r="20" fill="transparent"/>
+          <circle cx="372" cy="140" r="9" fill="#C084FC" opacity=".9"/>
+          <circle cx="372" cy="140" r="9" fill="none" stroke="#C084FC" stroke-width="2" opacity=".4"/>
+          <text x="385" y="128" fill="#E7EEF3" font-family="IBM Plex Sans,sans-serif" font-size="11" font-weight="600">Splunk</text>
+        </g>
+
+        <!-- Center -->
+        <text x="380" y="376" fill="#3C5F7E" font-family="IBM Plex Mono,monospace" font-size="11" text-anchor="middle">FIRADAR</text>
+        <text x="380" y="390" fill="#3C5F7E" font-family="IBM Plex Mono,monospace" font-size="11" text-anchor="middle">SCORE</text>
+      </svg>
+    </div>
+
+    <!-- Side panel -->
+    <div class="side">
+      <div class="card detail" id="detailPanel">
+        <div class="detail-top">
+          <div>
+            <div class="chips" id="dChips"></div>
+            <div class="d-wedge" id="dWedge"></div>
+            <div class="d-name" id="dName">Select a provider</div>
+            <div class="d-reach" id="dReach"></div>
+          </div>
+          <div>
+            <div class="d-score" id="dScore">—</div>
+            <div class="d-score-label">/ 1000</div>
+          </div>
+        </div>
+        <div>
+          <div class="bar"><div id="dBar" style="width:0%"></div></div>
+          <div class="bar-ticks"><span>0</span><span>250</span><span>500</span><span>750</span><span>1000</span></div>
+        </div>
+        <div class="d-text" id="dText">
+          <p style="color:var(--muted)">Click any dot on the radar or a row in the list to view provider details.</p>
+        </div>
+      </div>
+
+      <div class="card" style="padding:16px 20px;display:flex;flex-direction:column;gap:12px;">
+        <div class="legend">
+          <span><span class="legend-dot" style="background:#ff4d55"></span>Endpoint &amp; Threat Intel</span>
+          <span><span class="legend-dot" style="background:#6FA8FF"></span>Zero Trust &amp; Network</span>
+          <span><span class="legend-dot" style="background:#4ADE80"></span>Fraud &amp; AML</span>
+          <span><span class="legend-dot" style="background:#F2B33D"></span>Identity &amp; Access</span>
+          <span><span class="legend-dot" style="background:#C084FC"></span>SIEM &amp; Compliance</span>
+        </div>
+        <div class="list" id="providerList"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quadrant breakdown -->
+  <div class="card" style="padding:24px 28px;">
+    <h2>Discipline Breakdown</h2>
+    <div class="dist">
+      <div class="card">
+        <h3 style="color:#ff4d55">Endpoint &amp; Threat Intel</h3>
+        <p>Endpoint detection, response, and threat intelligence. CrowdStrike leads this cohort but scores lower than expected — large enterprise focus limits FI-specific digital signals. Darktrace and Recorded Future show strong AI-driven differentiation.</p>
+      </div>
+      <div class="card">
+        <h3 style="color:#6FA8FF">Zero Trust &amp; Network</h3>
+        <p>Network security, Zero Trust architecture, and microsegmentation. Palo Alto Networks scores Elite — the strongest platform play for FI security infrastructure. Zscaler is Competitive with accelerating regulated-industry deployments.</p>
+      </div>
+      <div class="card">
+        <h3 style="color:#4ADE80">Fraud &amp; AML</h3>
+        <p>FI-native fraud prevention and anti-money laundering platforms. BioCatch and Feedzai both score Elite — built from the ground up for financial services. The only discipline with two providers in the top tier.</p>
+      </div>
+      <div class="card">
+        <h3 style="color:#F2B33D">Identity &amp; Access</h3>
+        <p>Identity management, privileged access, and authentication. Okta leads in Developing tier with strong FI adoption. CyberArk is the privileged access management standard for bank back-office environments.</p>
+      </div>
+      <div class="card">
+        <h3 style="color:#C084FC">SIEM &amp; Compliance</h3>
+        <p>Security event management, vulnerability management, and regulatory compliance. Qualys tops the entire cohort at Foundational (870) — compliance-driven VM resonates deeply with FI regulators. Splunk (Cisco acquisition) and IBM carry large FI install bases but face roadmap questions.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Methodology -->
+  <div class="card" style="padding:24px 28px;">
+    <h2>Scoring Methodology</h2>
+    <p style="font-size:14px;color:var(--fg2);line-height:1.6;margin:12px 0 0;max-width:900px;">FiRadar scores reflect live digital signals across product depth, FI adoption, regulatory alignment, integration ecosystem, and community bank/CU-specific deployment evidence. Scores range 0–1000: FI Foundational (850+), FI Elite (800–849), FI Proven (700–799), FI Active (550–699), FI Limited Signal (400–549), FI Minimal Signal (&lt;400). <em>Tier labels reflect FI-specific digital signal strength, not company size or general enterprise capability.</em> FI-Native flags identify providers purpose-built for financial services. Acquisition flags indicate ownership changes that may affect product roadmap continuity.</p>
+  </div>
+
+  <footer>
+    <div>
+      <div class="brand">FIRADAR</div>
+      <div>Segment intelligence for community banks and credit unions.</div>
+      <div>Score a fintech at <a href="/">firadar.finance</a> · <a href="/research/">All Research</a></div>
+    </div>
+    <div class="right">
+      <div>© 2026 FiRadar · All scores reflect signals as of publish date.</div>
+      <div>Not investment advice. Provider data sourced from public digital signals.</div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+const PROVIDERS = [
+  { id:0,  name:"CrowdStrike",        score:680, tier:"FI Active",        tierClass:"t-developing", wedge:"Endpoint & Threat Intel", wedgeColor:"#ff4d55", flags:[],
+    reach:"Enterprise and financial institutions — endpoint security",
+    text:["<b>Why it scores Developing:</b> CrowdStrike's Falcon platform is the endpoint detection leader, but its web presence is built for large enterprise buyers, not community FI signals specifically. Demonstrated bank deployments exist but FI-specific marketing and integration depth is limited.",
+          "<b>FI fit:</b> Strong choice for larger community banks with dedicated security teams. The Falcon platform's threat intelligence is best-in-class. Integration with FI-specific tooling (core processors, online banking) requires custom work.",
+          "<b>Watch:</b> CrowdStrike's July 2024 global IT outage affected financial institutions globally. Assess business continuity controls and your institution's resilience to vendor-side incidents before deployment."]},
+  { id:1,  name:"SentinelOne",        score:330, tier:"FI Limited Signal", tierClass:"t-early",      wedge:"Endpoint & Threat Intel", wedgeColor:"#ff4d55", flags:[],
+    reach:"Enterprise — autonomous AI endpoint protection",
+    text:["<b>Why it scores Early Stage:</b> SentinelOne's autonomous AI endpoint platform is technically strong but FI-specific deployment evidence is thin compared to CrowdStrike or Palo Alto.",
+          "<b>FI fit:</b> Better suited for mid-to-large community banks with mature security operations. The autonomous response capability is compelling for FIs with lean security teams.",
+          "<b>Watch:</b> Competitive pricing vs. CrowdStrike is a frequent selling point. Validate FI-specific reference accounts and integration support before selection."]},
+  { id:2,  name:"Darktrace",          score:345, tier:"FI Limited Signal", tierClass:"t-early",      wedge:"Endpoint & Threat Intel", wedgeColor:"#ff4d55", flags:[],
+    reach:"Enterprise including financial services — AI threat detection",
+    text:["<b>Why it scores Early Stage:</b> Darktrace's self-learning AI detects anomalies across the full enterprise environment. FI deployments exist but community bank/CU-specific signals are limited.",
+          "<b>FI fit:</b> The unsupervised AI approach is well-suited for FIs that cannot staff large threat-hunting teams. Darktrace learns normal behavior and flags deviations — particularly useful for detecting insider threats and novel attack patterns.",
+          "<b>Watch:</b> Went public and subsequently private again via acquisition. Validate company stability and long-term support commitments."]},
+  { id:3,  name:"Recorded Future",    score:335, tier:"FI Limited Signal", tierClass:"t-early",      wedge:"Endpoint & Threat Intel", wedgeColor:"#ff4d55", flags:[],
+    reach:"Enterprise including financial services — threat intelligence",
+    text:["<b>Why it scores Early Stage:</b> Recorded Future is the leading external threat intelligence platform with strong FS sector coverage through its Financial Services Intelligence Cloud.",
+          "<b>FI fit:</b> Particularly valuable for FIs that want proactive intelligence on threats targeting their brand, customers, and infrastructure. Used widely by larger regional banks.",
+          "<b>Watch:</b> Acquired by Mastercard in 2024 — roadmap and pricing may shift as integration into Mastercard's security intelligence portfolio progresses."]},
+  { id:4,  name:"Palo Alto Networks", score:840, tier:"FI Elite",         tierClass:"t-elite",      wedge:"Zero Trust & Network",    wedgeColor:"#6FA8FF", flags:[],
+    reach:"Enterprise and financial institutions — full security platform",
+    text:["<b>Why it scores Elite:</b> Palo Alto's Prisma and Cortex platforms provide end-to-end security coverage — network, cloud, and SOC automation — with proven FI deployments across the spectrum from community banks to global institutions.",
+          "<b>FI fit:</b> The broadest platform in this cohort with the strongest combination of regulatory compliance tooling, FI-specific integrations, and reference account depth. A strong anchor for institutions building or modernizing their security stack.",
+          "<b>Watch:</b> Platform breadth comes with complexity and cost. Smaller community FIs should evaluate whether full-platform licensing fits budget and staffing — the modular approach allows phased adoption."]},
+  { id:5,  name:"Zscaler",            score:780, tier:"FI Proven",        tierClass:"t-competitive",wedge:"Zero Trust & Network",    wedgeColor:"#6FA8FF", flags:[],
+    reach:"Enterprise including financial services — Zero Trust network",
+    text:["<b>Why it scores Competitive:</b> Zscaler's Zero Trust Exchange is the leading cloud-native network security platform. Regulated industry adoption is accelerating as FIs migrate to cloud and hybrid work environments.",
+          "<b>FI fit:</b> Purpose-built for the cloud-first security model that regulators increasingly expect. Replaces legacy VPN and perimeter security with identity-driven access — aligns well with FI digital transformation initiatives.",
+          "<b>Watch:</b> Requires network architecture changes that can be complex in legacy FI environments. Engage with a Zscaler FI-focused partner to assess migration complexity before commitment."]},
+  { id:6,  name:"Cloudflare",         score:275, tier:"FI Minimal Signal", tierClass:"t-early",      wedge:"Zero Trust & Network",    wedgeColor:"#6FA8FF", flags:[],
+    reach:"Enterprise and SMB — DDoS protection, app security, Zero Trust",
+    text:["<b>Why it scores Early Stage:</b> Cloudflare is excellent at DDoS mitigation and application security — areas highly relevant to FIs. However, its FI-specific deployment footprint and compliance documentation are less mature than Palo Alto or Zscaler.",
+          "<b>FI fit:</b> Strong entry point for community FIs looking to protect public-facing digital banking apps from DDoS and bot attacks. Cloudflare One (Zero Trust) is gaining traction but lags Zscaler for large FI deployments.",
+          "<b>Watch:</b> Competitive pricing makes it accessible for smaller institutions. Validate SOC 2 / FedRAMP / PCI compliance documentation before deployment in regulated workflows."]},
+  { id:7,  name:"Illumio",            score:530, tier:"FI Active",        tierClass:"t-developing", wedge:"Zero Trust & Network",    wedgeColor:"#6FA8FF", flags:[],
+    reach:"Enterprise including financial services — microsegmentation",
+    text:["<b>Why it scores Developing:</b> Illumio's microsegmentation platform limits lateral movement inside the network — a critical capability for breach containment in FI environments with sensitive data.",
+          "<b>FI fit:</b> Particularly relevant for FIs concerned about ransomware and insider threat containment. Illumio maps application dependencies and enforces least-privilege network access across hybrid environments.",
+          "<b>Watch:</b> Specialist play — most valuable as a complement to a broader security platform, not a standalone solution. Assess whether your institution has the architecture maturity to operationalize microsegmentation effectively."]},
+  { id:8,  name:"BioCatch",           score:815, tier:"FI Elite",         tierClass:"t-elite",      wedge:"Fraud & AML",             wedgeColor:"#4ADE80", flags:["FI-Native"],
+    reach:"Banks and credit unions — behavioral biometric fraud prevention",
+    text:["<b>Why it scores Elite:</b> BioCatch is purpose-built for financial services fraud prevention — behavioral biometrics that continuously authenticate users through how they interact with devices, not just who they say they are.",
+          "<b>FI-Native:</b> BioCatch's entire business is financial services. The platform is deployed across major global banks and a growing number of community FIs — detecting account takeover, social engineering, and new account fraud in real time.",
+          "<b>Watch:</b> ROI is highest where account takeover and social engineering fraud losses are significant. Engage BioCatch for a loss analysis against your institution's current fraud portfolio before procurement."]},
+  { id:9,  name:"Feedzai",            score:805, tier:"FI Elite",         tierClass:"t-elite",      wedge:"Fraud & AML",             wedgeColor:"#4ADE80", flags:["FI-Native"],
+    reach:"Banks and credit unions — AI fraud and AML platform",
+    text:["<b>Why it scores Elite:</b> Feedzai's RiskOps platform combines fraud detection and AML monitoring in a unified AI engine — purpose-built for financial institutions from day one.",
+          "<b>FI-Native:</b> Feedzai operates exclusively in financial services, with deep integration into payment rails, core banking systems, and regulatory reporting workflows. Community FI deployments are growing alongside large bank partnerships.",
+          "<b>Watch:</b> Feedzai's unified fraud + AML approach reduces the number of point solutions FIs manage. Evaluate against incumbent fraud and BSA/AML vendors for total cost of ownership comparison."]},
+  { id:10, name:"Okta",               score:610, tier:"FI Active",        tierClass:"t-developing", wedge:"Identity & Access",       wedgeColor:"#F2B33D", flags:[],
+    reach:"Enterprise including financial services — identity and access management",
+    text:["<b>Why it scores Developing:</b> Okta is the leading independent identity platform with growing FI adoption for workforce and customer identity use cases. Regulatory alignment with FFIEC guidance on MFA and access control is strong.",
+          "<b>FI fit:</b> Well-suited for FIs standardizing on modern IAM — replacing legacy Active Directory for workforce access and enabling secure customer authentication across digital channels.",
+          "<b>Watch:</b> Okta suffered a significant security breach in 2023. Assess the company's post-breach security posture and your institution's requirements for vendor security attestation."]},
+  { id:11, name:"CyberArk",           score:320, tier:"FI Limited Signal", tierClass:"t-early",      wedge:"Identity & Access",       wedgeColor:"#F2B33D", flags:[],
+    reach:"Enterprise including financial services — privileged access management",
+    text:["<b>Why it scores Early Stage:</b> CyberArk is the privileged access management (PAM) standard for financial institution back-office and infrastructure environments. Lower score reflects limited community FI-specific digital signals despite strong enterprise presence.",
+          "<b>FI fit:</b> Essential for FIs managing privileged access to core banking systems, databases, and infrastructure. Examiners increasingly expect PAM controls as part of access management programs.",
+          "<b>Watch:</b> PAM projects are infrastructure-heavy and require sustained commitment. Ensure IT and security teams are resourced to operate CyberArk effectively before procurement."]},
+  { id:12, name:"Qualys",             score:870, tier:"FI Foundational",  tierClass:"t-foundational",wedge:"SIEM & Compliance",      wedgeColor:"#C084FC", flags:[],
+    reach:"Enterprise including financial services — vulnerability management and compliance",
+    text:["<b>Why it scores Foundational:</b> Qualys tops the entire cohort — the highest score of all 18 providers. Its vulnerability management and compliance platform is deeply embedded in FI security programs, with strong alignment to PCI DSS, FFIEC, and NIST frameworks.",
+          "<b>FI fit:</b> Qualys VMDR (Vulnerability Management, Detection and Response) is a staple in bank and credit union security programs. Regulatory exam teams recognize Qualys reports as credible evidence of vulnerability management maturity.",
+          "<b>Watch:</b> The leading story of this radar — compliance-driven VM scores higher with FIs than flashier endpoint or SIEM players. Qualys' long FI track record and examiner familiarity give it a durable advantage."]},
+  { id:13, name:"Tenable",            score:560, tier:"FI Active",        tierClass:"t-developing", wedge:"SIEM & Compliance",       wedgeColor:"#C084FC", flags:[],
+    reach:"Enterprise including financial services — exposure management",
+    text:["<b>Why it scores Developing:</b> Tenable's exposure management platform (Tenable One) competes directly with Qualys in vulnerability management. Strong FI presence, particularly with Nessus as the de facto vulnerability scanner in many bank environments.",
+          "<b>FI fit:</b> Tenable.sc (on-premises) and Tenable.io (cloud) both have FI deployments. The on-premises option is valuable for FIs with strict data residency requirements.",
+          "<b>Watch:</b> Qualys leads in this cohort but Tenable is the natural alternative comparison. Evaluate both for your institution's specific compliance reporting requirements and deployment environment."]},
+  { id:14, name:"IBM Security",       score:380, tier:"FI Limited Signal", tierClass:"t-early",      wedge:"SIEM & Compliance",       wedgeColor:"#C084FC", flags:[],
+    reach:"Enterprise including financial services — SIEM, threat management",
+    text:["<b>Why it scores Early Stage:</b> IBM QRadar has a large installed base in financial institutions but scores lower as the platform transitions to IBM Security QRadar Suite (cloud-native). Legacy on-premises deployments are extensive; the modernization path is complex.",
+          "<b>FI fit:</b> QRadar is the SIEM incumbent at many larger community and regional banks. FIs already running QRadar on-premises face a migration decision as IBM shifts investment to the cloud-native suite.",
+          "<b>Watch:</b> IBM Security is in active transition — assess whether your institution's QRadar roadmap aligns with IBM's product direction and your own cloud migration timeline."]},
+  { id:15, name:"Microsoft Sentinel", score:350, tier:"FI Limited Signal", tierClass:"t-early",      wedge:"SIEM & Compliance",       wedgeColor:"#C084FC", flags:[],
+    reach:"Enterprise — Azure-native SIEM/SOAR",
+    text:["<b>Why it scores Early Stage:</b> Microsoft Sentinel is a strong SIEM for FIs already deep in the Microsoft Azure ecosystem. Scores lower because FI-specific deployment signals are weighted toward the broader Microsoft enterprise, not community bank/CU specifics.",
+          "<b>FI fit:</b> Natural fit for FIs standardizing on Microsoft 365 and Azure. The integration with Microsoft Defender, Entra ID, and Purview creates a unified security operations view — compelling for institutions reducing tool sprawl.",
+          "<b>Watch:</b> Sentinel's value compounds within the Microsoft ecosystem. FIs not on Azure should evaluate cloud migration strategy alongside Sentinel adoption — the two decisions are intertwined."]},
+  { id:16, name:"Telos",              score:360, tier:"FI Limited Signal", tierClass:"t-early",      wedge:"SIEM & Compliance",       wedgeColor:"#C084FC", flags:[],
+    reach:"Regulated industries including financial services — compliance and cyber",
+    text:["<b>Why it scores Early Stage:</b> Telos specializes in compliance automation and cybersecurity for regulated industries, with notable government and financial services deployments. Smaller market presence limits broader FI digital signals.",
+          "<b>FI fit:</b> Telos Xacta is used for continuous compliance monitoring and risk management — aligning well with FI examiner expectations. Particularly relevant for institutions with complex multi-framework compliance requirements (FFIEC, PCI, SOC 2).",
+          "<b>Watch:</b> Specialist compliance focus is both a strength and a limitation. Evaluate alongside broader security platforms rather than as a standalone security solution."]},
+  { id:17, name:"Splunk",             score:295, tier:"FI Minimal Signal", tierClass:"t-early",      wedge:"SIEM & Compliance",       wedgeColor:"#C084FC", flags:["Acquisition"],
+    reach:"Enterprise including financial services — SIEM and observability",
+    text:["<b>Why it scores Early Stage:</b> Splunk has one of the largest FI installed bases of any SIEM platform but scores lower as the Cisco acquisition reshapes roadmap priorities and pricing.",
+          "<b>Acquisition flag:</b> Cisco acquired Splunk in March 2024. FIs with existing Splunk deployments should monitor licensing changes, support continuity, and roadmap direction as Cisco integrates Splunk into its broader security portfolio.",
+          "<b>Watch:</b> Existing Splunk deployments remain viable. For new evaluations, compare Splunk's Cisco-era roadmap against Microsoft Sentinel and IBM QRadar Suite before committing to a multi-year contract."]}
+];
+
+const TIER_COLORS = { "FI Foundational":"#C084FC", "FI Elite":"#F2B33D", "FI Proven":"#ff4d55", "FI Active":"#6FA8FF", "FI Limited Signal":"#A9BCCB", "FI Minimal Signal":"#3C5F7E" };
+
+function selectProvider(id) {
+  const p = PROVIDERS.find(x => x.id === id);
+  if (!p) return;
+
+  let chips = `<span class="chip-tier ${p.tierClass}" style="color:#0A1724">${p.tier}</span>`;
+  p.flags.forEach(f => {
+    if (f === 'FI-Native')    chips += `<span class="chip-flag chip-fi">FI-Native</span>`;
+    if (f === 'Acquisition')  chips += `<span class="chip-flag chip-acq">⚑ Acquisition</span>`;
+  });
+  document.getElementById('dChips').innerHTML = chips;
+  document.getElementById('dWedge').innerHTML = `<span style="color:${p.wedgeColor}">${p.wedge}</span>`;
+  document.getElementById('dName').textContent = p.name;
+  document.getElementById('dReach').innerHTML = `Market: <span>${p.reach}</span>`;
+  document.getElementById('dScore').textContent = p.score;
+
+  const bar = document.getElementById('dBar');
+  bar.style.width = (p.score / 10) + '%';
+  bar.style.background = TIER_COLORS[p.tier] || '#ff4d55';
+
+  document.getElementById('dText').innerHTML = p.text.map(t => `<p>${t}</p>`).join('');
+
+  document.querySelectorAll('.row').forEach(r => r.setAttribute('aria-pressed','false'));
+  const row = document.querySelector(`.row[data-id="${id}"]`);
+  if (row) row.setAttribute('aria-pressed','true');
+
+  document.querySelectorAll('.dot circle:not(.hit)').forEach(c => c.setAttribute('opacity','0.35'));
+  document.querySelectorAll(`.dot[data-id="${id}"] circle:not(.hit)`).forEach(c => c.setAttribute('opacity','1'));
+}
+
+// Build list
+const listEl = document.getElementById('providerList');
+[...PROVIDERS].sort((a,b) => b.score - a.score).forEach((p, i) => {
+  const btn = document.createElement('button');
+  btn.className = 'row';
+  btn.dataset.id = p.id;
+  btn.setAttribute('aria-pressed','false');
+  let flagHtml = '';
+  if (p.flags.includes('FI-Native'))   flagHtml = `<span class="fl" style="color:#4ADE80">FI</span>`;
+  else if (p.flags.includes('Acquisition')) flagHtml = `<span class="fl" style="color:#FF8A6B">ACQ</span>`;
+  else flagHtml = `<span class="fl"></span>`;
+  btn.innerHTML =
+    `<span class="sw" style="background:${p.wedgeColor}"></span>` +
+    `<span class="rk">#${i+1}</span>` +
+    `<span class="nm">${p.name}</span>` +
+    flagHtml +
+    `<span class="tr">${p.tier}</span>` +
+    `<span class="sc" style="color:${TIER_COLORS[p.tier]}">${p.score}</span>`;
+  btn.addEventListener('click', () => selectProvider(p.id));
+  listEl.appendChild(btn);
+});
+
+document.querySelectorAll('.dot').forEach(dot => {
+  dot.addEventListener('click', () => selectProvider(parseInt(dot.dataset.id)));
+  dot.addEventListener('keydown', e => { if (e.key==='Enter'||e.key===' ') selectProvider(parseInt(dot.dataset.id)); });
+});
+
+selectProvider(12); // default: Qualys (top scorer)
+
+// Subscribe popup
+var popupShown = false;
+function showPopup() { if(popupShown)return; popupShown=true; document.getElementById('fr-overlay').classList.add('show'); }
+function hidePopup() { document.getElementById('fr-overlay').classList.remove('show'); }
+document.getElementById('fr-close').addEventListener('click', hidePopup);
+document.getElementById('fr-overlay').addEventListener('click', function(e){ if(e.target===this) hidePopup(); });
+window.addEventListener('scroll', function(){ if(!popupShown&&window.scrollY/(document.body.scrollHeight-window.innerHeight)>.55) showPopup(); },{passive:true});
+setTimeout(showPopup, 45000);
+
+var form = document.getElementById('fr-form');
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+  var email = document.getElementById('fr-email').value;
+  fetch('/', { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body: new URLSearchParams(new FormData(form)).toString() });
+  fetch('https://api.hsforms.com/submissions/v3/integration/submit/246649053/7025bf50-b249-481c-917a-4a687a5b1afa', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ fields:[{name:'email',value:email}], context:{pageUri:window.location.href,pageName:'FI Cybersecurity Providers'} })
+  });
+  document.getElementById('fr-default').style.display='none';
+  document.getElementById('fr-success').style.display='flex';
+  setTimeout(hidePopup, 2800);
+});
+</script>
+</body>
+</html>
