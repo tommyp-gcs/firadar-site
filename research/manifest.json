@@ -1,0 +1,34 @@
+[
+  {
+    "tag":   "Segment Radar",
+    "title": "Cybersecurity for FIs",
+    "href":  "/research/fi-cybersecurity-scores",
+    "desc":  "18 cybersecurity providers scored across endpoint, network, fraud, identity, and compliance — ranked for community banks and credit unions.",
+    "meta":  ["🔒 5 Disciplines", "📅 November 2026", "🏢 18 Providers"],
+    "cta":   "View Radar"
+  },
+  {
+    "tag":   "Segment Radar",
+    "title": "AI Core Agents for FIs",
+    "href":  "/research/ai-core-agents-fi-scores",
+    "desc":  "11 AI agent providers scored for community banks and credit unions — conversational AI, voice, digital banking platforms, and enterprise AI.",
+    "meta":  ["🤖 4 Quadrants", "📅 October 2026", "🏢 11 Providers"],
+    "cta":   "View Radar"
+  },
+  {
+    "tag":   "Conference Report",
+    "title": "FinovateFall 2026 Rankings",
+    "href":  "/research/finovate-fall-2026",
+    "desc":  "All 70 demo companies scored and ranked from the floor of FinovateFall 2026.",
+    "meta":  ["📍 New York, NY", "📅 September 2026", "🏢 70 Companies"],
+    "cta":   "View Report"
+  },
+  {
+    "tag":   "Segment Radar",
+    "title": "Tokenized Deposits",
+    "href":  "/research/tokenized-deposits",
+    "desc":  "Leading tokenized deposit and stablecoin infrastructure providers scored for financial institution readiness.",
+    "meta":  ["🏦 FI Focus", "📅 2026", "🏢 Top Providers"],
+    "cta":   "View Radar"
+  }
+]
